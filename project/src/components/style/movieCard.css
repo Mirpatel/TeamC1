@@ -1,0 +1,94 @@
+.card {
+    height:370px;
+    width:250px;
+    /* border: 1px solid white; */
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin:20px;
+    color:white;
+    background-color: #2D3639;
+    
+}
+
+.card:hover {
+  border: 1px solid white;
+  
+}
+
+.popup-content {
+    margin: auto;
+    background: white;
+    width: 50%;
+    padding: 5px;
+  }
+  .popup-arrow {
+    color: rgb(255, 255, 255);
+  }
+  [role='tooltip'].popup-content {
+    width: 500px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+  }
+  
+  .popup-overlay {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  [data-popup='tooltip'].popup-overlay {
+    background: transparent;
+  }
+
+  .video-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+    height: 0;
+  }
+  
+  .video-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+
+.button {
+  border-radius: 5px;
+  text-decoration: none;
+  cursor:pointer;
+  border:none;
+  font-size: 1em;
+  color:black;
+  margin: 20px;
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  color: white;
+  width: 170px;
+  box-shadow: 0 0 5px #eee;
+  background-image: linear-gradient(to right, #f07177 0%, #E50914 51%, #f07177 100%);
+  background-size: 200% auto;
+
+}
+
+.button:hover {
+background-position: right center;
+}
+
+
+ .flippedSide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* height:300px; */
+ }
+
+ .back {
+  margin-top: 10px;
+  margin-right:160px;
+ }
+
+ .image {
+  width:200px;
+  height:auto;
+ }

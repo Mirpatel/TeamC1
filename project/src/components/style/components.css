@@ -1,0 +1,77 @@
+.navBar {
+    /* background-color: #E50914; */
+    background-image: linear-gradient(to right, #f07177 0%, #E50914 51%, #f07177 100%);
+    color:white;
+    height:80px;
+    display: flex;
+    /* margin: auto; */
+    align-items: center;
+    background-size: 200% auto;
+    transition: 1.0s;
+
+}
+
+.navBar:hover {
+background-position: right center;
+}
+
+.navLink {
+    text-decoration: none;
+    color: white;
+    margin: auto;
+    margin-left: 40px;
+    margin-right: 40px;
+
+    
+}
+
+.logo {
+    margin:10px;
+    font-size:50px;
+    text-decoration: none;
+    color:white;
+}
+.linkContainer {
+    margin: auto;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+   
+}
+
+.login {
+    position:absolute;
+    text-decoration: none;
+    color: white;
+    margin: auto;
+    margin-left: 20px;
+
+    
+}
+
+.admin {
+    position:absolute;
+    text-decoration: none;
+    color: white;
+    margin: auto;
+    margin-left: 70px;
+
+    
+}
+
+.logo2 {
+    /* margin:10px; */
+    font-size:40px;
+    text-decoration: none;
+    color:white;
+    margin-right: 20px;
+}
+
+.logo3 {
+    /* margin:10px; */
+    font-size:20px;
+    text-decoration: none;
+    color:white;
+    align-self: center;
+    
+}

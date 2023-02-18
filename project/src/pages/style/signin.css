@@ -1,0 +1,115 @@
+.input {
+    width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #2D3639;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color:white;
+  }
+  
+  .input label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white;
+  }
+  
+  .input input[type="text"],
+  .input input[type="password"] {
+    display: block;
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .input input[type="submit"] {
+    background-color: #4285f4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .input input[type="submit"]:hover {
+    background-color: #357ae8;
+  }
+  
+  .input .form-divider {
+    margin: 20px 0;
+    position: relative;
+  }
+  
+  .input .form-divider span {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .input .form-divider span:before,
+  .input .form-divider span:after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100px;
+    background-color: #ccc;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .input .form-divider span:before {
+    left: 0;
+  }
+  
+  .input .form-divider span:after {
+    right: 0;
+  }
+  
+  .input .links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .input .links a {
+    color: #4285f4;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .input .links a:hover {
+    text-decoration: underline;
+  }
+
+  a {
+    color:white;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .pay {
+    width: 570px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #2D3639;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color:white;
+  }

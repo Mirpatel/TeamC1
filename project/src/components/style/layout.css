@@ -1,0 +1,10 @@
+.movieList {
+    display: flex;
+    float:left;
+    flex-wrap: wrap;
+}
+
+.movieObj {
+    display: flex;
+    
+}
