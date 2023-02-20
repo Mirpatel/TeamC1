@@ -73,7 +73,13 @@ const ShowTimes = ()  => {
             alert("please select a valid date");
         }
     }
+    const [selectedIndex, setSelectedIndex] = useState(null);
 
+    function handleItemClick(index) {
+      setSelectedIndex(index);
+      setShowTime(true);
+      setShowTimeSelected(true);
+    }
     const handleConfirmTickets = () => {
         //check if tickets available 
         adultTix = parseInt(document.getElementById("adults").value);
@@ -140,14 +146,13 @@ const ShowTimes = ()  => {
                     <Button onClick={handleConfirmDate} className = "button">Confirm Date</Button>
                 </div>
                     {(showTime &&
-                    <div className = "buttonShow">
-                        {times.map(time => (
-                        <p className = "times" onClick={()=> {
-
-                            handleShowTimeSelect();
-                        }}>{time.time}</p>
-                    ))}
-                    </div>
+                   <div className = "buttonShow">
+                   {times.map((time,index) => (
+                   <p key = {index} 
+                   style={{ color: selectedIndex === index ? '#E50914' : 'white' }}
+                   onClick={() => handleItemClick(index)} className = "times">{time.time}</p>
+               ))}
+               </div>
                     )}
             </div>
 {showTimeSelected &&
