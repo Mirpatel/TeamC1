@@ -39,7 +39,7 @@ return (
 <input type="text" onChange={(event) => {setDesc(event.target.value)}}/>
 <label>Rating</label>
 <input type="text" />
-<button onClick={submit}>Add Movie</button>
+<button className = "buttonReprise" onClick={submit}>Add Movie</button>
 <p>Click below to delete or update Movies</p>
 <a href={'./Search'}>Search for the Movie</a> 
 

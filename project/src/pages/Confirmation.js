@@ -1,6 +1,9 @@
 import './style/confirmation.css';
-
+import { useLocation } from 'react-router-dom';
 function Confirmation() {
+  const location = useLocation();
+  const {state} = location;
+  let total = state.from.total;
   return (
     <>
     <div className = "confirmation">

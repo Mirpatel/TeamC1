@@ -82,21 +82,36 @@ function Profile() {
   </div>
     </form>
   )}
-  <div className = "pastOrders">
-    <h3>Past Orders:</h3>
-    {orders.map(prop => (
-          <>
-          <div className = "individual">
-            <div className = "definition">Movie</div>
-            <div className = "response2">{prop.title}</div>
-            <div className = "definition2">Number of Tickets</div>
-            <div className = "response">{prop.noTickets}</div>
-            <div className = "definition3">Price</div>
-            <div className = "response">${prop.price}</div>
-            </div>
-          </>
-        ))}
-</div>
+<div className="container">
+      <div className="row">
+         <div className="col-md-12">
+            <h5 className="mt-2">Past Orders</h5>
+            <table className="table table-bordered">
+<thead>
+   <tr>
+      <th >Title</th>
+      <th >Number of Tickets</th>
+      <th >Price</th>
+
+   </tr>
+</thead>
+<tbody>
+   { orders.map( (order, index)=>(  
+   <tr key={index}>
+      <td >{order.title}</td>
+      <td >{order.noTickets}</td>
+      <td >{order.price}</td>
+
+
+   </tr>
+   ))
+}
+</tbody>
+</table>
+
+         </div>
+      </div>
+   </div>
     </div>
     </>
   );

@@ -1,6 +1,6 @@
 .card {
     height:370px;
-    width:250px;
+    width:270px;
     /* border: 1px solid white; */
     border-radius: 5px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -57,6 +57,7 @@
   cursor:pointer;
   border:none;
   font-size: 1em;
+  font-weight: normal;
   color:black;
   margin: 20px;
   padding: 10px;
@@ -92,3 +93,67 @@ background-position: right center;
   width:200px;
   height:auto;
  }
+
+ .movInfo {
+display: flex;
+flex-direction: row;
+position: absolute;
+bottom:60px;
+ }
+
+ .genre {
+border-radius: 5px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+background-color: #d3d3d3;
+margin:10px;
+height:200px;
+width:230px;
+text-align: left;
+padding:5px;
+font-size: small;
+color:#2D3639;
+
+ }
+
+
+ .dark {
+  color:#2D3639;
+  margin-top: -3px;
+  
+ }
+
+ .top {
+display: flex;
+position:absolute;
+font-size: x-small;
+border: 1px solid black;
+margin:0;
+padding:2px;
+ }
+
+
+.buttonReprise2 {
+  border-radius: 5px;
+  text-decoration: none;
+  cursor:pointer;
+  border:none;
+  font-size: 0.7em;
+  color:black;
+  margin:10px;
+  padding: 5px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  color: white;
+  width: 105px;
+  box-shadow: 0 0 5px #eee;
+  background-image: linear-gradient(to right, #f07177 0%, #E50914 51%, #f07177 100%);
+  background-size: 200% auto;
+  
+
+}
+
+.genre2 {
+font-size: small;
+margin-top: -5px;
+}

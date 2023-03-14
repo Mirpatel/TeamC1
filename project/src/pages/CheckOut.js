@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 function CheckOut() {
     let salesTax = 0.08 * 30.0;
     let totalSale = 30.0 + salesTax + 3.0;
+    let movie = "Avengers"
+    let noAdultTickets = 2;
+    let noChildTickets = 0;
     const handlePromo = () => {
         //handle promo
 
@@ -13,7 +16,7 @@ function CheckOut() {
 
     return (
         <div class="checkout">
-            <div class ="row">
+            <div class ="row3">
                 <div class="column">
                     <p>Adult Ticket x2 <br />The Avengers<br />9:00 p.m.</p>
                 </div>
@@ -30,7 +33,8 @@ function CheckOut() {
                 </div>
             </div>
             <br />
-            <Link className='buttonReprise'to={{pathname :"/Payment"}} state={{from: "anything u wanna send"}} >Confirm</Link>
+            <Link className='buttonReprise'to={{pathname :"/Payment"}} state={{from: { total: {totalSale},
+        movie: {movie}, noAdultTickets: {noAdultTickets}, noChildTickets : {noChildTickets}}}} >Confirm</Link>
             <button className='buttonReprise'>Cancel</button>
         </div>
     );

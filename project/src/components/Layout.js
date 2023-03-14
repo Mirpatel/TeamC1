@@ -14,6 +14,7 @@ const Layout = props  => {
               description={place.description}
               rating = {place.rating} 
               trailer = {place.trailer}
+              genre = {place.genre}
               
               />
               

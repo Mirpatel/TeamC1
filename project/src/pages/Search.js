@@ -22,7 +22,7 @@ return (
 <label>Search for the Movie Name</label>
 <input type="text" />
 
-<button onClick={() => navigate("/Delete")}>Search</button>
+<button className = "buttonReprise" onClick={() => navigate("/Delete")}>Search</button>
 
 
 </div>
