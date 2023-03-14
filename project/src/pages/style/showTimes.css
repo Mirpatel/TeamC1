@@ -44,7 +44,7 @@ cursor:pointer;
     border:none;
     font-size: 1em;
     color:black;
-    background-image: linear-gradient(to right, #c6e7f0 0%, #8fd3f4 51%, #c6e7f0 100%);
+    background-image: linear-gradient(to right, #f07177 0%, #E50914 51%, #f07177 100%);
     margin: 10px;
     margin-top: 30px;
     padding: 20px;
@@ -79,7 +79,7 @@ cursor:pointer;
     background-color: black;
     height:250px;
     width:250px;
-    margin-top: -277px;
+    margin-top: -288px;
    }
 
    .textNoMore {
@@ -97,4 +97,14 @@ cursor:pointer;
     background-color: #2D3639;
     width:600px;
     padding:20px;
+   }
+
+   .topReprise {
+        font-size: x-small;
+        padding:0;
+        margin-top:10px;
+        margin-bottom: 10px;
+
+        
+         
    }

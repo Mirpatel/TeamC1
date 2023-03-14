@@ -44,8 +44,8 @@ return (
 <input type="text" placeholder='A Movie about people on a different planet' onChange={(event) => {setDesc(event.target.value)}}/>
 <label>Rating</label>
 <input type="text" placeholder='4.2/5'/>
-<button onClick={del}>Delete</button>
-<button onClick={update}>Update</button>
+<button className = "buttonReprise" onClick={del}>Delete</button>
+<button  className = "buttonReprise" onClick={update}>Update</button>
 
 
 

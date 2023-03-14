@@ -16,8 +16,9 @@ return (
 <h2>Options</h2>
 <div className = "container">
    
-<button  className = "button" onClick={() => navigate("/Edit")}>Edit Movies</button>
-<button  className = "button" onClick={() => navigate("/User")}>Edit User</button>
+<button  className = "button" onClick={() => navigate("/Edit")}>Manage Movies</button>
+<button  className = "button" onClick={() => navigate("/User")}>Manage Users</button>
+<button  className = "button" onClick={() => navigate("/Promotion")}>Manage Promotions</button>
 
 </div>
 </div>

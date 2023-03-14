@@ -16,6 +16,8 @@ import Edit from './pages/Edit';
 import Delete from './pages/Delete';
 import Search from './pages/Search';
 import User from './pages/User';
+import Promotion from './pages/Promotion';
+import EditPromo from './pages/EditPromo';
 import './App.css';
 import {
   BrowserRouter,
@@ -65,6 +67,9 @@ function App() {
             <Route path="/Delete" element={<Delete />} />
             <Route path="/User" element={<User />} />
             <Route path="/Search" element={<Search />} />
+            <Route path="/Promotion" element={<Promotion />} />
+            <Route path="/editPromo" element={<EditPromo />} />
+
         </Routes>
         </div>
         <Footer />

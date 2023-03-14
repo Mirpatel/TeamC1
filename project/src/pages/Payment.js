@@ -1,7 +1,14 @@
 import { Navigate } from 'react-router-dom';
 import './style/payment.css';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 function Payment() {
+    const location = useLocation();
+    const { state } = location;
+let total = state.from.total;
+let movie = state.from.movie
+let noAdultTickets = state.from.noAdultTickets;
+let noChildTickets = state.from.noChildTickets;
     return (
         <div class="payment">
             <h4>Payment Info</h4>
@@ -18,7 +25,8 @@ function Payment() {
                 <input type="text" id="expyear" name="expyear"></input>
               <br/>
               <br/>
-                <Link className='buttonReprise'to={{pathname :"/confirmationPage"}} state={{from: "anything u wanna send"}} >Confirm</Link>
+                <Link className='buttonReprise'to={{pathname :"/confirmationPage"}} state={{from: { total: {total},
+        movie: {movie}, noAdultTickets: {noAdultTickets}, noChildTickets : {noChildTickets}}}} >Confirm</Link>
             </form>
            
         </div>

@@ -35,7 +35,7 @@ const MovieCard = props  => {
         setFlip(true);
     }
     const handleClickBack = () => {
-        setFlip(false);
+        setFlip(!flip);
     }
 
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -55,20 +55,35 @@ const MovieCard = props  => {
       
   return (
     <>
-    <div className = "card">
-        <h5>{props.title}</h5>
+    <div className = "card" onClick = {handleClickBack}>
+    <p className = "top">IMDB: {props.rating}</p>
+        <h4>{props.title}</h4>
+        
         {!flip &&(
         <img className = "image" src= {props.imageUrl} onClick = {handleClick}/>
         )}
         {flip &&(
             <>
+            <hr></hr>
               <div className = "flippedSide">
-                
-                <p>{props.description}</p>
-                <p>Rating: {props.rating}</p>
-                  <Link to={{pathname :"/ShowTimes"}} state={{from: props.title}} className='button'>See Show Times</Link>
+              
+                 
+                  <p className = "genre2">{props.genre}</p>
+                  
+                  
+      
+            
 
-                  <button onClick={openModal} className="button">Watch Trailer</button>
+                <div className = "genre">
+                <p className = "dark">Description:</p>
+          
+                <p className='dark'>{props.description}</p>
+                </div>
+                <div className = "movInfo">
+                  <Link to={{pathname :"/ShowTimes"}} state={{from: props.title}} className='buttonReprise2'>See Show Times</Link>
+
+                  <button onClick={openModal} className="buttonReprise2">Watch Trailer</button>
+                  </div>
                   <Modal
                   isOpen={modalIsOpen}
                   onAfterOpen={afterOpenModal}
@@ -76,14 +91,14 @@ const MovieCard = props  => {
                   style="content"
                   contentLabel="Example Modal"
                   >
-                    <button onClick={closeModal}>close</button>
+                    <button className = "buttonReprise2" onClick={closeModal}>close</button>
                   <div>
                     <YoutubeEmbed embedId={props.trailer}/>
                   </div>
                   </Modal>
                   
               </div>
-            <FaChevronCircleLeft className = "back" onClick = {handleClickBack}/>
+    
             </>
         )}
         

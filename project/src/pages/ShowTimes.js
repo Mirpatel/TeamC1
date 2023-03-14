@@ -174,7 +174,8 @@ const ShowTimes = ()  => {
     <h6>Seats: </h6>
     </div>
     <div className = "seatsContainer">
-        <br/>
+
+        <p className = "topReprise">Hall 11</p>
         <div>
         <MdChair className = "seats" onClick = {seatSelectHandler.bind(this,"A1")} id = "A1"/>
         <MdChair className = "seats" onClick = {seatSelectHandler.bind(this,"A2")} id = "A2"/>

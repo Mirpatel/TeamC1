@@ -10,6 +10,8 @@ function Signin() {
     const [passwordCon, setPasswordCon] = useState("");
     let navigate = useNavigate();
     const [LoginStatus, setLoginStatus] = useState("");
+    const [isAdmin, setIsAdmin] = useState(false);
+    
     const submit = () => {
 
         Axios.post('http://localhost:3001', {
@@ -22,9 +24,14 @@ function Signin() {
 
 
             }
-           });
 
+           });
+           if (isAdmin) {
+            navigate('/admin')
+           }
+           else {
            navigate('/');
+           }
         };
 
 return(

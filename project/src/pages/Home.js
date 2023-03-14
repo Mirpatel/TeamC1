@@ -13,6 +13,7 @@ const BREAKFAST = [
       'https://flxt.tmsimg.com/assets/p8815512_p_v8_ax.jpg',
     rating: "5/5",
     trailer: 'eOrNdBpGMv8 ',
+    genre: "Action",
   
   },
   {
@@ -22,6 +23,7 @@ const BREAKFAST = [
       'https://parade.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_1240/MTkwNTgxMjk3MDYzNTM1NzQx/the-texas-chain-saw-massacre.webp',
       rating: "2/5",
       trailer: '-e3sv1NzrCA',
+      genre: "Horror",
      
   },
   {
@@ -30,6 +32,7 @@ const BREAKFAST = [
     imageUrl: 'https://parade.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_750/MTkwNTgxMjk2NzkxODg5MDIx/parasite2.webp',
     rating: "4/5",
     trailer: 'SEUXfv87Wpk ',
+    genre: "Suspense",
   },
   {
     title: 'The Little Mermaid',
@@ -37,6 +40,7 @@ const BREAKFAST = [
     imageUrl: 'https://parade.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_1000/MTkwNTgxMjk3MDY1NTY3MzU3/usa-the-little-mermaid---in-studio-preview.webp',
     rating: "3/5",
     trailer: '0-wPm99PF9U',
+    genre: 'Feel-good'
   },
 
   {
