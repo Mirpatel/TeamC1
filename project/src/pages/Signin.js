@@ -42,8 +42,17 @@ return(
     
     <label>Password</label>
     <input type="Password" onChange={(event) => {setPasswordCon(event.target.value)}}/>
+    <div className='Checkbox'>
+<label for="promo">Remember me</label>
+<input type="checkbox" id="promo" name="promo" />
+</div>
+    <a href={'./forgotPassword'}>Forgot Password</a> 
+
+    <br/>
+
     <button className = "button"onClick={submit}>Submit</button>
-   
+
+
         <p>Don't have an account?</p> 
         <a href={'./createAccount'}>Create one!</a> 
     </div>
