@@ -5,7 +5,54 @@ import React, { useState} from 'react';
 import MovieCard from '../components/MovieCard';
 import Layout from '../components/Layout';
 import {FaSearch} from 'react-icons/fa';
+
+
+
+
+
+function Home() {
+  const [movies, setMovies] = useState([]);
+
+  // Fetch movie data from your API when the component mounts
+  useEffect(() => {
+    const fetchMovies = async () => {
+      const response = await fetch("http://localhost:8000");
+      const data = await response.json();
+      setMovies(data);
+    };
+
+    fetchMovies();
+  }, []);
+
+  const search = () => {
+    // handle search logic here
+  };
+
+  return (
+    <>
+      <h1 className="mov">Movies</h1>
+      <input type="text" placeholder="Search Movies" name="search"></input>
+      <button onClick={search}><FaSearch/></button>
+      <Layout items={movies} />
+    </>
+  );
+}
+
+export default Home;
+
+
+
+/*
 const BREAKFAST = [
+
+
+
+
+
+
+
+
+  
   {
     title: 'The Avengers',
     description: 'A movie that shows some super heros doing some stuff',
@@ -75,8 +122,10 @@ const BREAKFAST = [
     rating: "4/5",
     trailer: '0-wPm99PF9U',
   },
+  
 
 ];
+
 function Home(props) {
 const search = () => {
   
@@ -103,13 +152,18 @@ const search = () => {
   //   return () => clearInterval(interval);
   // }, []);
   return (
+
+  
+    
     <>
       <h1 className = "mov">Movies</h1>
       <input type="text" placeholder="Search Movies" name="search"></input>
       <button onclick = {search}><FaSearch/></button>
       <Layout items={BREAKFAST}/>
     </>
+    
   );
 }
 
 export default Home;
+*/

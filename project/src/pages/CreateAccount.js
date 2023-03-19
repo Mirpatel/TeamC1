@@ -4,7 +4,8 @@ import { useState} from "react";
 import Axios from 'axios';
 function CreateAccount() {
 
-const [name, setName] = useState("");
+const [fname, setfName] = useState("");
+const [lname, setlName] = useState("");
 const [email, setEmail] = useState("");
 const [phone, setPhone] = useState("");
 const [Password, setPassword] = useState("");
@@ -13,14 +14,16 @@ const submit = () => {
 
 Axios.post('http://localhost:3001', {
    
-   name: name, email: email, phone: phone, Password: Password});
+   fname: fname,  lname: lname, email: email, phone: phone, Password: Password});
 };
 
 return (
 
 <div className="input">
-<label>name</label>
-<input type="text" onChange={(event) => {setName(event.target.value)}}/>
+<label>First name</label>
+<input type="text" onChange={(event) => {setfName(event.target.value)}}/>
+<label> Last name</label>
+<input type="text" onChange={(event) => {setlName(event.target.value)}}/>
 <label>email</label>
 <input type="text" onChange={(event) => {setEmail(event.target.value)}}/>
 <label>phone</label>

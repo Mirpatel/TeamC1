@@ -35,7 +35,7 @@ return (
 <input type="text" onChange={(event) => {setDate(event.target.value)}}/>
 <label>Trailer URL</label>
 <input type="text" onChange={(event) => {setTrailer(event.target.value)}}/>
-<label>Password</label>
+<label>Genre</label>
 <input type="text" onChange={(event) => {setDesc(event.target.value)}}/>
 <label>Rating</label>
 <input type="text" />

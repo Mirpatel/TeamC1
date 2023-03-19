@@ -31,7 +31,8 @@ return (
 <thead>
    <tr>
       <th >Id</th>
-      <th >Name</th>
+      <th > First Name</th>
+      <th >Last Name</th>
       <th >Email</th>
       <th >Phone</th>
       <th>Password</th>
@@ -43,8 +44,9 @@ return (
    { userData.map( (userData, index)=>(  
    <tr key={index}>
       <td>{index+1}</td>
-      <td >{userData.name}</td>
-      <td >{userData.email}</td>
+      <td >{userData.fname}</td>
+      <td >{userData.lname}</td>
+      <td >{userData.Email}</td>
       <td >{userData.phone}</td>
       <td >{userData.Password}</td>
       <td>
