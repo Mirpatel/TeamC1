@@ -76,7 +76,7 @@ return (
 <input type="text" onChange={(event) => {setCode(event.target.value)}}/>
 <label>Code</label>
 <input type="text" />
-<button onClick={submit}>Add Promotion</button>
+<button className = "button" onClick={submit}>Add Promotion</button>
 </div>
 
 <div className="container">

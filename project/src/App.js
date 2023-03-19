@@ -18,6 +18,7 @@ import Search from './pages/Search';
 import User from './pages/User';
 import Promotion from './pages/Promotion';
 import EditPromo from './pages/EditPromo';
+import ForgotPassword from './pages/ForgotPassword';
 import './App.css';
 
 
@@ -73,6 +74,7 @@ function App() {
             <Route path="/Search" element={<Search />} />
             <Route path="/Promotion" element={<Promotion />} />
             <Route path="/editPromo" element={<EditPromo />} />
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
 
         </Routes>
         </div>
