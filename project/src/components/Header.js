@@ -5,7 +5,12 @@ import {BsPersonCircle} from 'react-icons/bs'
 import { useState } from 'react';
 function Header() {
   const [isAdmin, setIsAdmin] = useState(false);
+const [isLoggedIn, setIsLoggedIn] = useState(true);
 
+const loggingOut = () => {
+setIsLoggedIn(false);
+localStorage.clear(); //some way to make sure user is logged out across whole profile
+};
     return (
       <>
       <div className='navBar'>
@@ -30,8 +35,14 @@ function Header() {
           )}
       </div>
       {/* <Link to = '/admin' className = "admin">Admin</Link> */}
+      {!isLoggedIn && (
       <Link to='/signin' className='login'>Login</Link>
-      {!isAdmin && (
+      )}
+      {isLoggedIn && (
+        <Link onClick = {loggingOut} to='/' className='login'>Logout</Link>
+      )}
+
+      {!isAdmin && isLoggedIn &&(
       <Link to = '/profile'><BsPersonCircle className = "logo2"/></Link>
       )}
       </div>

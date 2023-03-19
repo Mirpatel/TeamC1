@@ -5,7 +5,8 @@ import React, { useState} from 'react';
 import MovieCard from '../components/MovieCard';
 import Layout from '../components/Layout';
 import {FaSearch} from 'react-icons/fa';
-const BREAKFAST = [
+
+const MOVIES = [
   {
     title: 'The Avengers',
     description: 'A movie that shows some super heros doing some stuff',
@@ -78,36 +79,59 @@ const BREAKFAST = [
 
 ];
 function Home(props) {
-const search = () => {
-  
-}
- 
-  // if (props.items.length === 0) {
-  //   return (
-  //     <div className="place-list center">
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState(MOVIES);
 
-  //       <h2>No items found. Maybe create one?</h2>
+const search = (event) => {
+  const query = event.target.value;
+  setSearchQuery(query);
+
+  let searchWords = query.toLowerCase().split(" ");
+  if (searchWords[0] === "the") {
+    searchWords = searchWords.slice(1);
+  }
+
+  const filtered = MOVIES.filter((item) => {
+    const titleWords = item.title.toLowerCase().split(" ");
+    for (let i = 0; i < titleWords.length - searchWords.length + 1; i++) {
+      if (titleWords[i] === searchWords[0]) {
+        let found = true;
+        for (let j = 1; j < searchWords.length; j++) {
+          if (titleWords[i + j] !== searchWords[j]) {
+            found = false;
+            break;
+          }
+        }
+        if (found) {
+          return true;
+        }
+      }
+    }
+    return false;
+  });
+
+  if (filtered.length === 0) {
+    setFilteredData(MOVIES);
+  } else {
+    setFilteredData(filtered);
+  }
+};
 
 
-  //     </div>
-  //   );
-  // }
 
 
-  // const [movie, setMovie] = useState(BREAKFAST);
-  // const [movie2, setMovie2] = useState(movie[0]);
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setMovie2(movie[1]);
-  //   }, 100000);
-  //   return () => clearInterval(interval);
-  // }, []);
   return (
     <>
       <h1 className = "mov">Movies</h1>
-      <input type="text" placeholder="Search Movies" name="search"></input>
-      <button onclick = {search}><FaSearch/></button>
-      <Layout items={BREAKFAST}/>
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={search}
+        placeholder="Search..."
+      />
+      <button onClick = {search}><FaSearch/></button>
+      <br/>
+      <Layout items={filteredData}/>
     </>
   );
 }
