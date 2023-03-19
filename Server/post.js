@@ -60,7 +60,7 @@ db.query(
 app.post("/", (req, res) => {
     const email = req.body.email;
     const Password = req.body.Password;
-
+    const promo = req.body.Promo;
     //putting this here to test token
 
     //gonna take away soon
@@ -84,10 +84,17 @@ app.post("/", (req, res) => {
           return res.status(401).send("Invalid email or password.");
         }
 
+        if (promo) {
         var token = jwt.sign({ id: email }, config.secret, {
-          expiresIn: 86400 // 24 hours
+          expiresIn:  2592000 // 30 days
           
         });
+      }
+      else {
+        var token = jwt.sign({ id: email }, config.secret, {
+          expiresIn: 86400 // 24 hours
+      });
+    }
         console.log("assigned token");
         console.log(token);
         // If we reach here, it means that the email and password are valid
