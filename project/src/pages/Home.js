@@ -155,4 +155,3 @@ const search = (event) => {
 }
 
 export default Home;
-*/
