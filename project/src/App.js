@@ -20,6 +20,9 @@ import Promotion from './pages/Promotion';
 import EditPromo from './pages/EditPromo';
 import ForgotPassword from './pages/ForgotPassword';
 import './App.css';
+
+
+
 import {
   BrowserRouter,
   Routes, //replaces "Switch" used till v5
@@ -53,7 +56,8 @@ function App() {
         <Header/>
         <div >
         <Routes>
-            <Route path="/" element={<Home />} />
+         
+           <Route path="/" element={<Home />} />
             <Route path="/book-tickets" element={<Book />} />
             <Route path="/createAccount" element={<CreateAccount />} />
             <Route path="/ShowTimes" element={<ShowTimes />} />

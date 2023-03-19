@@ -3,20 +3,45 @@ import { useState} from "react";
 import Axios from 'axios';
 import './style/signin.css'
 import { Navigate, useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
 
 function Signin() {
     const [nameCon, setNameCon] = useState("");
-    const [passwordCon, setPasswordCon] = useState("");
+    const [email, setEmail] = useState("");
+    const [Password, setPassword] = useState("");
     let navigate = useNavigate();
     const [LoginStatus, setLoginStatus] = useState("");
     const [isAdmin, setIsAdmin] = useState(false);
+   
+    useEffect(()=> {
+   
+        console.log(localStorage.getItem("token"));
+        // localStorage.setItem("token", "beepboop");
+           Axios.get('http://localhost:8080/api/auth/token', {
+         headers: {
+           'x-access-token': localStorage.getItem("token")
+         }
+       })
+       .then(function (response) {
+         console.log(response);
+         if (response.data === "Authenticated") {
+           navigate("/");
+          setLoginStatus("true");
+          console.log("worked");
+         }
+       })
+       .catch(function (error) {
+         console.log(error);
+       });
+        },[])
+
+      
+   
     
     const submit = () => {
-
-        Axios.post('http://localhost:3001', {
-           
-           name: nameCon, password: passwordCon}).then((response) => {
+       console.log("pressed submit");
+        Axios.post('http://localhost:8080',{
+           email: email, Password: Password}).then((response) => {
             if (response.data.message) {
                 setLoginStatus(response.data.message)
             } else {
@@ -24,24 +49,28 @@ function Signin() {
 
 
             }
+            localStorage.setItem("token", response.data.accessToken);
+            if (isAdmin) {
+                navigate('/admin')
+               }
+               else {
+               navigate('/');
+               }
 
            });
-           if (isAdmin) {
-            navigate('/admin')
-           }
-           else {
-           navigate('/');
-           }
+         
+           
         };
+        
 
 return(
 
     <div className="input">
     <label>Email</label>
-    <input type="text" onChange={(event) => {setNameCon(event.target.value)}}/>
+    <input type="text" onChange={(event) => {setEmail(event.target.value)}}/>
     
     <label>Password</label>
-    <input type="Password" onChange={(event) => {setPasswordCon(event.target.value)}}/>
+    <input type="Password" onChange={(event) => {setPassword(event.target.value)}}/>
     <div className='Checkbox'>
 <label for="promo">Remember me</label>
 <input type="checkbox" id="promo" name="promo" />
@@ -57,6 +86,7 @@ return(
         <a href={'./createAccount'}>Create one!</a> 
     </div>
 //<h1> LoginStatus</h1>
+//
 );
 
 
@@ -67,3 +97,6 @@ return(
 
 }
 export default Signin;
+
+
+

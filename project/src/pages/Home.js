@@ -7,6 +7,7 @@ import Layout from '../components/Layout';
 import {FaSearch} from 'react-icons/fa';
 
 const MOVIES = [
+
   {
     title: 'The Avengers',
     description: 'A movie that shows some super heros doing some stuff',
@@ -76,12 +77,25 @@ const MOVIES = [
     rating: "4/5",
     trailer: '0-wPm99PF9U',
   },
+  
 
 ];
+
 function Home(props) {
+
+
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState(MOVIES);
+  
+  useEffect(() => {
+    const fetchMovies = async () => {
+      const response = await fetch("http://localhost:8000");
+      const data = await response.json();
+      setFilteredDataq(data);
+    };
 
+    fetchMovies();
+  }, []);
 const search = (event) => {
   const query = event.target.value;
   setSearchQuery(query);
@@ -121,6 +135,9 @@ const search = (event) => {
 
 
   return (
+
+  
+    
     <>
       <h1 className = "mov">Movies</h1>
       <input
@@ -133,6 +150,7 @@ const search = (event) => {
       <br/>
       <Layout items={filteredData}/>
     </>
+    
   );
 }
 
