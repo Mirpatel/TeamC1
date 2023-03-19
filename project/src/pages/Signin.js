@@ -3,7 +3,7 @@ import { useState} from "react";
 import Axios from 'axios';
 import './style/signin.css'
 import { Navigate, useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
 
 function Signin() {
     const [nameCon, setNameCon] = useState("");
@@ -13,14 +13,34 @@ function Signin() {
     const [LoginStatus, setLoginStatus] = useState("");
     const [isAdmin, setIsAdmin] = useState(false);
    
+    useEffect(()=> {
    
+        console.log(localStorage.getItem("token"));
+        // localStorage.setItem("token", "beepboop");
+           Axios.get('http://localhost:8080/api/auth/token', {
+         headers: {
+           'x-access-token': localStorage.getItem("token")
+         }
+       })
+       .then(function (response) {
+         console.log(response);
+         if (response.data === "Authenticated") {
+           navigate("/");
+          setLoginStatus("true");
+          console.log("worked");
+         }
+       })
+       .catch(function (error) {
+         console.log(error);
+       });
+        },[])
 
       
    
     
     const submit = () => {
-       
-        Axios.post('http://localhost:5000',{
+       console.log("pressed submit");
+        Axios.post('http://localhost:8080',{
            email: email, Password: Password}).then((response) => {
             if (response.data.message) {
                 setLoginStatus(response.data.message)
@@ -29,6 +49,7 @@ function Signin() {
 
 
             }
+            localStorage.setItem("token", response.data.accessToken);
             if (isAdmin) {
                 navigate('/admin')
                }
