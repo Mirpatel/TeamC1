@@ -20,6 +20,7 @@ import Promotion from './pages/Promotion';
 import EditPromo from './pages/EditPromo';
 import './App.css';
 
+import Addshowtime from './Addshowtime';
 
 
 import {
@@ -74,6 +75,9 @@ function App() {
             <Route path="/Promotion" element={<Promotion />} />
             <Route path="/editPromo" element={<EditPromo />} />
 
+            <Route path="/Addshowtime" element={<Addshowtime />} />
+
+            
         </Routes>
         </div>
         <Footer />

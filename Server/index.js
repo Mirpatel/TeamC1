@@ -26,23 +26,7 @@ const phone = req.body.phone;
 const Password = req.body.Password;
 
 
-if (!fname || !lname || !email || !phone || !Password) {
-    return res.status(400).send("All fields are required.");
-}
 
-if (!/^[a-zA-Z ]+$/.test(fname) || !/^[a-zA-Z ]+$/.test(lname)) {
-    return res.status(400).send("First name and last name should only contain letters and spaces.");
-}
-
-if (!/^\S+@\S+\.\S+$/.test(email)) {
-    return res.status(400).send("Invalid email format.");
-}
-if (!/^\d{10}$/.test(phone)) {
-    return res.status(400).send("Phone number should contain 10 digits.");
-}
-if (!/^\d{10}$/.test(Password)) {
-    return res.status(400).send("Password  should be a length of 10.");
-}
 
 
 db.query(
@@ -58,7 +42,7 @@ db.query(
 
 
 
-app.listen(3004, () => {
+app.listen(3001, () => {
 console.log("running");
 });
  

@@ -19,6 +19,7 @@ return (
 <button  className = "button" onClick={() => navigate("/Edit")}>Manage Movies</button>
 <button  className = "button" onClick={() => navigate("/User")}>Manage Users</button>
 <button  className = "button" onClick={() => navigate("/Promotion")}>Manage Promotions</button>
+<button  className = "button" onClick={() => navigate("/Addshowtime")}>Manage showtime</button>
 
 </div>
 </div>

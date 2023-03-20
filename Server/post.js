@@ -1,3 +1,4 @@
+
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
@@ -18,40 +19,29 @@ const db = mysql.createConnection({
 app.post("/", (req, res) =>{
  console.log(req.body);
 const email = req.body.email
-
 const Password = req.body.Password;
-
-
 db.query(
-
 "SELECT * FROM user WHERE email = ?;",
 [ email, Password],
 (err, result) => {
     if (err) {
         res.send({err: err})
     } 
-
     if(result.length > 0){
-
         res.send(result);
     } else {
         res.send({message: "Wrong Combination"});
     }
 }
 );
-
-
 });
-
 */
 
 app.post("/", (req, res) => {
     const email = req.body.email;
     const Password = req.body.Password;
   
-    if (!email || !Password) {
-      return res.status(400).send("Email and password are required.");
-    }
+  
   
     db.query(
       "SELECT * FROM user WHERE email = ? AND password = ?",
@@ -76,4 +66,3 @@ app.post("/", (req, res) => {
 app.listen(5000, () => {
 console.log("running");
 });
- 
