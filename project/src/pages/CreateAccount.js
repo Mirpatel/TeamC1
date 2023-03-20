@@ -11,6 +11,12 @@ const [lname, setlName] = useState("");
 const [email, setEmail] = useState("");
 const [phone, setPhone] = useState("");
 const [Password, setPassword] = useState("");
+
+const [street, setStreet] = useState("");
+const [city, setCity] = useState("");
+const [adressState, setAdState] = useState("");
+const [zipCode, setZip] = useState("");
+
 const [promo, setPromo] = useState(false);
 
 const submit = () => {
@@ -56,6 +62,16 @@ return (
 <div className='Checkbox'>
 <label for="promo">Sign up for Promotions?</label>
 <input type="checkbox" id="promo" name="promo" onChange={(event) => {setPromo(event.target.value)}}/>
+<br/>
+<p>Adress (optional):<br/></p>
+<label>Street Address</label>
+<input type="text" onChange={(event) => {setStreet(event.target.value)}}/>
+<label>City</label>
+<input type="text" onChange={(event) => {setCity(event.target.value)}}/>
+<label>State</label>
+<input type="text" onChange={(event) => {setAdState(event.target.value)}}/>
+<label>Zip code</label>
+<input type="text" onChange={(event) => {setZip(event.target.value)}}/>
 </div>
 <button className = "buttonReprise" onClick={submit} >Submit</button>
 <p>Don't have a payment information added?
