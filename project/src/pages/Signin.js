@@ -51,6 +51,7 @@ function Signin() {
 
 
             }
+          
             localStorage.setItem("token", response.data.accessToken);
             if (isAdmin) {
                 navigate('/admin')
@@ -60,7 +61,9 @@ function Signin() {
                }
 
            });
-         
+           if (!LoginStatus) {
+            alert("Incorrect username or password");
+          }
            
         };
         

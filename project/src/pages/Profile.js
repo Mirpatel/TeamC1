@@ -3,6 +3,7 @@ import { useState } from 'react';
 import {FaEdit} from 'react-icons/fa'
 import Modal from 'react-bootstrap/Modal'
 import { Link } from 'react-router-dom';
+import Axios from 'axios';
 const cards = [
   {
     last4: '4456'
@@ -108,6 +109,18 @@ function Profile() {
       setEdit(false);
     }
 
+    const makeChanges = () => {
+      setEdit(false);
+      Axios.post('http://localhost:8080/send-profile-email', {
+   
+      email: "jordynfulbright@gmail.com" });
+      console.log("Profile Email sent");
+ 
+    
+
+  };
+    
+
     const manageBilling = () => {
       setCard(true);
     }
@@ -165,7 +178,7 @@ function Profile() {
     <button className = "buttonReprise" variant="secondary" onClick={hideEditView}>
             Close
           </button>
-          <button className = "buttonReprise"  variant="primary" onClick={hideEditView}>
+          <button className = "buttonReprise"  variant="primary" onClick={makeChanges}>
             Save Changes
           </button>
           </Modal.Body>

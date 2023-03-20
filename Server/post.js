@@ -3,11 +3,8 @@ const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
 var jwt = require("jsonwebtoken");
-const nodemailer = require('nodemailer');
-const gmail = require('./gmail/gmail.auth');
 const config = require("./config/auth.config");
-const { google } = require('googleapis');
-const { createEmailMessage, getAccessToken, sendEmail } = require('./gmail/gmail.auth');
+
 
 app.use((req, res, next) => {
   try {
@@ -61,6 +58,28 @@ db.query(
 });
 
 */
+
+app.post('/send-profile-email', (req, res) => {
+  const sgMail = require('@sendgrid/mail')
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+  const msg = {
+    to: 'jordynfulbright@gmail.com', // Change to your recipient
+    from: 'dawgTheatre@gmail.com', // Change to your verified sender
+    subject: 'Profile Information Changed',
+    text: '',
+    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+  }
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Email sent')
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+
+});
+
 app.post('/send-promotion-email', (req, res) => {
   const sgMail = require('@sendgrid/mail')
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
