@@ -3,8 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 function Verify() {
   const location = useLocation();
-  const {state} = location;
-  let total = state.from.total;
+
   return (
     <>
     <div className = "confirmation">

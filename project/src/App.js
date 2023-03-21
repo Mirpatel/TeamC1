@@ -29,6 +29,7 @@ import {
   Route,
 } from "react-router-dom";
 import Verify from './pages/Verfiy';
+import Password from './pages/PasswordReset';
 const fast = [
   {
     id: 'p1',
@@ -77,6 +78,7 @@ function App() {
             <Route path="/editPromo" element={<EditPromo />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="/verify" element={<Verify />} />
+            <Route path="/password-reset" element={<Password />} />
 
         </Routes>
         </div>

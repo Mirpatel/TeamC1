@@ -4,6 +4,11 @@ const mysql = require('mysql');
 const cors = require('cors');
 var jwt = require("jsonwebtoken");
 const config = require("./config/auth.config");
+const fetch = require('node-fetch');
+const SibApiV3Sdk = require('sib-api-v3-sdk');
+const defaultClient = SibApiV3Sdk.ApiClient.instance;
+const apiKey = defaultClient.authentications['api-key'];
+
 
 
 app.use((req, res, next) => {
@@ -60,25 +65,119 @@ db.query(
 */
 
 app.post('/send-profile-email', (req, res) => {
-  const sgMail = require('@sendgrid/mail')
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-  const msg = {
-    to: 'jordynfulbright@gmail.com', // Change to your recipient
-    from: 'dawgTheatre@gmail.com', // Change to your verified sender
-    subject: 'Profile Information Changed',
-    text: '',
-    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-  }
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.log('Email sent')
-    })
-    .catch((error) => {
-      console.error(error)
-    })
+  // const sgMail = require('@sendgrid/mail')
+  // sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+  // const msg = {
+  //   to: 'jordynfulbright@gmail.com', // Change to your recipient
+  //   from: 'dawgTheatre@gmail.com', // Change to your verified sender
+  //   subject: 'Profile Information Changed',
+  //   text: '',
+  //   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+  // }
+  // sgMail
+  //   .send(msg)
+  //   .then(() => {
+  //     console.log('Email sent')
+  //   })
+  //   .catch((error) => {
+  //     console.error(error)
+  //   })
+
+  // const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
+  // sendSmtpEmail.subject = "Profile Information Changed";
+  // sendSmtpEmail.htmlContent = "<p>Hello</p>";
+  // sendSmtpEmail.sender = {"name":"Sender Name","email":"dawgTheatre@gmail.com"};
+  // sendSmtpEmail.to = [{"email":"jordynfulbright@gmail.com"}];
+  // sendSmtpEmail.replyTo = {"email":"dawgTheatre@gmail.com"};
+  // sendSmtpEmail.headers = {"Some-Custom-Header":"unique-id-1234"};
+  // const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+  // apiInstance.sendTransacEmail(sendSmtpEmail).then(function(data) {
+  //   console.log('API called successfully. Returned data: ' + JSON.stringify(data));
+  // }, function(error) {
+  //   console.error(error);
+  // });
+  
+  defaultClient.basePath = 'https://api.sendinblue.com/v3';
+
+// Create an instance of the API class
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+
+// Set email parameters
+const sendSmtpEmail = {
+  to: [{ email: 'jordynfulbright@gmail.com' }],
+  templateId: 1, 
+  params: {
+    FIRSTNAME: 'John', //
+  },
+};
+
+// Send email
+apiInstance.sendTransacEmail(sendSmtpEmail)
+  .then((data) => {
+    console.log('API called successfully. Returned data: ', data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
 
 });
+
+app.post('/send-password-reset-email', (req, res) => {
+defaultClient.basePath = 'https://api.sendinblue.com/v3';
+
+// Create an instance of the API class
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+
+// Set email parameters
+const sendSmtpEmail = {
+  to: [{ email: 'jordynfulbright@gmail.com' }],
+  templateId: 2, 
+  params: {
+    FIRSTNAME: 'John',
+    SMS: 'link here' //
+  },
+};
+
+// Send email
+apiInstance.sendTransacEmail(sendSmtpEmail)
+  .then((data) => {
+    console.log('API called successfully. Returned data: ', data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+
+});
+
+app.post('/send-verify-email', (req, res) => {
+  defaultClient.basePath = 'https://api.sendinblue.com/v3';
+  
+  // Create an instance of the API class
+  const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+  
+  // Set email parameters
+  const sendSmtpEmail = {
+    to: [{ email: 'jordynfulbright@gmail.com' }],
+    templateId: 3, 
+    params: {
+      FIRSTNAME: 'John',
+      SMS: 'link here' //
+    },
+  };
+  
+  // Send email
+  apiInstance.sendTransacEmail(sendSmtpEmail)
+    .then((data) => {
+      console.log('API called successfully. Returned data: ', data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  
+  
+  });
 
 app.post('/send-promotion-email', (req, res) => {
   const sgMail = require('@sendgrid/mail')

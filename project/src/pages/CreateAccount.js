@@ -2,9 +2,10 @@ import './style/home.css';
 import React from "react";
 import { useState} from "react";
 import Axios from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
 function CreateAccount() {
 
-
+let navigate = useNavigate();
 const [fname, setfName] = useState("");
 const [lname, setlName] = useState("");
 
@@ -30,7 +31,16 @@ Axios.post('http://localhost:3001', {
 
    fname: fname,  lname: lname, email: email, phone: phone, Password: Password});
 
+   Axios.post('http://localhost:8080/send-verify-email', {
+   
+
+   });
+
+   navigate('/verify');
+
 };
+
+
 }
 
 return (
