@@ -21,6 +21,7 @@ import EditPromo from './pages/EditPromo';
 import ForgotPassword from './pages/ForgotPassword';
 import './App.css';
 
+import Addshowtime from './Addshowtime';
 
 
 import {
@@ -80,6 +81,9 @@ function App() {
             <Route path="/verify" element={<Verify />} />
             <Route path="/password-reset" element={<Password />} />
 
+            <Route path="/Addshowtime" element={<Addshowtime />} />
+
+            
         </Routes>
         </div>
         <Footer />

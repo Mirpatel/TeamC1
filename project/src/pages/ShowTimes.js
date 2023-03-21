@@ -1,5 +1,8 @@
 import './style/showTimes.css';
-import { useEffect, useState } from 'react';
+
+import {  useEffect } from 'react';
+import { useState } from 'react';
+
 import { Button } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import { MdChair } from "react-icons/md";
@@ -7,6 +10,14 @@ import { Link } from 'react-router-dom';
 
 import { useNavigate } from "react-router-dom";
 
+
+
+
+
+
+
+
+/*
 const times = [
     {
       time: "10:00AM",
@@ -35,10 +46,31 @@ const times = [
 
   
   ];
+  */
 const ShowTimes = ()  => {
     const [loggedIn, setLoggedIn] = useState(true);
     const location = useLocation();
     let navigate = useNavigate();
+    //
+    
+    const [selectedMovie, setSelectedMovie] = useState(null);
+
+    
+    const [times, setTimes] = useState([]);
+
+useEffect(() => {
+    const fetchTimes = async () => {
+      const response = await fetch("http://localhost:7200");
+      const data = await response.json();
+      setTimes(data);
+    };
+
+    fetchTimes();
+  }, []);
+  
+  
+  
+//
     
     let adultTix = 0;
     let childTix = 0;

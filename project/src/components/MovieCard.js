@@ -66,6 +66,7 @@ const MovieCard = props  => {
     <>
     <div className = "card" onClick = {handleClickBack}>
     <p className = "top">IMDB: {props.rating}</p>
+
         <h4>{props.title}</h4>
         
         {!flip &&(
@@ -76,7 +77,8 @@ const MovieCard = props  => {
             <hr></hr>
               <div className = "flippedSide">
               
-                 
+              <p className = "movierating">MPAA: {props.movierating}</p>
+
                   <p className = "genre2">{props.genre}</p>
                   
                   

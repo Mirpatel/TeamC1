@@ -1,7 +1,11 @@
+
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
+
+const bcrypt = require('bcrypt');
+
 var jwt = require("jsonwebtoken");
 const config = require("./config/auth.config");
 const fetch = require('node-fetch');
@@ -21,6 +25,7 @@ app.use((req, res, next) => {
     res.status(500).send('Internal server error');
   }
 });
+
 app.use(cors());
 app.use(express.json());
 
@@ -37,32 +42,24 @@ const db = mysql.createConnection({
 app.post("/", (req, res) =>{
  console.log(req.body);
 const email = req.body.email
-
 const Password = req.body.Password;
-
-
 db.query(
-
 "SELECT * FROM user WHERE email = ?;",
 [ email, Password],
 (err, result) => {
     if (err) {
         res.send({err: err})
     } 
-
     if(result.length > 0){
-
         res.send(result);
     } else {
         res.send({message: "Wrong Combination"});
     }
 }
 );
-
-
 });
-
 */
+
 
 app.post('/send-profile-email', (req, res) => {
 
@@ -196,6 +193,13 @@ app.post("/", (req, res) => {
           expiresIn: 86400 // 24 hours
       });
     }
+        const user = result[0];
+      
+      if (user.role === 'admin') {
+        return res.send({ redirectTo: '/admin' });
+      } else {
+        return res.send({ redirectTo: '/' });
+      }
         console.log("assigned token");
         console.log(token);
         // If we reach here, it means that the email and password are valid
@@ -212,8 +216,8 @@ app.post("/", (req, res) => {
 
 
   });
+
   
 app.listen(8080, () => {
 console.log("running on 8080");
 });
- 

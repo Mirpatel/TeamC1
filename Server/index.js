@@ -3,6 +3,11 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
+
+const bcrypt = require('bcrypt');
+
+
+
 app.use((req, res, next) => {
     try {
       res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -13,6 +18,7 @@ app.use((req, res, next) => {
       res.status(500).send('Internal server error');
     }
   });
+
 app.use(cors());
 app.use(express.json());
 
@@ -26,33 +32,19 @@ const db = mysql.createConnection({
     
 });
 
-app.post("/", (req, res) =>{
+app.post("/", async (req, res) =>{
+    const salt = await bcrypt.genSalt(20);
+    const hashedPassword = await bcrypt.hash(req.body.Password, salt); // Hash the password from the request body
     console.log(req.body);
 const fname = req.body.fname;
 const lname = req.body.lname;
 
 const email = req.body.email;
 const phone = req.body.phone;
-const Password = req.body.Password;
+//const Password = req.body.Password;
+const Password = hashedPassword; // Use the hashed password
 
 
-if (!fname || !lname || !email || !phone || !Password) {
-    return res.status(400).send("All fields are required.");
-}
-
-if (!/^[a-zA-Z ]+$/.test(fname) || !/^[a-zA-Z ]+$/.test(lname)) {
-    return res.status(400).send("First name and last name should only contain letters and spaces.");
-}
-
-if (!/^\S+@\S+\.\S+$/.test(email)) {
-    return res.status(400).send("Invalid email format.");
-}
-if (!/^\d{10}$/.test(phone)) {
-    return res.status(400).send("Phone number should contain 10 digits.");
-}
-if (!/^\d{10}$/.test(Password)) {
-    return res.status(400).send("Password  should be a length of 10.");
-}
 
 
 db.query(
@@ -68,7 +60,9 @@ db.query(
 
 
 
-app.listen(3004, () => {
-console.log("running on 3004");
+
+app.listen(3001, () => {
+console.log("running");
+
 });
  

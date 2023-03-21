@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useState} from "react";
 import Axios from 'axios';
@@ -37,37 +38,29 @@ function Signin() {
         },[])
 
       
-   
-    
     const submit = () => {
        console.log("pressed submit");
        console.log(promo);
         Axios.post('http://localhost:8080',{
            email: email, Password: Password, Promo: promo}).then((response) => {
-            if (response.data.message) {
-                setLoginStatus(response.data.message)
-            } else {
-                setLoginStatus(response.data[0]);
-
-
-            }
+             if (response.data.redirectTo) {
+            navigate(response.data.redirectTo);
+          } else {
+            setLoginStatus(response.data[0]);
+          }
           
             localStorage.setItem("token", response.data.accessToken);
-            if (isAdmin) {
-                navigate('/admin')
-               }
-               else {
-               navigate('/');
-               }
+  
 
            });
+           
+           
            if (!LoginStatus) {
             alert("Incorrect username or password");
           }
            
         };
         
-
 return(
 
     <div className="input">
@@ -102,6 +95,7 @@ return(
 
 }
 export default Signin;
+
 
 
 
