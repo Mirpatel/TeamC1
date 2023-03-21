@@ -33,7 +33,7 @@ Axios.post('http://localhost:3001', {
 
    Axios.post('http://localhost:8080/send-verify-email', {
    
-
+      name: "gord", email: 'jordynfulbright@gmail.com'
    });
 
    navigate('/verify');

@@ -113,7 +113,7 @@ function Profile() {
       setEdit(false);
       Axios.post('http://localhost:8080/send-profile-email', {
    
-      email: "jordynfulbright@gmail.com" });
+        name: 'gord', email: 'jordynfulbright@gmail.com' });
       console.log("Profile Email sent");
  
     
