@@ -1,6 +1,8 @@
 import './style/showTimes.css';
+
 import {  useEffect } from 'react';
 import { useState } from 'react';
+
 import { Button } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import { MdChair } from "react-icons/md";
@@ -79,6 +81,12 @@ useEffect(() => {
     const [checkout, setCheckout] = useState(false);
     const [showTime, setShowTime] = useState(false);
     const [totalTickets, setTotalTickets] = useState(0);
+
+    useEffect(()=> {
+        var today = new Date().toISOString().split('T')[0];
+
+      document.getElementById("date").setAttribute("min", today);
+    },[])
     const handleCheckout = () => {
         if (loggedIn === true) {
             navigate('/CheckOut');

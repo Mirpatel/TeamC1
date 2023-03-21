@@ -6,53 +6,8 @@ import MovieCard from '../components/MovieCard';
 import Layout from '../components/Layout';
 import {FaSearch} from 'react-icons/fa';
 
+const MOVIES = [
 
-
-
-
-function Home() {
-  const [movies, setMovies] = useState([]);
-
-  // Fetch movie data from your API when the component mounts
-  useEffect(() => {
-    const fetchMovies = async () => {
-      const response = await fetch("http://localhost:8000");
-      const data = await response.json();
-      setMovies(data);
-    };
-
-    fetchMovies();
-  }, []);
-
-  const search = () => {
-    // handle search logic here
-  };
-
-  return (
-    <>
-      <h1 className="mov">Movies</h1>
-      <input type="text" placeholder="Search Movies" name="search"></input>
-      <button onClick={search}><FaSearch/></button>
-      <Layout items={movies} />
-    </>
-  );
-}
-
-export default Home;
-
-
-
-/*
-const BREAKFAST = [
-
-
-
-
-
-
-
-
-  
   {
     title: 'The Avengers',
     description: 'A movie that shows some super heros doing some stuff',
@@ -127,43 +82,76 @@ const BREAKFAST = [
 ];
 
 function Home(props) {
-const search = () => {
+
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState(MOVIES);
   
-}
- 
-  // if (props.items.length === 0) {
-  //   return (
-  //     <div className="place-list center">
+  useEffect(() => {
+    // const fetchMovies = async () => {
+    //   const response = await fetch("http://localhost:8000");
+    //   const data = await response.json();
+    //   setFilteredData(data);
+    // };
 
-  //       <h2>No items found. Maybe create one?</h2>
+    // fetchMovies();
+  }, []);
+const search = (event) => {
+  const query = event.target.value;
+  setSearchQuery(query);
+
+  let searchWords = query.toLowerCase().split(" ");
+  if (searchWords[0] === "the") {
+    searchWords = searchWords.slice(1);
+  }
+
+  const filtered = MOVIES.filter((item) => {
+    const titleWords = item.title.toLowerCase().split(" ");
+    for (let i = 0; i < titleWords.length - searchWords.length + 1; i++) {
+      if (titleWords[i] === searchWords[0]) {
+        let found = true;
+        for (let j = 1; j < searchWords.length; j++) {
+          if (titleWords[i + j] !== searchWords[j]) {
+            found = false;
+            break;
+          }
+        }
+        if (found) {
+          return true;
+        }
+      }
+    }
+    return false;
+  });
+
+  if (filtered.length === 0) {
+    setFilteredData(MOVIES);
+  } else {
+    setFilteredData(filtered);
+  }
+};
 
 
-  //     </div>
-  //   );
-  // }
 
 
-  // const [movie, setMovie] = useState(BREAKFAST);
-  // const [movie2, setMovie2] = useState(movie[0]);
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setMovie2(movie[1]);
-  //   }, 100000);
-  //   return () => clearInterval(interval);
-  // }, []);
   return (
 
   
     
     <>
       <h1 className = "mov">Movies</h1>
-      <input type="text" placeholder="Search Movies" name="search"></input>
-      <button onclick = {search}><FaSearch/></button>
-      <Layout items={BREAKFAST}/>
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={search}
+        placeholder="Search..."
+      />
+      <button onClick = {search}><FaSearch/></button>
+      <br/>
+      <Layout items={filteredData}/>
     </>
     
   );
 }
 
 export default Home;
-*/

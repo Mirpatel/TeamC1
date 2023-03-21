@@ -31,16 +31,25 @@ Modal.setAppElement('#root');
 const MovieCard = props  => {
     const [flip, setFlip] = useState(false);
 
-    const handleClick = () => {
+    const handleClick = (event) => {
+      // Check if the click event was on the "Watch Trailer" button
+      const isWatchTrailerButton = event.target.closest('.card').querySelector('.buttonReprise2') === event.target;
+      
+      if (!isWatchTrailerButton) {
         setFlip(true);
+      } else {
+        setFlip(false);
+      }
     }
+    
     const handleClickBack = () => {
         setFlip(!flip);
     }
 
     const [modalIsOpen, setIsOpen] = useState(false);
 
-    function openModal() {
+    function openModal(event) {
+      event.stopPropagation();
         setIsOpen(true);
       }
     
@@ -81,7 +90,7 @@ const MovieCard = props  => {
           
                 <p className='dark'>{props.description}</p>
                 </div>
-                <div className = "movInfo">
+                <div >
                   <Link to={{pathname :"/ShowTimes"}} state={{from: props.title}} className='buttonReprise2'>See Show Times</Link>
 
                   <button onClick={openModal} className="buttonReprise2">Watch Trailer</button>

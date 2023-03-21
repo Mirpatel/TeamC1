@@ -81,3 +81,94 @@ label {
     
     
 }
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    margin-top: 10px;
+}
+
+.editButton {
+    color:white;
+    cursor:pointer;
+}
+
+.editButton:hover {
+    color:blue;
+    cursor:pointer;
+}
+
+
+.profileModal {
+    width:200px;
+    background-color: aqua;
+    transform: translate(50vw,-70vh);
+}
+.modal-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 10px;
+    height:600px;
+    width:600px;
+  }
+
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+
+.modal-title {
+  font-size: 24px;
+  text-align: center;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+.inputReprise {
+    width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #2D3639;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-footer {
+    align-items: center;
+    text-align: center;
+  }
+
+  .containerReprise {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .background {
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: #2D3639;
+    width:500px;
+  }

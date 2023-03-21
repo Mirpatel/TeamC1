@@ -51,14 +51,14 @@ const [desc, setDesc] = useState("");
 
 const submit = () => {
 
-// Axios.post('http://localhost:3001', {
+Axios.post('http://localhost:8080/send-promotion-email', {
    
-//    name: name, date: date, trailer: trailer, desc: desc});
-//    alert("Movie Added!");
-//    navigate('/Admin');
+   title: title, text: text, code: code });
+console.log("emaillll");
+   // navigate('/Admin');
 
 
-// };
+
 navigate('/Admin');
 };
 
@@ -68,15 +68,13 @@ const deletePromo = () => {
 return (
 <>
 <div className="input">
-<label>name</label>
-<input type="text" onChange={(event) => {setTitle(event.target.value)}}/>
 <label>Title</label>
-<input type="text" onChange={(event) => {setText(event.target.value)}}/>
+<input type="text" onChange={(event) => {setTitle(event.target.value)}}/>
 <label>Content</label>
-<input type="text" onChange={(event) => {setCode(event.target.value)}}/>
+<input type="text" onChange={(event) => {setText(event.target.value)}}/>
 <label>Code</label>
-<input type="text" />
-<button onClick={submit}>Add Promotion</button>
+<input type="text" onChange={(event) => {setCode(event.target.value)}}/>
+<button className = "button" onClick={submit}>Add Promotion</button>
 </div>
 
 <div className="container">

@@ -3,10 +3,33 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
+
 const bcrypt = require('bcrypt');
+
+var jwt = require("jsonwebtoken");
+const config = require("./config/auth.config");
+const fetch = require('node-fetch');
+const SibApiV3Sdk = require('sib-api-v3-sdk');
+const defaultClient = SibApiV3Sdk.ApiClient.instance;
+const apiKey = defaultClient.authentications['api-key'];
+
+
+
+app.use((req, res, next) => {
+  try {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    console.log("got here");
+    next();
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Internal server error');
+  }
+});
+
 app.use(cors());
 app.use(express.json());
 
+require('./user.routes')(app);
 const db = mysql.createConnection({
 
     user: 'root',
@@ -36,36 +59,165 @@ db.query(
 );
 });
 */
-app.post("/", async (req, res) => {
+
+
+app.post('/send-profile-email', (req, res) => {
+
+  defaultClient.basePath = 'https://api.sendinblue.com/v3';
+
+// Create an instance of the API class
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+let email = req.body.email;
+let name = req.body.name;
+// Set email parameters
+const sendSmtpEmail = {
+  to: [{ email: email }],
+  templateId: 1, 
+  params: {
+    FIRSTNAME: name, //
+  },
+};
+
+// Send email
+apiInstance.sendTransacEmail(sendSmtpEmail)
+  .then((data) => {
+    console.log('API called successfully. Returned data: ', data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+
+});
+
+app.post('/send-password-reset-email', (req, res) => {
+defaultClient.basePath = 'https://api.sendinblue.com/v3';
+
+// Create an instance of the API class
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+let email = req.body.email;
+let name = req.body.name;
+// Set email parameters
+const sendSmtpEmail = {
+  to: [{ email: email }],
+  templateId: 2, 
+  params: {
+    FIRSTNAME: name,
+    SMS: 'link here' //
+  },
+};
+
+// Send email
+apiInstance.sendTransacEmail(sendSmtpEmail)
+  .then((data) => {
+    console.log('API called successfully. Returned data: ', data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+
+});
+
+app.post('/send-verify-email', (req, res) => {
+  defaultClient.basePath = 'https://api.sendinblue.com/v3';
   
-  const email = req.body.email;
-  const Password = req.body.Password;
+  // Create an instance of the API class
+  const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+  let email = req.body.email;
+  let name = req.body.name;
+  // Set email parameters
+  const sendSmtpEmail = {
+    to: [{ email: email }],
+    templateId: 3, 
+    params: {
+      FIRSTNAME: name,
+      SMS: 'link here' //
+    },
+  };
+  
+  // Send email
+  apiInstance.sendTransacEmail(sendSmtpEmail)
+    .then((data) => {
+      console.log('API called successfully. Returned data: ', data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  
+  
+  });
 
-  db.query(
-    "SELECT * FROM user WHERE email = ? AND password = ?",
-    [email, Password],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send("An error occurred while processing your request.");
+app.post('/send-promotion-email', (req, res) => {
+
+
+});
+
+
+
+app.post("/", (req, res) => {
+    const email = req.body.email;
+    const Password = req.body.Password;
+    const promo = req.body.Promo;
+    //putting this here to test token
+
+    //gonna take away soon
+
+
+
+    if (!email || !Password) {
+      return res.status(400).send("Email and password are required.");
+    }
+  
+    db.query(
+      "SELECT * FROM user WHERE email = ? AND password = ?",
+      [email, Password],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).send("An error occurred while processing your request.");
+        }
+  
+        if (result.length === 0) {
+          return res.status(401).send("Invalid email or password.");
+        }
+
+        if (promo) {
+        var token = jwt.sign({ id: email }, config.secret, {
+          expiresIn:  2592000 // 30 days
+          
+        });
       }
-
-      if (result.length === 0) {
-        return res.status(401).send("Invalid email or password.");
-      }
-
-      const user = result[0];
+      else {
+        var token = jwt.sign({ id: email }, config.secret, {
+          expiresIn: 86400 // 24 hours
+      });
+    }
+        const user = result[0];
       
       if (user.role === 'admin') {
         return res.send({ redirectTo: '/admin' });
       } else {
         return res.send({ redirectTo: '/' });
       }
-    }
-  );
-});
+        console.log("assigned token");
+        console.log(token);
+        // If we reach here, it means that the email and password are valid
+        // You can redirect the user to the home page or return a success message
+        res.header(
+          "Access-Control-Allow-Headers",
+          "x-access-token, Origin, Content-Type, Accept"
+        );
+        res.send("Login successful.", {
+          accessToken: token
+        });
+      }
+    );
+
+
+  });
 
   
-app.listen(5000, () => {
-console.log("running");
+app.listen(8080, () => {
+console.log("running on 8080");
 });

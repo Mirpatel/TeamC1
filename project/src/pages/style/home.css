@@ -1,3 +1,26 @@
 .mov {
     color:white;
 }
+
+
+.Checkbox {
+    display: flex;
+    flex-direction: row;
+   
+   
+}
+
+.req {
+    font-size: x-small;
+    position: relative;
+    right: 90px;
+    top:20px;
+}
+
+
+.reqPass {
+    font-size: x-small;
+    position: relative;
+    right: 65px;
+    top:20px;
+}

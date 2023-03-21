@@ -3,11 +3,25 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
+
 const bcrypt = require('bcrypt');
 
 
+
+app.use((req, res, next) => {
+    try {
+      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+      console.log("got here 2");
+      next();
+    } catch (err) {
+      console.log(err);
+      res.status(500).send('Internal server error');
+    }
+  });
+
 app.use(cors());
 app.use(express.json());
+
 
 const db = mysql.createConnection({
 
@@ -46,7 +60,9 @@ db.query(
 
 
 
+
 app.listen(3001, () => {
 console.log("running");
+
 });
  
