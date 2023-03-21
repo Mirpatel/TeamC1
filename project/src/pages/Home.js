@@ -88,13 +88,13 @@ function Home(props) {
   const [filteredData, setFilteredData] = useState(MOVIES);
   
   useEffect(() => {
-    // const fetchMovies = async () => {
-    //   const response = await fetch("http://localhost:8000");
-    //   const data = await response.json();
-    //   setFilteredData(data);
-    // };
+     const fetchMovies = async () => {
+       const response = await fetch("http://localhost:8000");
+       const data = await response.json();
+       setFilteredData(data);
+     };
 
-    // fetchMovies();
+     fetchMovies();
   }, []);
 const search = (event) => {
   const query = event.target.value;

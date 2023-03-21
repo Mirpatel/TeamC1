@@ -9,8 +9,8 @@ const Layout = props  => {
           <>
             <MovieCard className = "movieObj"
               // key={place._id}
-              title={place.title}
-              imageUrl={place.imageUrl}
+              Name={place.Name}
+              Url={place.Url}
               description={place.description}
               rating = {place.rating} 
               trailer = {place.trailer}

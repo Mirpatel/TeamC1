@@ -55,9 +55,6 @@ function Signin() {
            });
            
            
-           if (!LoginStatus) {
-            alert("Incorrect username or password");
-          }
            
         };
         

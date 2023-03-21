@@ -23,7 +23,7 @@ useEffect(()=> {
       })
       .then(function (response) {
         console.log(response);
-        if (response.data === "Authenticated") {
+        if (response.status === 200) {
         setIsLoggedIn(true);
         }
       })

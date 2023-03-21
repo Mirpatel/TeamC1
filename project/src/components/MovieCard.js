@@ -67,10 +67,10 @@ const MovieCard = props  => {
     <div className = "card" onClick = {handleClickBack}>
     <p className = "top">IMDB: {props.rating}</p>
 
-        <h4>{props.title}</h4>
+        <h4>{props.Name}</h4>
         
         {!flip &&(
-        <img className = "image" src= {props.imageUrl} onClick = {handleClick}/>
+        <img className = "image" src= {props.Url} onClick = {handleClick}/>
         )}
         {flip &&(
             <>
