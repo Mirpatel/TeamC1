@@ -12,36 +12,52 @@ function Addpay() {
 
     const navigate = useNavigate();
     
+    const [number, setNumber] = useState("");
+    const [exp_date, setExp_date] = useState("");
+    
+    const [ccv, setCCV] = useState("");
+    const [name, setName] = useState("");
+    const [exp_year , setExp_year] = useState("");
 
 
+    const submit = () => {
 
-
-
+        Axios.post('http://localhost:3050', {
+           
+           number: number, exp_date: exp_date,ccv: ccv, name: name, exp_year: exp_year});
+           
+          
+           
+            alert("Payment info added to your account");
+            navigate("/Signin");
+        
+        };
+    
 
 return (
 
 <div className="pay">
             <div className = "row">
                 <label for="nameoncard">Name on Card: </label>
-                <input type="text" id="nameoncard" name="nameoncard"></input> <br />
+                <input type="text" onChange={(event) => {setName(event.target.value)}}/>
                 <label for="cardnumber">Card Number: </label>
-                <input type="text" id="cardnumber" name="cardnumber"></input> <br />
+                <input type="text" onChange={(event) => {setNumber(event.target.value)}}/>
                 </div>  
                 <div className = "row">
                 <label for="cvv">CVV: </label>
-                <input type="text" id="cvv" name="cvv"></input>
+                <input type="text" onChange={(event) => {setCCV(event.target.value)}}/>
                 <label for="expmon">Exp Month: </label>
-                <input type="text" id="expmon" name="expmon"></input>
+                <input type="text" onChange={(event) => {setExp_date(event.target.value)}}/>
                 <label for="expyear">Exp Year: </label>
-                <input type="text" id="expyear" name="expyear"></input>
+                <input type="text" onChange={(event) => {setExp_year(event.target.value)}}/>
+                    
                 </div>
               <br/>
               <br/>
            
 
-<button className='button' onClick={() => {
-    alert("Payment info added to your account");
-    navigate("/Signin");}}>Add Payment information</button>
+<button className='button' onClick={submit}>Add Payment information</button>
+
 
 
 </div>

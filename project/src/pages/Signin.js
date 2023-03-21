@@ -17,32 +17,19 @@ function Signin() {
    
 
       
-   
-    
     const submit = () => {
-       
-        Axios.post('http://localhost:5000',{
-           email: email, Password: Password}).then((response) => {
-            if (response.data.message) {
-                setLoginStatus(response.data.message)
-            } else {
-                setLoginStatus(response.data[0]);
-               
-
-            }
-            if (isAdmin) {
-                navigate('/admin')
-               }
-               else {
-               navigate('/');
-               }
-              
-              
-           });
-         
-           
-        };
-        
+        Axios.post('http://localhost:5000', {
+          email: email, 
+          Password: Password
+        }).then((response) => {
+          if (response.data.redirectTo) {
+            navigate(response.data.redirectTo);
+          } else {
+            setLoginStatus(response.data[0]);
+          }
+        });
+      };
+      
 
 return(
 

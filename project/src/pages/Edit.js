@@ -17,13 +17,14 @@ const [description, setDescription] = useState("");
 const [url, setUrl] = useState("");
 const [Rating, setRating] = useState("");
 const [genre, setGenre] = useState("");
+const [movierating, setMovieRating] = useState("");
 
 
 const submit = () => {
 
 Axios.post('http://localhost:3003', {
    
-   Rating: Rating,genre: genre, name: name, date: date, trailer: trailer, description: description, url: url});
+   movierating: movierating, Rating: Rating,genre: genre, name: name, date: date, trailer: trailer, description: description, url: url});
    alert("Movie Added!");
    navigate('/Admin');
 
@@ -48,6 +49,8 @@ return (
 <input type="text" onChange={(event) => {setGenre(event.target.value)}}/>
 <label>Rating</label>
 <input type="text" onChange={(event) => {setRating(event.target.value)}}/>
+<label>MPAA Movie Rating</label>
+<input type="text" onChange={(event) => {setMovieRating(event.target.value)}}/>
 <button className = "buttonReprise" onClick={submit}>Add Movie</button>
 <p>Click below to delete or update Movies</p>
 <a href={'./Search'}>Search for the Movie</a> 
