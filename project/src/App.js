@@ -28,6 +28,7 @@ import {
   Routes, //replaces "Switch" used till v5
   Route,
 } from "react-router-dom";
+import Verify from './pages/Verfiy';
 const fast = [
   {
     id: 'p1',
@@ -75,6 +76,7 @@ function App() {
             <Route path="/Promotion" element={<Promotion />} />
             <Route path="/editPromo" element={<EditPromo />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
+            <Route path="/verify" element={<Verify />} />
 
         </Routes>
         </div>
