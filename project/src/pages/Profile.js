@@ -52,9 +52,16 @@ function Profile() {
     const [promo, setPromo] = useState(false);
     const [pass, setPass] = useState(false);
     const [edit, setEdit] = useState(false);
-    const [newCard, setNewCard] = useState(false);
+  
     const [userEmail, setUserEmail] = useState();
 
+    const [firstName, setFirstName] = useState("John");
+    const [lastName, setLastName] = useState("Doe");
+    const [streetAddress, setStreetAddress] = useState("1111 sesame st");
+    const [city, setCity] = useState("Atlanta");
+    const [state, setState] = useState("GA");
+    const [zipCode, setZipCode] = useState("30605");
+    const [newCard, setNewCard] = useState(false);
     const [newFirstName, setNewFirstName] = useState("");
     const [newLastName, setNewLastName] = useState("");
     const [newStreetAddress, setNewStreetAddress] = useState(" ");
@@ -171,11 +178,11 @@ function Profile() {
         </div>
 
    
-        <p>Jordyn Fulbright</p>
+        <p>{firstName} {lastName}</p>
         <p>Email: {userEmail}</p>
 <p>Billing Address:</p>
-<p>1111 sesame st</p>
-<p>atlanta, GA 30602</p>
+<p>{streetAddress}</p>
+<p>{city}, {state} {zipCode}</p>
         <Modal show={edit} onHide={hideEditView}>
         <Modal.Header >
           <Modal.Title>Edit Profile</Modal.Title>
@@ -183,22 +190,22 @@ function Profile() {
         <Modal.Body>
           <div className='inputReprise'>
         <label>First Name</label>
-    <input type="text"  onChange={(event) => {setNewFirstName(event.target.value)}}/>
+    <input type="text" placeholder = {firstName} onChange={(event) => {setNewFirstName(event.target.value)}}/>
     
     <label>Last Name</label>
-    <input type="text" onChange={(event) => {setNewLastName(event.target.value)}}/>
+    <input type="text" placeholder = {lastName} onChange={(event) => {setNewLastName(event.target.value)}}/>
 
     
     <label>Street Address</label>
-    <input type="text" onChange={(event) => {setNewStreetAddress(event.target.value)}}/>
+    <input type="text" placeholder = {streetAddress} onChange={(event) => {setNewStreetAddress(event.target.value)}}/>
     <label>City</label>
-    <input type="text" onChange={(event) => {setNewCity(event.target.value)}}/>
+    <input type="text" placeholder = {city} onChange={(event) => {setNewCity(event.target.value)}}/>
     
     <label>State</label>
-    <input type="text" onChange={(event) => {setNewState(event.target.value)}}/>
+    <input type="text"  placeholder = {state} onChange={(event) => {setNewState(event.target.value)}}/>
 
     <label>Zip Code</label>
-    <input type="text" onChange={(event) => {setNewZipCode(event.target.value)}}/>
+    <input type="text"  placeholder = {zipCode} onChange={(event) => {setNewZipCode(event.target.value)}}/>
     </div>
     <button className = "buttonReprise" variant="secondary" onClick={hideEditView}>
             Close
