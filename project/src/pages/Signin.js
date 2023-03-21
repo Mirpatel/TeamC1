@@ -7,6 +7,7 @@ import { useEffect } from "react";
 
 function Signin() {
     const [nameCon, setNameCon] = useState("");
+    const [promo, setPromo] = useState("");
     const [email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
     let navigate = useNavigate();
@@ -14,7 +15,7 @@ function Signin() {
     const [isAdmin, setIsAdmin] = useState(false);
    
     useEffect(()=> {
-   
+   console.log(promo);
         console.log(localStorage.getItem("token"));
         // localStorage.setItem("token", "beepboop");
            Axios.get('http://localhost:8080/api/auth/token', {
@@ -40,8 +41,9 @@ function Signin() {
     
     const submit = () => {
        console.log("pressed submit");
+       console.log(promo);
         Axios.post('http://localhost:8080',{
-           email: email, Password: Password}).then((response) => {
+           email: email, Password: Password, Promo: promo}).then((response) => {
             if (response.data.message) {
                 setLoginStatus(response.data.message)
             } else {
@@ -49,6 +51,7 @@ function Signin() {
 
 
             }
+          
             localStorage.setItem("token", response.data.accessToken);
             if (isAdmin) {
                 navigate('/admin')
@@ -58,7 +61,9 @@ function Signin() {
                }
 
            });
-         
+           if (!LoginStatus) {
+            alert("Incorrect username or password");
+          }
            
         };
         
@@ -73,7 +78,7 @@ return(
     <input type="Password" onChange={(event) => {setPassword(event.target.value)}}/>
     <div className='Checkbox'>
 <label for="promo">Remember me</label>
-<input type="checkbox" id="promo" name="promo" />
+<input type="checkbox" id="promo" name="promo" onChange={(event) => {setPromo(event.target.checked)}}/>
 </div>
     <a href={'./forgotPassword'}>Forgot Password</a> 
 
