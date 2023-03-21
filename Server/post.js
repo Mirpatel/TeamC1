@@ -65,49 +65,19 @@ db.query(
 */
 
 app.post('/send-profile-email', (req, res) => {
-  // const sgMail = require('@sendgrid/mail')
-  // sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-  // const msg = {
-  //   to: 'jordynfulbright@gmail.com', // Change to your recipient
-  //   from: 'dawgTheatre@gmail.com', // Change to your verified sender
-  //   subject: 'Profile Information Changed',
-  //   text: '',
-  //   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-  // }
-  // sgMail
-  //   .send(msg)
-  //   .then(() => {
-  //     console.log('Email sent')
-  //   })
-  //   .catch((error) => {
-  //     console.error(error)
-  //   })
 
-  // const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
-  // sendSmtpEmail.subject = "Profile Information Changed";
-  // sendSmtpEmail.htmlContent = "<p>Hello</p>";
-  // sendSmtpEmail.sender = {"name":"Sender Name","email":"dawgTheatre@gmail.com"};
-  // sendSmtpEmail.to = [{"email":"jordynfulbright@gmail.com"}];
-  // sendSmtpEmail.replyTo = {"email":"dawgTheatre@gmail.com"};
-  // sendSmtpEmail.headers = {"Some-Custom-Header":"unique-id-1234"};
-  // const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
-  // apiInstance.sendTransacEmail(sendSmtpEmail).then(function(data) {
-  //   console.log('API called successfully. Returned data: ' + JSON.stringify(data));
-  // }, function(error) {
-  //   console.error(error);
-  // });
-  
   defaultClient.basePath = 'https://api.sendinblue.com/v3';
 
 // Create an instance of the API class
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
-
+let email = req.body.email;
+let name = req.body.name;
 // Set email parameters
 const sendSmtpEmail = {
-  to: [{ email: 'jordynfulbright@gmail.com' }],
+  to: [{ email: email }],
   templateId: 1, 
   params: {
-    FIRSTNAME: 'John', //
+    FIRSTNAME: name, //
   },
 };
 
@@ -128,13 +98,14 @@ defaultClient.basePath = 'https://api.sendinblue.com/v3';
 
 // Create an instance of the API class
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
-
+let email = req.body.email;
+let name = req.body.name;
 // Set email parameters
 const sendSmtpEmail = {
-  to: [{ email: 'jordynfulbright@gmail.com' }],
+  to: [{ email: email }],
   templateId: 2, 
   params: {
-    FIRSTNAME: 'John',
+    FIRSTNAME: name,
     SMS: 'link here' //
   },
 };
@@ -156,13 +127,14 @@ app.post('/send-verify-email', (req, res) => {
   
   // Create an instance of the API class
   const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
-  
+  let email = req.body.email;
+  let name = req.body.name;
   // Set email parameters
   const sendSmtpEmail = {
-    to: [{ email: 'jordynfulbright@gmail.com' }],
+    to: [{ email: email }],
     templateId: 3, 
     params: {
-      FIRSTNAME: 'John',
+      FIRSTNAME: name,
       SMS: 'link here' //
     },
   };
@@ -180,34 +152,7 @@ app.post('/send-verify-email', (req, res) => {
   });
 
 app.post('/send-promotion-email', (req, res) => {
-  const sgMail = require('@sendgrid/mail')
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-  const msg = {
-    to: 'jordynfulbright@gmail.com', // Change to your recipient
-    from: 'dawgTheatre@gmail.com', // Change to your verified sender
-    subject: 'Sending with SendGrid is Fun',
-    text: 'and easy to do anywhere, even with Node.js',
-    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-  }
-  const msg2 = {
-    to: "jordynfulbright@gmail.com", 
-    from: "dawgTheatre@gmail.com",
-    subject: "Email Subject",
-    template_id: "d-7cbd16b9f52447ec8869009e2dcba6ec",
-    "personalizations": [{
-      "substitutions": {
-          "{first_name}": "jordyn",
-      }
-  }],
-  };
-  sgMail
-    .send(msg2)
-    .then(() => {
-      console.log('Email sent')
-    })
-    .catch((error) => {
-      console.error(error)
-    })
+
 
 });
 
