@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
-
+const bcrypt = require('bcrypt');
 app.use(cors());
 app.use(express.json());
 
@@ -36,32 +36,35 @@ db.query(
 );
 });
 */
+app.post("/", async (req, res) => {
+  
+  const email = req.body.email;
+  const Password = req.body.Password;
 
-app.post("/", (req, res) => {
-    const email = req.body.email;
-    const Password = req.body.Password;
-  
-  
-  
-    db.query(
-      "SELECT * FROM user WHERE email = ? AND password = ?",
-      [email, Password],
-      (err, result) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).send("An error occurred while processing your request.");
-        }
-  
-        if (result.length === 0) {
-          return res.status(401).send("Invalid email or password.");
-        }
-  
-        // If we reach here, it means that the email and password are valid
-        // You can redirect the user to the home page or return a success message
-        res.send("Login successful.");
+  db.query(
+    "SELECT * FROM user WHERE email = ? AND password = ?",
+    [email, Password],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("An error occurred while processing your request.");
       }
-    );
-  });
+
+      if (result.length === 0) {
+        return res.status(401).send("Invalid email or password.");
+      }
+
+      const user = result[0];
+      
+      if (user.role === 'admin') {
+        return res.send({ redirectTo: '/admin' });
+      } else {
+        return res.send({ redirectTo: '/' });
+      }
+    }
+  );
+});
+
   
 app.listen(5000, () => {
 console.log("running");
