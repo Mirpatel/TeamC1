@@ -3,7 +3,7 @@ const config = require("../config/auth.config.js");
 
 verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
-  console.log("veryfiy TOKEN");
+  console.log("verify TOKEN");
 
   if (!token) {
     console.log("no token");
@@ -15,9 +15,14 @@ verifyToken = (req, res, next) => {
       return res.status(401).send({ message: "Unauthorized!" });
     }
     req.email = decoded.id;
-    next();
+    // next();
   });
+  
+  res.send({email: req.email});
 };
+
+
+
 const authJwt = {
     verifyToken,
   };

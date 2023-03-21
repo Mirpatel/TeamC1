@@ -3,6 +3,7 @@ import { useState } from 'react';
 import {FaEdit} from 'react-icons/fa'
 import Modal from 'react-bootstrap/Modal'
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import Axios from 'axios';
 const cards = [
   {
@@ -52,7 +53,7 @@ function Profile() {
     const [pass, setPass] = useState(false);
     const [edit, setEdit] = useState(false);
     const [newCard, setNewCard] = useState(false);
-
+    const [userEmail, setUserEmail] = useState();
 
     const [newFirstName, setNewFirstName] = useState("");
     const [newLastName, setNewLastName] = useState("");
@@ -137,6 +138,30 @@ function Profile() {
         //api add card here
       }
     }
+
+
+
+    useEffect(()=> {
+           console.log(localStorage.getItem("token"));
+           // localStorage.setItem("token", "beepboop");
+              Axios.get('http://localhost:8080/api/auth/token', {
+            headers: {
+              'x-access-token': localStorage.getItem("token")
+            }
+          })
+          .then(function (response) {
+            console.log(response);
+            if (response.status === 200) {
+             
+              setUserEmail(response.data.email);
+             
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+           },[])
+
   return (
     <>
     <div className = "profile-container">
@@ -147,7 +172,7 @@ function Profile() {
 
    
         <p>Jordyn Fulbright</p>
-        <p>Email: jordynfulbright@gmail</p>
+        <p>Email: {userEmail}</p>
 <p>Billing Address:</p>
 <p>1111 sesame st</p>
 <p>atlanta, GA 30602</p>

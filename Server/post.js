@@ -165,51 +165,57 @@ app.post("/", (req, res) => {
     //putting this here to test token
 
     //gonna take away soon
-
+    var token = jwt.sign({ id: email }, config.secret, {
+      expiresIn: 86400 // 24 hours
+  });
+  res.send({
+    accessToken: token
+  });
 
 
     if (!email || !Password) {
       return res.status(400).send("Email and password are required.");
     }
   
-    db.query(
-      "SELECT * FROM user WHERE email = ? AND password = ?",
-      [email, Password],
-      (err, result) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).send("An error occurred while processing your request.");
-        }
+    // db.query(
+    //   "SELECT * FROM user WHERE email = ? AND password = ?",
+    //   [email, Password],
+    //   (err, result) => {
+    //     if (err) {
+    //       console.log(err);
+    //       return res.status(500).send("An error occurred while processing your request.");
+    //     }
   
-        if (result.length === 0) {
-          return res.status(401).send("Invalid email or password.");
-        }
+    //     if (result.length === 0) {
+    //       return res.status(401).send("Invalid email or password.");
+    //     }
 
-        if (promo) {
-        var token = jwt.sign({ id: email }, config.secret, {
-          expiresIn:  2592000 // 30 days
+    //     if (promo) {
+    //     var token = jwt.sign({ id: email }, config.secret, {
+    //       expiresIn:  2592000 // 30 days
           
-        });
-      }
-      else {
-        var token = jwt.sign({ id: email }, config.secret, {
-          expiresIn: 86400 // 24 hours
-      });
-    }
-        console.log("assigned token");
-        console.log(token);
-        // If we reach here, it means that the email and password are valid
-        // You can redirect the user to the home page or return a success message
-        res.header(
-          "Access-Control-Allow-Headers",
-          "x-access-token, Origin, Content-Type, Accept"
-        );
-        res.send("Login successful.", {
-          accessToken: token
-        });
-      }
-    );
-
+    //     });
+    //   }
+    //   else {
+    //     var token = jwt.sign({ id: email }, config.secret, {
+    //       expiresIn: 86400 // 24 hours
+    //   });
+    // }
+    //     console.log("assigned token");
+    //     console.log(token);
+    //     // If we reach here, it means that the email and password are valid
+    //     // You can redirect the user to the home page or return a success message
+    //     res.header(
+    //       "Access-Control-Allow-Headers",
+    //       "x-access-token, Origin, Content-Type, Accept"
+    //     );
+    //     res.send("Login successful.", {
+    //       accessToken: token
+    //     });
+    //   }
+    // );
+    //get rid of this too
+  
 
   });
   
