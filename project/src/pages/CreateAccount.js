@@ -73,7 +73,8 @@ return (
 <label for="promo">Sign up for Promotions?</label>
 <input type="checkbox" id="promo" name="promo" onChange={(event) => {setPromo(event.target.value)}}/>
 <br/>
-<p>Adress (optional):<br/></p>
+</div>
+<p>Address (optional):<br/></p>
 <label>Street Address</label>
 <input type="text" onChange={(event) => {setStreet(event.target.value)}}/>
 <label>City</label>
@@ -82,7 +83,8 @@ return (
 <input type="text" onChange={(event) => {setAdState(event.target.value)}}/>
 <label>Zip code</label>
 <input type="text" onChange={(event) => {setZip(event.target.value)}}/>
-</div>
+
+
 <button className = "buttonReprise" onClick={submit} >Submit</button>
 <p>Don't have a payment information added?
 </p>
