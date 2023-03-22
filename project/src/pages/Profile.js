@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal'
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import Axios from 'axios';
+
 const cards = [
   {
     last4: '4456'
@@ -52,7 +53,14 @@ function Profile() {
     const [promo, setPromo] = useState(false);
     const [pass, setPass] = useState(false);
     const [edit, setEdit] = useState(false);
-  
+      const [ccv, setCCv] = useState();
+      const [number, setNumber] = useState();
+      const [exp_date, setExp_date] = useState();
+      const [exp_year, setExp_year] = useState();
+      const [name, setName] = useState();
+
+
+
     const [userEmail, setUserEmail] = useState();
     const [fname, setFname] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -72,9 +80,6 @@ function Profile() {
     const [userData, setUserData] = useState([]);
 const [email, setEmail] = useState('');
 const [Password, setPassword] = useState('');
-const submit = () => {
- 
-};
 
 
 //
@@ -126,17 +131,26 @@ const submit = () => {
     const hideEditView = () => {
       setEdit(false);
     }
-
+ 
     const makeChanges = () => {
       setEdit(false);
-      Axios.post('http://localhost:8080/send-profile-email', {
+      //Axios.post('http://localhost:8080/send-profile-email', {
    
-        name: 'gord', email: 'jordynfulbright@gmail.com' });
+       // name: 'gord', email: 'jordynfulbright@gmail.com' });
       console.log("Profile Email sent");
- 
-    
+      Axios.post('http://localhost:3001/profile-edit', {
+           
+      email: email, newZipCode: newZipCode, newFirstName: newFirstName, newLastName: newLastName,newStreetAddress: newStreetAddress, newCity: newCity, newState: newState});
 
-  };
+     
+           
+          
+           
+          alert("profile updated!");
+        
+        };
+
+  
     
 
     const manageBilling = () => {
@@ -174,13 +188,13 @@ const submit = () => {
       }).then((response) => {
         console.log(response);
         setUserEmail(response.data[0].Email);
-        console.log(response.data[0].fname);
         setFirstName(response.data[0].fname);
         setLastName(response.data[0].lname);
         setStreetAddress(response.data[0].street);
         setCity(response.data[0].city);
         setState(response.data[0].adressState);
         setZipCode(response.data[0].zipCode);
+        setNewStreetAddress(streetAddress);
       });
            console.log(localStorage.getItem("token"));
            // localStorage.setItem("token", "beepboop");
@@ -202,7 +216,19 @@ const submit = () => {
             console.log(error);
           });
            },[])
+          
+           const submit = () => {
 
+            Axios.post('http://localhost:3050', {
+               
+               number: number, exp_date: exp_date,ccv: ccv, name: name, exp_year: exp_year});
+               
+              
+               
+                alert("Payment info added to your account");
+                
+            
+            };
   return (
     <>
     <div className = "profile-container">
@@ -244,6 +270,7 @@ const submit = () => {
     <button className = "buttonReprise" variant="secondary" onClick={hideEditView}>
             Close
           </button>
+
           <button className = "buttonReprise"  variant="primary" onClick={makeChanges}>
             Save Changes
           </button>

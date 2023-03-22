@@ -32,9 +32,40 @@ const db = mysql.createConnection({
     
 });
  
+/*
+ const [newFirstName, setNewFirstName] = useState("");
+    const [newLastName, setNewLastName] = useState("");
+    const [newStreetAddress, setNewStreetAddress] = useState(" ");
+    const [newCity, setNewCity] = useState(" ");
+    const [newState, setNewState] = useState(" ");
+    const [newZipCode, setNewZipCode] = useState(" ");
+*/
+
+app.post("/profile-edit", (req, res) => {
+const newFirstName = req.body.newFirstName;
+const newLastName = req.body.newLastName; // Use the hashed password
+const newStreetAddress = req.body.newStreetAddress;
+const newCity = req.body.newCity;
+const newState = req.body.newState;
+const newZipCode = req.body.newZipCode;
+const email = req.body.email;
+db.query(
+  "UPDATE user SET street = ?, city = ?, adressState = ?, zipCode = ?, fname = ?, lname = ? WHERE email = ?",
+    //"INSERT into user WHERE email = ? ( street, city, adressState, zipCode,  fname, lname, email, phone, Password) VALUES (?,?,?,?,?, ?, ?, ?, ?)",
+  [ newStreetAddress, newCity, newState, newZipCode, newFirstName,newLastName, email]
 
 
+    , (error, results) => {
+      if (error) {
+        console.error(error);
+      } else {
+        console.log('User profile updated successfully!');
+      }
+    
+    });
 
+});
+//
 app.post("/", async (req, res) =>{
     const salt = await bcrypt.genSalt(1);
     const hashedPassword = await bcrypt.hash(req.body.Password, salt); // Hash the password from the request body
@@ -54,7 +85,7 @@ const zipCode = req.body.zipCode;
 
 
 db.query(
-"INSERT INTO user ( street, city, adressState, zipCode,  fname, lname, email, phone, Password) VALUES (?,?,?,?,?, ?, ?, ?, ?)",
+"INSERT INTO  user ( street, city, adressState, zipCode,  fname, lname, email, phone, Password) VALUES (?,?,?,?,?, ?, ?, ?, ?)",
 [ street, city, adressState, zipCode, fname,lname, email, phone, Password]
 
 
