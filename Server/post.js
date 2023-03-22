@@ -66,21 +66,54 @@ db.query(
     // Retrieve the user's email address and timestamp from your database using the token
     // I don't know how to retrieve the user's email and timestamp from the database. Help Gigi / Mir!!!
     // Return an object with the email and timestamp values
+    db.query(
+      "SELECT * FROM user WHERE token = ?",
+    [token], (error, data) =>  {
+
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(data.email);
+        // res.send(fname);
+      }
+    }
+    );
+    const email = data.email;
+    const timestamp = data.timestamp;
+    //query here to get user email and timestamp with token
     return {
-      email: 'user@example.com',
-      timestamp: Date.now() + 3600000 // 1 hour from now
+      email: email,
+      timestamp: timestamp // 
     };
   }
   
   function updateUserPasswordInDatabase(email, password) {
     // Update the user's password in your database. I don't know how to do this, help  Gigi / Mir!!!
+    const hashedPassword = await bcrypt.hash(req.body.Password, salt); 
+    db.query(
+      "UPDATE user SET password = ? WHERE email = ?",
+    
+      [ hashedPassword, email]
+    
+    
+        , (error, results) => {
+          if (error) {
+            console.error(error);
+          } else {
+            console.log('User profile updated successfully!');
+          }
+        
+        });
+    //query database to use update function using email to get user.
   }
 
- app.post('/reset-password/:token', (req, res) => {
-    const { password } = req.body;
-    const { token } = req.params;
+ app.post('/reset-password/confirm', (req, res) => {
+    const { password } = req.body.password;
+    const { token } = req.body.token;
   
     // Retrieve the user's email address and timestamp from your database using the token
+
+
     const user = getUserFromDatabase(token);
     const { email, timestamp } = user;
   
@@ -126,6 +159,10 @@ app.post('/send-password-reset-email', (req, res) => {
 defaultClient.basePath = 'https://api.sendinblue.com/v3';
   const token = crypto.randomBytes(20).toString('hex');
   const timestamp = Date.now() + 3600000; // 1 hour from now
+
+  //add token and timestamp to database user
+
+
 // Create an instance of the API class
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 let email = req.body.email;
@@ -136,7 +173,7 @@ const sendSmtpEmail = {
   templateId: 2, 
   params: {
     FIRSTNAME: name,
-    SMS: 'http://localhost:3000/signin/${token}' //
+    SMS: 'http://localhost:3000/signin/?key='+token //
   },
 };
 
