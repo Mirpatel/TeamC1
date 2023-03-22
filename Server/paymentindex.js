@@ -18,6 +18,25 @@ const db = mysql.createConnection({
     
 });
 //
+
+app.delete("/payment/:id", (req, res) => { 
+  const id = req.params.id;
+
+  db.query(
+    "DELETE FROM payment WHERE id = ?",
+    [id], 
+    (error, result) => {
+      if (error) {
+        console.log(error);
+        res.status(500).send("Error deleting payment");
+      } else {
+        console.log("Payment deleted successfully");
+        res.status(200).send("Payment deleted successfully");
+      }
+    }
+  );
+});
+
 app.post("/payment", (req, res) => { 
     const id = req.body.id;
 console.log("mir");

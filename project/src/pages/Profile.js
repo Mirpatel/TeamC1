@@ -159,7 +159,15 @@ const [Password, setPassword] = useState('');
       setCard(true);
     }
     const deleteCard = () => {
-      // do delete api call here
+      axios.delete(`/payment/${id}`)
+      .then(response => {
+        console.log(response.data); // Success message
+        // Do something else here, like update state or show a success message
+      })
+      .catch(error => {
+        console.log(error); // Error message
+        // Handle the error here, like showing an error message to the user
+      });
     }
     
     const addingNewCard = () => {
@@ -365,8 +373,8 @@ const [Password, setPassword] = useState('');
 <tbody>
    { pay.map( (card, index)=>(  
    <tr key={index}>
-      <td >**** **** **** {card.last4}</td>
-      <button className="btn btn-danger" onClick={deleteCard(card)}>Delete</button>
+      <td >**** **** **** {card.number}</td>
+      <button className="btn btn-danger" onClick={deleteCard(card.id)}>Delete</button>
 
 
    </tr>
