@@ -17,7 +17,23 @@ const db = mysql.createConnection({
     database: 'card'
     
 });
-
+//
+app.post("/payment", (req, res) => { 
+    const id = req.body.id;
+console.log("mir");
+      db.query(
+        "SELECT * FROM payment WHERE userId = ?",
+      [id], (error, fname) =>  {
+  
+        if (error) {
+          console.log(error);
+        } else {
+          res.send(fname);
+        }
+      }
+      );
+    });
+    //
 app.post("/",  (req, res) =>{
    // const salt = await bcrypt.genSalt(20);
    // const hashedPassword = await bcrypt.hash(req.body.Password, salt); // Hash the password from the request body
@@ -28,12 +44,14 @@ const exp_date = req.body.exp_date;
 const ccv = req.body.ccv;
 const name = req.body.name;
 const exp_year = req.body.exp_year;
+const userId = req.body.userId;
+
 //const Password = hashedPassword; // Use the hashed password
 
 
 db.query(
-"INSERT INTO payment (number, exp_date, ccv, name, exp_year) VALUES (?,?,?,?,?)",
-[number,exp_date, ccv, name, exp_year]
+"INSERT INTO payment (number, exp_date, ccv, name, exp_year, userId) VALUES (?,?,?,?,? ,?)",
+[number,exp_date, ccv, name, exp_year, userId]
 
 
 

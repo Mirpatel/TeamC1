@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import Axios from 'axios';
 
+
 const cards = [
   {
     last4: '4456'
@@ -53,7 +54,7 @@ function Profile() {
     const [promo, setPromo] = useState(false);
     const [pass, setPass] = useState(false);
     const [edit, setEdit] = useState(false);
-      const [ccv, setCCv] = useState();
+      const [ccv, setCCV] = useState();
       const [number, setNumber] = useState();
       const [exp_date, setExp_date] = useState();
       const [exp_year, setExp_year] = useState();
@@ -76,6 +77,7 @@ function Profile() {
     const [newCity, setNewCity] = useState(" ");
     const [newState, setNewState] = useState(" ");
     const [newZipCode, setNewZipCode] = useState(" ");
+    const [id, setId] = useState();
     //
     const [userData, setUserData] = useState([]);
 const [email, setEmail] = useState('');
@@ -155,18 +157,31 @@ const [Password, setPassword] = useState('');
 
     const manageBilling = () => {
       setCard(true);
-    }
 
     const deleteCard = () => {
       // do delete api call here
     }
-
+    
     const addingNewCard = () => {
-      if (cards.length == 3) {
+      if (cards.length == 4) {
         alert("You may only have 3 cards on file at one time. To add a new card please delete an existing one.")
       }
       else {
-        //api add card here
+        Axios.post('http://localhost:3050', {
+           
+        number: number, exp_date: exp_date,ccv: ccv, name: name, exp_year: exp_year, userId:id});
+        
+       
+        
+         alert("Payment info added to your account");
+         
+     
+     
+
+
+
+
+
       }
     }
 
@@ -180,14 +195,16 @@ const [Password, setPassword] = useState('');
     const [state, setState] = useState("");
     const [zipCode, setZipCode] = useState("");
 */
-
+    const [pay, setPay] = useState(cards);
     useEffect(()=> {
-      console.log("pressed submit");
+      
       Axios.post('http://localhost:8080/profile', {
         email: 'spacex@gmail.com',
       }).then((response) => {
         console.log(response);
         setUserEmail(response.data[0].Email);
+        setId(response.data[0].Id);
+        console.log(response.data[0].Id);
         setFirstName(response.data[0].fname);
         setLastName(response.data[0].lname);
         setStreetAddress(response.data[0].street);
@@ -196,6 +213,17 @@ const [Password, setPassword] = useState('');
         setZipCode(response.data[0].zipCode);
         setNewStreetAddress(streetAddress);
       });
+      //
+      Axios.post('http://localhost:3050/payment', {
+        id: id,
+      }).then((response) => {
+        console.log("getpay");
+        console.log(response);
+      setPay(response.data);
+      });
+      
+      console.log("pressed submit");
+      
            console.log(localStorage.getItem("token"));
            // localStorage.setItem("token", "beepboop");
           Axios.get('http://localhost:8080/api/auth/token', {
@@ -221,7 +249,7 @@ const [Password, setPassword] = useState('');
 
             Axios.post('http://localhost:3050', {
                
-               number: number, exp_date: exp_date,ccv: ccv, name: name, exp_year: exp_year});
+               userId: id, number: number, exp_date: exp_date,ccv: ccv, name: name, exp_year: exp_year});
                
               
                
@@ -335,7 +363,7 @@ const [Password, setPassword] = useState('');
    </tr>
 </thead>
 <tbody>
-   { cards.map( (card, index)=>(  
+   { pay.map( (card, index)=>(  
    <tr key={index}>
       <td >**** **** **** {card.last4}</td>
       <button className="btn btn-danger" onClick={deleteCard(card)}>Delete</button>
@@ -359,15 +387,17 @@ const [Password, setPassword] = useState('');
   
      <form>
      <label for="nameoncard">Name on Card: </label>
-     <input type="text" id="nameoncard" name="nameoncard"></input> <br />
-     <label for="cardnumber">Card Number: </label>
-     <input type="text" id="cardnumber" name="cardnumber"></input> <br />
-   <label for="cvv">CVV: </label>
-     <input type="text" id="cvv" name="cvv"></input>
-    <label for="expmon">Exp Month: </label>
-   <input type="text" id="expmon" name="expmon"></input>
-    <label for="expyear">Exp Year: </label>
-    <input type="text" id="expyear" name="expyear"></input>
+                <input type="text" onChange={(event) => {setName(event.target.value)}}/>
+                <label for="cardnumber">Card Number: </label>
+                <input type="text" onChange={(event) => {setNumber(event.target.value)}}/>
+                 
+               
+                <label for="cvv">CVV: </label>
+                <input type="text" onChange={(event) => {setCCV(event.target.value)}}/>
+                <label for="expmon">Exp Month: </label>
+                <input type="text" onChange={(event) => {setExp_date(event.target.value)}}/>
+                <label for="expyear">Exp Year: </label>
+                <input type="text" onChange={(event) => {setExp_year(event.target.value)}}/>
   <br/>
   <br/>
      <button onClick = {addingNewCard}className='buttonReprise'>Add New Card</button>
