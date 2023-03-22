@@ -83,7 +83,6 @@ function Profile() {
 const [email, setEmail] = useState('');
 const [Password, setPassword] = useState('');
 
-
 //
    
     const [card, setCard] = useState(false);
@@ -140,10 +139,11 @@ const [Password, setPassword] = useState('');
    
        // name: 'gord', email: 'jordynfulbright@gmail.com' });
       console.log("Profile Email sent");
+      console.log(email);
       Axios.post('http://localhost:3001/profile-edit', {
            
-      email: email, newZipCode: newZipCode, newFirstName: newFirstName, newLastName: newLastName,newStreetAddress: newStreetAddress, newCity: newCity, newState: newState});
-
+      email: userEmail, newZipCode: newZipCode, newFirstName: newFirstName, newLastName: newLastName,newStreetAddress: newStreetAddress, newCity: newCity, newState: newState});
+      
      
            
           
@@ -159,7 +159,7 @@ const [Password, setPassword] = useState('');
       setCard(true);
     }
     const deleteCard = () => {
-      axios.delete(`/payment/${id}`)
+      Axios.delete(`/payment/${id}`)
       .then(response => {
         console.log(response.data); // Success message
         // Do something else here, like update state or show a success message
@@ -222,7 +222,9 @@ const [Password, setPassword] = useState('');
         setNewStreetAddress(streetAddress);
       });
       //
+      console.log(id);
       Axios.post('http://localhost:3050/payment', {
+
         id: id,
       }).then((response) => {
         console.log("getpay");
