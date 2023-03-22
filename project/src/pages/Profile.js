@@ -82,7 +82,7 @@ function Profile() {
     const [userData, setUserData] = useState([]);
 const [email, setEmail] = useState('');
 const [Password, setPassword] = useState('');
-
+setEmail('som');
 
 //
    
@@ -159,7 +159,7 @@ const [Password, setPassword] = useState('');
       setCard(true);
     }
     const deleteCard = () => {
-      axios.delete(`/payment/${id}`)
+      Axios.delete(`/payment/${id}`)
       .then(response => {
         console.log(response.data); // Success message
         // Do something else here, like update state or show a success message
