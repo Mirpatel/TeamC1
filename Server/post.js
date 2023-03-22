@@ -114,6 +114,36 @@ db.query(
 });
 */
 
+ function getUserFromDatabase(token) {
+    // Retrieve the user's email address and timestamp from your database using the token
+    // I don't know how to retrieve the user's email and timestamp from the database. Help Gigi / Mir!!!
+    // Return an object with the email and timestamp values
+    return {
+      email: 'user@example.com',
+      timestamp: Date.now() + 3600000 // 1 hour from now
+    };
+  }
+  
+  function updateUserPasswordInDatabase(email, password) {
+    // Update the user's password in your database. I don't know how to do this, help  Gigi / Mir!!!
+  }
+
+ app.post('/reset-password/:token', (req, res) => {
+    const { password } = req.body;
+    const { token } = req.params;
+  
+    // Retrieve the user's email address and timestamp from your database using the token
+    const user = getUserFromDatabase(token);
+    const { email, timestamp } = user;
+  
+    if (timestamp < Date.now()) {
+      res.status(400).send('Password reset link has expired');
+    } else {
+      // Update the user's password in your database
+      updateUserPasswordInDatabase(email, password);
+      res.send('Password reset successful');
+    }
+  });
 
 app.post('/send-profile-email', (req, res) => {
 
@@ -146,7 +176,8 @@ apiInstance.sendTransacEmail(sendSmtpEmail)
 
 app.post('/send-password-reset-email', (req, res) => {
 defaultClient.basePath = 'https://api.sendinblue.com/v3';
-
+  const token = crypto.randomBytes(20).toString('hex');
+  const timestamp = Date.now() + 3600000; // 1 hour from now
 // Create an instance of the API class
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 let email = req.body.email;
@@ -157,7 +188,7 @@ const sendSmtpEmail = {
   templateId: 2, 
   params: {
     FIRSTNAME: name,
-    SMS: 'link here' //
+    SMS: 'http://localhost:3000/signin/${token}' //
   },
 };
 
@@ -175,7 +206,8 @@ apiInstance.sendTransacEmail(sendSmtpEmail)
 
 app.post('/send-verify-email', (req, res) => {
   defaultClient.basePath = 'https://api.sendinblue.com/v3';
-  
+    const token = crypto.randomBytes(20).toString('hex');
+  const timestamp = Date.now() + 3600000; // 1 hour from now
   // Create an instance of the API class
   const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
   let email = req.body.email;
@@ -186,7 +218,7 @@ app.post('/send-verify-email', (req, res) => {
     templateId: 3, 
     params: {
       FIRSTNAME: name,
-      SMS: 'link here' //
+      SMS: 'http://localhost:3000/reset-password/${token}' //
     },
   };
   

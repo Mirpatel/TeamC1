@@ -7,16 +7,23 @@ import { MdEmail } from "react-icons/md";
 
 
 function ForgotPassword() {
-    const [nameCon, setNameCon] = useState("");
+    const [email, setEmail] = useState("");
     const [verify, setVerify] = useState(false);
     let navigate = useNavigate();
     
     const submit = () => {
-
-        setVerify(true);
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if ( !re.test(email) ) {
+            alert("Please enter a valid email address");
+         
+        }
+        else {
+            setVerify(true);
+        }
+       
         Axios.post('http://localhost:3001', {
            
-           name: nameCon}).then((response) => {
+           email: email}).then((response) => {
             if (response.data.message) {
                 
             } else {
@@ -37,7 +44,7 @@ function ForgotPassword() {
  
  
              }
- 
+             
             });
 
         };
@@ -48,10 +55,16 @@ return(
 <div id = "passwordEmail">
     <div className="input">
     <label>Enter your email address</label>
-    <input type="text" onChange={(event) => {setNameCon(event.target.value)}}/>
+    <input type="text" onChange={(event) => {setEmail(event.target.value)}}/>
     
 
     <button className = "button"onClick={submit}>Submit</button>
+    {verify && (
+    <div className = "container">
+        <p>Password reset email sent to <u>{email}</u> </p>
+    </div>
+
+    )}
 
 
     </div>
