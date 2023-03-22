@@ -31,9 +31,12 @@ const db = mysql.createConnection({
     database: 'group'
     
 });
+ 
+
+
 
 app.post("/", async (req, res) =>{
-    const salt = await bcrypt.genSalt(20);
+    const salt = await bcrypt.genSalt(1);
     const hashedPassword = await bcrypt.hash(req.body.Password, salt); // Hash the password from the request body
     console.log(req.body);
 const fname = req.body.fname;
@@ -43,13 +46,16 @@ const email = req.body.email;
 const phone = req.body.phone;
 //const Password = req.body.Password;
 const Password = hashedPassword; // Use the hashed password
-
+const street = req.body.street;
+const city = req.body.city;
+const adressState = req.body.adressState;
+const zipCode = req.body.zipCode;
 
 
 
 db.query(
-"INSERT INTO user (fname, lname, email, phone, Password) VALUES (?,?,?,?,?)",
-[fname,lname, email, phone, Password]
+"INSERT INTO user ( street, city, adressState, zipCode,  fname, lname, email, phone, Password) VALUES (?,?,?,?,?, ?, ?, ?, ?)",
+[ street, city, adressState, zipCode, fname,lname, email, phone, Password]
 
 
 

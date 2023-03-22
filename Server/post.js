@@ -1,4 +1,56 @@
+/*
+const express = require('express');
+const app = express();
+const mysql = require('mysql');
+const cors = require('cors');
+const bcrypt = require('bcrypt');
+app.use(cors());
+app.use(express.json());
 
+const db = mysql.createConnection({
+
+    user: 'root',
+    host: 'localhost',
+    password: '',
+    database: 'group'
+    
+});
+
+app.post("/", async (req, res) => {
+  
+  const email = req.body.email;
+  const Password = req.body.Password;
+  
+
+  db.query(
+    "SELECT * FROM user WHERE email = ? AND password = ?",
+    [email, Password],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("An error occurred while processing your request.");
+      }
+
+      if (result.length === 0) {
+        return res.status(401).send("Invalid email or password.");
+      }
+
+      const user = result[0];
+      
+      if (user.role === 'admin') {
+        return res.send({ redirectTo: '/admin' });
+      } else {
+        return res.send({ redirectTo: '/' });
+      }
+    }
+  );
+});
+
+  
+app.listen(8080, () => {
+console.log("running");
+});
+*/
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
@@ -10,6 +62,8 @@ var jwt = require("jsonwebtoken");
 const config = require("./config/auth.config");
 const fetch = require('node-fetch');
 const SibApiV3Sdk = require('sib-api-v3-sdk');
+const { PostContactInfo } = require('sib-api-v3-sdk');
+const { response } = require('express');
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKey = defaultClient.authentications['api-key'];
 
@@ -152,9 +206,25 @@ app.post('/send-promotion-email', (req, res) => {
 
 
 });
+//here
+app.post("/profile", (req, res) => { 
+  const email = req.body.email;
 
+    db.query(
+      "SELECT * FROM user WHERE email = ?",
+    [email], (error, fname) =>  {
 
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(email);
+        res.send(fname);
+      }
+    }
+    );
+  });
 
+  //
 app.post("/", (req, res) => {
     const email = req.body.email;
     const Password = req.body.Password;
@@ -169,6 +239,7 @@ app.post("/", (req, res) => {
       return res.status(400).send("Email and password are required.");
     }
   
+
     db.query(
       "SELECT * FROM user WHERE email = ? AND password = ?",
       [email, Password],
@@ -194,11 +265,14 @@ app.post("/", (req, res) => {
       });
     }
         const user = result[0];
-      
+      console.log(token);
       if (user.role === 'admin') {
-        return res.send({ redirectTo: '/admin' });
+        return res.send({ redirectTo: '/admin', accessToken: token
+      });
+
       } else {
-        return res.send({ redirectTo: '/' });
+        return res.send({ redirectTo: '/',  accessToken: token
+      });
       }
         console.log("assigned token");
         console.log(token);
@@ -209,7 +283,6 @@ app.post("/", (req, res) => {
           "x-access-token, Origin, Content-Type, Accept"
         );
         res.send("Login successful.", {
-          accessToken: token
         });
       }
     );

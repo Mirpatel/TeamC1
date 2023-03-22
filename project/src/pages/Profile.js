@@ -54,13 +54,13 @@ function Profile() {
     const [edit, setEdit] = useState(false);
   
     const [userEmail, setUserEmail] = useState();
-
-    const [firstName, setFirstName] = useState("John");
-    const [lastName, setLastName] = useState("Doe");
-    const [streetAddress, setStreetAddress] = useState("1111 sesame st");
-    const [city, setCity] = useState("Atlanta");
-    const [state, setState] = useState("GA");
-    const [zipCode, setZipCode] = useState("30605");
+    const [fname, setFname] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [streetAddress, setStreetAddress] = useState("  ");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [zipCode, setZipCode] = useState("");
     const [newCard, setNewCard] = useState(false);
     const [newFirstName, setNewFirstName] = useState("");
     const [newLastName, setNewLastName] = useState("");
@@ -68,7 +68,17 @@ function Profile() {
     const [newCity, setNewCity] = useState(" ");
     const [newState, setNewState] = useState(" ");
     const [newZipCode, setNewZipCode] = useState(" ");
+    //
+    const [userData, setUserData] = useState([]);
+const [email, setEmail] = useState('');
+const [Password, setPassword] = useState('');
+const submit = () => {
+ 
+};
 
+
+//
+   
     const [card, setCard] = useState(false);
     const promoHandler = () => {
         if (promo === false) {
@@ -146,12 +156,35 @@ function Profile() {
       }
     }
 
-
+/*
+   const [userEmail, setUserEmail] = useState();
+    const [fname, setFname] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [streetAddress, setStreetAddress] = useState("  ");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [zipCode, setZipCode] = useState("");
+*/
 
     useEffect(()=> {
+      console.log("pressed submit");
+      Axios.post('http://localhost:8080/profile', {
+        email: 'spacex@gmail.com',
+      }).then((response) => {
+        console.log(response);
+        setUserEmail(response.data[0].Email);
+        console.log(response.data[0].fname);
+        setFirstName(response.data[0].fname);
+        setLastName(response.data[0].lname);
+        setStreetAddress(response.data[0].street);
+        setCity(response.data[0].city);
+        setState(response.data[0].adressState);
+        setZipCode(response.data[0].zipCode);
+      });
            console.log(localStorage.getItem("token"));
            // localStorage.setItem("token", "beepboop");
-              Axios.get('http://localhost:8080/api/auth/token', {
+          Axios.get('http://localhost:8080/api/auth/token', {
             headers: {
               'x-access-token': localStorage.getItem("token")
             }
@@ -160,7 +193,8 @@ function Profile() {
             console.log(response);
             if (response.status === 200) {
              
-              setUserEmail(response.data.email);
+         
+
              
             }
           })
