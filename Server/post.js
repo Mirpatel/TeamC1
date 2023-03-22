@@ -93,6 +93,12 @@ apiInstance.sendTransacEmail(sendSmtpEmail)
 app.post('/send-password-reset-email', (req, res) => {
 defaultClient.basePath = 'https://api.sendinblue.com/v3';
 
+// make unique link and timestamp
+const token = crypto.randomBytes(20).toString('hex');
+const timestamp = Date.now() + 3600000; // 1 hour from now
+
+// STORE TOKEN / TIMESTAMP IN DATABASE HERE. Use db.Query maybe? Help!!!
+
 // Create an instance of the API class
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 let email = req.body.email;
@@ -103,7 +109,7 @@ const sendSmtpEmail = {
   templateId: 2, 
   params: {
     FIRSTNAME: name,
-    SMS: 'link here' //
+    SMS: 'http://localhost:3000/reset-password/${token}' //
   },
 };
 
@@ -122,6 +128,12 @@ apiInstance.sendTransacEmail(sendSmtpEmail)
 app.post('/send-verify-email', (req, res) => {
   defaultClient.basePath = 'https://api.sendinblue.com/v3';
   
+  // make unique link and timestamp
+  const token = crypto.randomBytes(20).toString('hex');
+  const timestamp = Date.now() + 3600000; // 1 hour from now
+
+  // STORE TOKEN / TIMESTAMP IN DATABASE HERE. Use db.Query maybe? Help!!!
+
   // Create an instance of the API class
   const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
   let email = req.body.email;
@@ -132,7 +144,7 @@ app.post('/send-verify-email', (req, res) => {
     templateId: 3, 
     params: {
       FIRSTNAME: name,
-      SMS: 'link here' //
+      SMS: 'http://localhost:3000/signin/${token}' //
     },
   };
   
@@ -153,7 +165,49 @@ app.post('/send-promotion-email', (req, res) => {
 
 });
 
+ app.post('/reset-password/:token', (req, res) => {
+    const { password } = req.body;
+    const { token } = req.params;
+  
+    // Retrieve the user's email address and timestamp from your database using the token
+    const user = getUserFromDatabase(token);
+    const { email, timestamp } = user;
+  
+    if (timestamp < Date.now()) {
+      res.status(400).send('Password reset link has expired');
+    } else {
+      // Update the user's password in your database
+      updateUserPasswordInDatabase(email, password);
+      res.send('Password reset successful');
+    }
+  });
 
+  // Function to get the user's email, timestamp, and serial key from the database.
+  function getUserFromDatabase(token) {
+    // Retrieve the user's email address and timestamp from your database using the token
+    // I don't know how to retrieve the user's email and timestamp from the database. Help Gigi / Mir!!!
+    // Return an object with the email and timestamp values
+    return {
+      email: 'user@example.com',
+      timestamp: Date.now() + 3600000 // 1 hour from now
+    };
+  }
+  
+  function updateUserPasswordInDatabase(email, password) {
+    // Update the user's password in your database. I don't know how to do this, help  Gigi / Mir!!!
+  }
+  
+  // Send email
+  apiInstance.sendTransacEmail(sendSmtpEmail)
+    .then((data) => {
+      console.log('API called successfully. Returned data: ', data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  
+  
+  });
 
 app.post("/", (req, res) => {
     const email = req.body.email;
