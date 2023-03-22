@@ -1,20 +1,14 @@
-
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
-
 const bcrypt = require('bcrypt');
-
 var jwt = require("jsonwebtoken");
 const config = require("./config/auth.config");
 const fetch = require('node-fetch');
 const SibApiV3Sdk = require('sib-api-v3-sdk');
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKey = defaultClient.authentications['api-key'];
-
-
-
 app.use((req, res, next) => {
   try {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -25,13 +19,10 @@ app.use((req, res, next) => {
     res.status(500).send('Internal server error');
   }
 });
-
 app.use(cors());
 app.use(express.json());
-
 require('./user.routes')(app);
 const db = mysql.createConnection({
-
     user: 'root',
     host: 'localhost',
     password: '',
@@ -59,12 +50,8 @@ db.query(
 );
 });
 */
-
-
 app.post('/send-profile-email', (req, res) => {
-
   defaultClient.basePath = 'https://api.sendinblue.com/v3';
-
 // Create an instance of the API class
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 let email = req.body.email;
@@ -77,7 +64,6 @@ const sendSmtpEmail = {
     FIRSTNAME: name, //
   },
 };
-
 // Send email
 apiInstance.sendTransacEmail(sendSmtpEmail)
   .then((data) => {
@@ -86,10 +72,7 @@ apiInstance.sendTransacEmail(sendSmtpEmail)
   .catch((error) => {
     console.error(error);
   });
-
-
 });
-
 app.post('/send-password-reset-email', (req, res) => {
 defaultClient.basePath = 'https://api.sendinblue.com/v3';
 
@@ -102,10 +85,7 @@ const timestamp = Date.now() + 3600000; // 1 hour from now
 // Create an instance of the API class
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 let email = req.body.email;
-let name = req.body.name;
-// Set email parameters
-const sendSmtpEmail = {
-  to: [{ email: email }],
+	@@ -103,7 +109,7 @@ const sendSmtpEmail = {
   templateId: 2, 
   params: {
     FIRSTNAME: name,
@@ -113,21 +93,10 @@ const sendSmtpEmail = {
   },
 };
 
-// Send email
-apiInstance.sendTransacEmail(sendSmtpEmail)
-  .then((data) => {
-    console.log('API called successfully. Returned data: ', data);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-
-
-});
-
+	@@ -122,6 +128,12 @@ apiInstance.sendTransacEmail(sendSmtpEmail)
 app.post('/send-verify-email', (req, res) => {
   defaultClient.basePath = 'https://api.sendinblue.com/v3';
-  
+
   // make unique link and timestamp
   const token = crypto.randomBytes(20).toString('hex');
   const timestamp = Date.now() + 3600000; // 1 hour from now
@@ -137,42 +106,26 @@ app.post('/send-verify-email', (req, res) => {
   // Create an instance of the API class
   const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
   let email = req.body.email;
-  let name = req.body.name;
-  // Set email parameters
-  const sendSmtpEmail = {
-    to: [{ email: email }],
+	@@ -132,7 +144,7 @@ app.post('/send-verify-email', (req, res) => {
     templateId: 3, 
     params: {
       FIRSTNAME: name,
       SMS: 'http://localhost:3000/signin/${token}' //
     },
   };
-  
-  // Send email
-  apiInstance.sendTransacEmail(sendSmtpEmail)
-    .then((data) => {
-      console.log('API called successfully. Returned data: ', data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  
-  
-  });
 
-app.post('/send-promotion-email', (req, res) => {
-
+	@@ -153,7 +165,49 @@ app.post('/send-promotion-email', (req, res) => {
 
 });
 
  app.post('/reset-password/:token', (req, res) => {
     const { password } = req.body;
     const { token } = req.params;
-  
+
     // Retrieve the user's email address and timestamp from your database using the token
     const user = getUserFromDatabase(token);
     const { email, timestamp } = user;
-  
+
     if (timestamp < Date.now()) {
       res.status(400).send('Password reset link has expired');
     } else {
@@ -192,11 +145,11 @@ app.post('/send-promotion-email', (req, res) => {
       timestamp: Date.now() + 3600000 // 1 hour from now
     };
   }
-  
+
   function updateUserPasswordInDatabase(email, password) {
     // Update the user's password in your database. I don't know how to do this, help  Gigi / Mir!!!
   }
-  
+
   // Send email
   apiInstance.sendTransacEmail(sendSmtpEmail)
     .then((data) => {
@@ -205,8 +158,8 @@ app.post('/send-promotion-email', (req, res) => {
     .catch((error) => {
       console.error(error);
     });
-  
-  
+
+
   });
 
 app.post("/", (req, res) => {
@@ -214,9 +167,7 @@ app.post("/", (req, res) => {
     const Password = req.body.Password;
     const promo = req.body.Promo;
     //putting this here to test token
-
     //gonna take away soon
-
     if (!email || !Password) {
       return res.status(400).send("Email and password are required.");
     }
@@ -233,7 +184,6 @@ app.post("/", (req, res) => {
         if (result.length === 0) {
           return res.status(401).send("Invalid email or password.");
         }
-
         if (promo) {
         var token = jwt.sign({ id: email }, config.secret, {
           expiresIn:  2592000 // 30 days
@@ -265,11 +215,7 @@ app.post("/", (req, res) => {
         });
       }
     );
- 
-  
-
   });
-
   
 app.listen(8080, () => {
 console.log("running on 8080");
