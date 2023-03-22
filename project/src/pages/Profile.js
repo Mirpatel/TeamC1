@@ -206,8 +206,50 @@ const [Password, setPassword] = useState('');
     const [pay, setPay] = useState(cards);
     useEffect(()=> {
       
+      Axios.get('http://localhost:8080/api/auth/token', {
+        headers: {
+          'x-access-token': localStorage.getItem("token")
+        }
+      })
+      .then(function (response) {
+        console.log(response);
+        if (response.status === 200) {
+         
+          setEmail(response.data.email);
+          console.log(response.data.email);
+          Axios.post('http://localhost:8080/profile', {
+            email: response.data.email,
+          }).then((response) => {
+            console.log(response);
+            setUserEmail(response.data[0].Email);
+            setId(response.data[0].Id);
+            console.log(response.data[0].Id);
+            setFirstName(response.data[0].fname);
+            setLastName(response.data[0].lname);
+            setStreetAddress(response.data[0].street);
+            setCity(response.data[0].city);
+            setState(response.data[0].adressState);
+            setZipCode(response.data[0].zipCode);
+            setNewStreetAddress(streetAddress);
+            Axios.post('http://localhost:3050/payment', {
+
+        id: response.data[0].Id,
+      }).then((response) => {
+        console.log("getpay");
+        console.log(response);
+      setPay(response.data);
+      });
+          });
+         
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      //
+      /*
       Axios.post('http://localhost:8080/profile', {
-        email: 'spacex@gmail.com',
+        email: email,
       }).then((response) => {
         console.log(response);
         setUserEmail(response.data[0].Email);
@@ -221,8 +263,10 @@ const [Password, setPassword] = useState('');
         setZipCode(response.data[0].zipCode);
         setNewStreetAddress(streetAddress);
       });
+      */
       //
       console.log(id);
+      /*
       Axios.post('http://localhost:3050/payment', {
 
         id: id,
@@ -231,28 +275,12 @@ const [Password, setPassword] = useState('');
         console.log(response);
       setPay(response.data);
       });
-      
+      */
       console.log("pressed submit");
       
            console.log(localStorage.getItem("token"));
            // localStorage.setItem("token", "beepboop");
-          Axios.get('http://localhost:8080/api/auth/token', {
-            headers: {
-              'x-access-token': localStorage.getItem("token")
-            }
-          })
-          .then(function (response) {
-            console.log(response);
-            if (response.status === 200) {
-             
-         
-
-             
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+          
            },[])
           
            const submit = () => {
