@@ -157,7 +157,7 @@ const [Password, setPassword] = useState('');
 
     const manageBilling = () => {
       setCard(true);
-
+    }
     const deleteCard = () => {
       // do delete api call here
     }
