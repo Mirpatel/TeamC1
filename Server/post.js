@@ -217,8 +217,6 @@ app.post("/", (req, res) => {
 
     //gonna take away soon
 
-
-
     if (!email || !Password) {
       return res.status(400).send("Email and password are required.");
     }
@@ -267,7 +265,8 @@ app.post("/", (req, res) => {
         });
       }
     );
-
+ 
+  
 
   });
 
