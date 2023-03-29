@@ -64,22 +64,15 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
-const movieDb = mysql.createConnection({
-  user: 'root',
+const db = mysql.createConnection({
   host: 'localhost',
-  password: '',
-  database: 'movierating'
-});
-
-const showDb = mysql.createConnection({
-  user: 'root',
-  host: 'localhost',
-  password: '',
-  database: 'show'
+  user: 'admin',
+  password: 'dawgtheater123',
+  port: '8001'
 });
 
 app.get('/', (req, res) => {
-  movieDb.query('SELECT id, Name FROM movie', (error, results) => {
+  db.query('SELECT id, Name FROM dawg.movie', (error, results) => {
     if (error) {
       console.log(error);
       res.status(500).send('Server error');
@@ -94,8 +87,8 @@ app.post("/", (req, res) => {
   const time = req.body.time;
   const selectedMovieId = req.body.selectedMovieId;
 
-  showDb.query(
-    "INSERT INTO date (time, mid) VALUES (?, ?)",
+  db.query(
+    "INSERT INTO dawg.date (time, mid) VALUES (?, ?)",
     [time, selectedMovieId],
     (error, results) => {
       if (error) {
@@ -108,15 +101,7 @@ app.post("/", (req, res) => {
   );
 });
 
-movieDb.connect((err) => {
-  if (err) throw err;
-  console.log('Connected to movie database!');
-});
 
-showDb.connect((err) => {
-  if (err) throw err;
-  console.log('Connected to show database!');
-});
 
 app.listen(4500, () => {
   console.log("running");

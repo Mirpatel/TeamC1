@@ -8,13 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-
-    user: 'root',
     host: 'localhost',
-    password: '',
-    database: 'movierating'
-    
-});
+    user: 'admin',
+    password: 'dawgtheater123',
+    port: '8001'
+  });
 
 app.post("/", (req, res) =>{
     console.log(req.body);
@@ -30,7 +28,7 @@ const genre  = req.body.genre;
 
 
 db.query(
-"INSERT INTO movie (name, date, trailer, description, url, Rating, genre) VALUES (?,?,?,?,?,?,?)",
+"INSERT INTO dawg.movie (name, date, trailer, description, url, Rating, genre) VALUES (?,?,?,?,?,?,?)",
 [name, date, trailer, description, url, Rating, genre]
 
 

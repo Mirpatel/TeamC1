@@ -10,12 +10,10 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-
-    user: 'root',
-    host: 'localhost',
-    password: '',
-    database: 'card'
-    
+  host: 'localhost',
+  user: 'admin',
+  password: 'dawgtheater123',
+  port: '8001'
 });
 //
 
@@ -23,7 +21,7 @@ app.delete("/payment/:id", (req, res) => {
   const id = req.params.id;
 
   db.query(
-    "DELETE FROM payment WHERE id = ?",
+    "DELETE FROM dawg.payment WHERE id = ?",
     [id], 
     (error, result) => {
       if (error) {
@@ -41,7 +39,7 @@ app.post("/payment", (req, res) => {
     const id = req.body.id;
 console.log("mir");
       db.query(
-        "SELECT * FROM payment WHERE userId = ?",
+        "SELECT * FROM dawg.payment WHERE userId = ?",
       [id], (error, fname) =>  {
   
         if (error) {
@@ -69,7 +67,7 @@ const userId = req.body.userId;
 
 
 db.query(
-"INSERT INTO payment (number, exp_date, ccv, name, exp_year, userId) VALUES (?,?,?,?,? ,?)",
+"INSERT INTO dawg.payment (number, exp_date, ccv, name, exp_year, userId) VALUES (?,?,?,?,? ,?)",
 [number,exp_date, ccv, name, exp_year, userId]
 
 

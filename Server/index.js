@@ -24,12 +24,10 @@ app.use(express.json());
 
 
 const db = mysql.createConnection({
-
-    user: 'root',
-    host: 'localhost',
-    password: '',
-    database: 'group'
-    
+  host: 'localhost',
+  user: 'admin',
+  password: 'dawgtheater123',
+  port: '8001'
 });
  
 /*
@@ -50,7 +48,7 @@ const newState = req.body.newState;
 const newZipCode = req.body.newZipCode;
 const email = req.body.email;
 db.query(
-  "UPDATE user SET street = ?, city = ?, adressState = ?, zipCode = ?, fname = ?, lname = ? WHERE email = ?",
+  "UPDATE dawg.user SET street = ?, city = ?, adressState = ?, zipCode = ?, fname = ?, lname = ? WHERE email = ?",
     //"INSERT into user WHERE email = ? ( street, city, adressState, zipCode,  fname, lname, email, phone, Password) VALUES (?,?,?,?,?, ?, ?, ?, ?)",
   [ newStreetAddress, newCity, newState, newZipCode, newFirstName,newLastName, email]
 
@@ -85,7 +83,7 @@ const zipCode = req.body.zipCode;
 
 
 db.query(
-"INSERT INTO  user ( street, city, adressState, zipCode,  fname, lname, email, phone, Password) VALUES (?,?,?,?,?, ?, ?, ?, ?)",
+"INSERT INTO  dawg.user ( street, city, adressState, zipCode,  fname, lname, email, phone, Password) VALUES (?,?,?,?,?, ?, ?, ?, ?)",
 [ street, city, adressState, zipCode, fname,lname, email, phone, Password]
 
 

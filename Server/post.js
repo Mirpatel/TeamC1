@@ -32,14 +32,14 @@ app.use(cors());
 app.use(express.json());
 
 require('./user.routes')(app);
-const db = mysql.createConnection({
+     // Create a new MySQL connection using the SSH tunnel
+     const db = mysql.createConnection({
+      host: 'localhost',
+      user: 'admin',
+      password: 'dawgtheater123',
+      port: '8001'
+    });
 
-    user: 'root',
-    host: 'localhost',
-    password: '',
-    database: 'group'
-    
-});
 /*
 app.post("/", (req, res) =>{
  console.log(req.body);
@@ -68,7 +68,7 @@ db.query(
     // Return an object with the email and timestamp values
     console.log(token);
     db.query(
-      "SELECT * FROM user WHERE token = ?",
+      "SELECT * FROM dawg.user WHERE token = ?",
     [token], (error, data) =>  {
 
       if (error) {
@@ -93,7 +93,7 @@ db.query(
     // Update the user's password in your database. I don't know how to do this, help  Gigi / Mir!!!
     const hashedPassword = bcrypt.hash(req.body.Password, salt); 
     db.query(
-      "UPDATE user SET password = ? WHERE email = ?",
+      "UPDATE dawg.user SET password = ? WHERE email = ?",
     
       [ hashedPassword, email]
     
@@ -165,7 +165,7 @@ defaultClient.basePath = 'https://api.sendinblue.com/v3';
   let email = req.body.email;
   //add token and timestamp to database user
   db.query(
-    "UPDATE user SET token = ? WHERE email = ?",
+    "UPDATE dawg.user SET token = ? WHERE email = ?",
       [ token, email], (error, fname) =>  {
     
           if (error) {
@@ -242,7 +242,7 @@ app.post("/profile", (req, res) => {
   const email = req.body.email;
 
     db.query(
-      "SELECT * FROM user WHERE email = ?",
+      "SELECT * FROM dawg.user WHERE email = ?",
     [email], (error, fname) =>  {
 
       if (error) {
@@ -274,7 +274,7 @@ app.post("/", (req, res) => {
   
 
     db.query(
-      "SELECT * FROM user WHERE email = ? AND password = ?",
+      "SELECT * FROM dawg.user WHERE email = ? AND password = ?",
       [email, Password],
       (err, result) => {
         if (err) {
