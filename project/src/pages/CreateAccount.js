@@ -3,6 +3,7 @@ import './style/home.css';
 import React from "react";
 import { useState} from "react";
 import Axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 function CreateAccount() {
 
 
@@ -19,7 +20,7 @@ const [adressState, setAdState] = useState("");
 const [zipCode, setZip] = useState("");
 
 const [promo, setPromo] = useState(false);
-
+const navigate = useNavigate();
 const submit = () => {
 console.log(promo);
 let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -38,7 +39,19 @@ Axios.post('http://localhost:3001', {
 
 street: street, city: city, adressState: adressState, zipCode: zipCode, fname: fname,  lname: lname, email: email, phone: phone, Password: Password, promo: promo});
 
+// Axios.post('http://localhost:8080/send-verify-email',{
+//         email: email, fname: fname}).then((response) => {
+     
+
+
+//         });
+
+navigate('/verifyEmail', { state: { from: email } });
+
 };
+
+
+
 }
 
 return (

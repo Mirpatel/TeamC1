@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
-
+const axios = require('axios');
 const bcrypt = require('bcrypt');
 
 
@@ -93,6 +93,12 @@ db.query(
   if (error) {
     console.log(error);
   } else {
+    axios.post('http://localhost:8080/send-verify-email',{
+      email: email, fname: fname}).then((response) => {
+   
+
+
+      });
     // res.send(fname);
   }
 }

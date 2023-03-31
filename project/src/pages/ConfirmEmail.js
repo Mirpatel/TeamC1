@@ -1,22 +1,27 @@
-/*import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import Axios from 'axios';
 function ConfirmEmail() {
   const navigate = useNavigate();
-
+const [verify, setVerify] = useState();
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const urlParams = new URLSearchParams(window.location.search);
+    const key = urlParams.get('key');
+    console.log(key);    
+    setVerify(key);
+    Axios.post('http://localhost:8080/verify-email/confirm', {token: key})
+    .then(response => {
+      // handle the response from the API
+      console.log(response.data);
+  navigate('/');
+    })
+    .catch(error => {
+      console.log(error);
+    });
 
-    if (!token) {
-      navigate("/signin");
-      return;
-    }
-
-    navigate("/");
-  }, [navigate]);
+  }, []);
 
   return <div>Confirmation page</div>;
 }
 
 export default ConfirmEmail;
-*/

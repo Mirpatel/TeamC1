@@ -15,7 +15,7 @@ const { response } = require('express');
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKey = defaultClient.authentications['api-key'];
 const crypto = require('crypto');
-apiKey.apiKey = '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';
+apiKey.apiKey = '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';
 
 app.use((req, res, next) => {
   try {
@@ -202,13 +202,27 @@ app.post('/send-verify-email', (req, res) => {
   const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
   let email = req.body.email;
   let name = req.body.name;
+
+  db.query(
+    "UPDATE dawg.user SET token = ?, timestamp = ? WHERE email = ?",
+      [ token, timestamp, email], (error, fname) =>  {
+    
+          if (error) {
+            console.log(error);
+          } else {
+            console.log(fname);
+          }
+        }
+    
+    
+    );
   // Set email parameters
   const sendSmtpEmail = {
     to: [{ email: email }],
     templateId: 3, 
     params: {
       FIRSTNAME: name,
-      SMS: 'http://localhost:3000/reset-password/${token}' //
+      SMS: 'http://localhost:3000/confirmEmail/?key='+token
     },
   };
   
@@ -223,6 +237,57 @@ app.post('/send-verify-email', (req, res) => {
   
   
   });
+
+//verify email confirm
+app.post('/verify-email/confirm', (req, res) => {
+  const  token  = req.body.token;
+console.log(token);
+console.log(req.body);
+
+
+db.query(
+"SELECT * FROM dawg.user WHERE token = ?",
+[token], (error, data) =>  {
+
+if (error) {
+  console.log(error);
+} else {
+const email = data[0].Email;
+  console.log("128" + data);
+//Date.now()
+  if (data[0].timestamp < Date.now()) {
+    res.status(400).send('Verify email link has expired');
+  } 
+  else {
+    
+  db.query(
+    "UPDATE dawg.user SET isVerified = ? WHERE email = ?",
+  
+    [ 1, email]
+  
+  
+      , (error, results) => {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log('Email verified!');
+        }
+      
+      });
+    res.send('Email verification successful');
+  }
+
+
+}
+}
+);
+
+  // console.log("line 127 " + user);
+
+});
+
+
+
 
 app.post('/send-promotion-email', (req, res) => {
   const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
