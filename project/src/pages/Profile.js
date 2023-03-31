@@ -231,6 +231,12 @@ const [Password, setPassword] = useState('');
             setState(response.data[0].adressState);
             setZipCode(response.data[0].zipCode);
             setNewStreetAddress(streetAddress);
+            
+            setNewCity(response.data[0].city)
+            setNewFirstName(response.data[0].fname)
+            setNewLastName(response.data[0].lname)
+            setNewState(response.data[0].adressState)
+            setNewZipCode(response.data[0].zipCode)
             Axios.post('http://localhost:3050/payment', {
 
         id: response.data[0].Id,
