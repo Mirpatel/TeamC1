@@ -21,6 +21,7 @@ const [zipCode, setZip] = useState("");
 const [promo, setPromo] = useState(false);
 
 const submit = () => {
+console.log(promo);
 let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 if (fname == "" || email == "" || phone == "" || Password == "" || lname == "") {
    alert("Please enter all required fields");
@@ -35,7 +36,7 @@ else {
 Axios.post('http://localhost:3001', {
    
 
-street: street, city: city, adressState: adressState, zipCode: zipCode, fname: fname,  lname: lname, email: email, phone: phone, Password: Password});
+street: street, city: city, adressState: adressState, zipCode: zipCode, fname: fname,  lname: lname, email: email, phone: phone, Password: Password, promo: promo});
 
 };
 }
@@ -62,7 +63,7 @@ return (
 <input type="Password" onChange={(event) => {setPassword(event.target.value)}} required/>
 <div className='Checkbox'>
 <label for="promo">Sign up for Promotions?</label>
-<input type="checkbox" id="promo" name="promo" onChange={(event) => {setPromo(event.target.value)}}/>
+<input type="checkbox" id="promo" name="promo" onChange={(event) => {setPromo(event.target.checked)}}/>
 </div>
 
 <br/>

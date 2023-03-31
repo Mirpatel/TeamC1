@@ -79,12 +79,23 @@ const street = req.body.street;
 const city = req.body.city;
 const adressState = req.body.adressState;
 const zipCode = req.body.zipCode;
-
-
+const promoBool = req.body.promo;
+console.log(promoBool);
+let promo = 0;
+if (promoBool === true) {
+  promo = 1;
+}
 
 db.query(
-"INSERT INTO  dawg.user ( street, city, adressState, zipCode,  fname, lname, email, phone, Password) VALUES (?,?,?,?,?, ?, ?, ?, ?)",
-[ street, city, adressState, zipCode, fname,lname, email, phone, Password]
+"INSERT INTO  dawg.user ( street, city, adressState, zipCode,  fname, lname, email, phone, Password, promo) VALUES (?,?,?,?,?, ?, ?, ?, ?, ?)",
+[ street, city, adressState, zipCode, fname,lname, email, phone, Password, promo], (error, data) =>  {
+
+  if (error) {
+    console.log(error);
+  } else {
+    // res.send(fname);
+  }
+}
 
 
 
@@ -97,7 +108,7 @@ db.query(
 
 
 app.listen(3001, () => {
-console.log("running");
+console.log("running on 3001");
 
 });
  

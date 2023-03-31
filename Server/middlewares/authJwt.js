@@ -15,10 +15,11 @@ verifyToken = (req, res, next) => {
       return res.status(401).send({ message: "Unauthorized!" });
     }
     req.email = decoded.id;
+    res.send({email: req.email});
     // next();
   });
-  
-  res.send({email: req.email});
+  console.log("issue here");
+ 
 };
 
 

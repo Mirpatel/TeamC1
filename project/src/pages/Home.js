@@ -89,7 +89,7 @@ function Home(props) {
   
   useEffect(() => {
      const fetchMovies = async () => {
-       const response = await fetch("http://localhost:8000");
+       const response = await fetch("http://localhost:3003");
        const data = await response.json();
        setFilteredData(data);
      };

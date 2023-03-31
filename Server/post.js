@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
-
+const axios = require('axios');
 const bcrypt = require('bcrypt');
 
 var jwt = require("jsonwebtoken");
@@ -15,7 +15,7 @@ const { response } = require('express');
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKey = defaultClient.authentications['api-key'];
 const crypto = require('crypto');
-apiKey.apiKey = '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';
+apiKey.apiKey = '';
 
 app.use((req, res, next) => {
   try {
@@ -234,10 +234,78 @@ app.post('/send-verify-email', (req, res) => {
   });
 
 app.post('/send-promotion-email', (req, res) => {
+  const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+  defaultClient.basePath = 'https://api.sendinblue.com/v3';
 
+  // Create an instance of the API class
+  let email = req.body.email;
+  let name = req.body.name;
+  let title = req.body.title;
+  let text = req.body.text;
+  // Set email parameters
+  const sendSmtpEmail = {
+    to: [{ email: email }],
+    templateId: 4, 
+    params: {
+      FIRSTNAME: name,
+      SMS: title,
+      LASTNAME: text //
+    },
+  };
+  
+  // Send email
+  apiInstance.sendTransacEmail(sendSmtpEmail)
+    .then((data) => {
+      console.log('API called successfully. Returned data: ', data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  
+  
 
 });
 //here
+
+
+app.post("/sendOutPromotion", (req, res) => { 
+  let title = req.body.title;
+  let text = req.body.text;
+
+    db.query(
+      "SELECT * FROM dawg.user WHERE promo = 1",
+   (error, fname) =>  {
+
+      if (error) {
+        console.log(error);
+      } else {
+        
+        res.send(fname);
+        console.log(fname);
+        console.log(fname.length);
+        for (i = 0; i < fname.length; i++) {
+          // console.log(fname[i]);
+          let name = fname[i].fname;
+          let email = fname[i].Email;
+          let data = {
+            email: email, name: name, title: title, text:text
+          }
+            axios.post('http://localhost:8080/send-promotion-email', data).then(response => {
+                // handle the response from the external API
+                res.json(response.data);
+              })
+              .catch(error => {
+                console.log(error);
+                res.status(500).json({ message: 'An error occurred' });
+              });
+         
+
+        }
+      }
+    }
+    );
+  });
+
 app.post("/profile", (req, res) => { 
   const email = req.body.email;
 
@@ -254,6 +322,45 @@ app.post("/profile", (req, res) => {
     }
     );
   });
+
+  app.post("/getPromos", (req, res) => { 
+
+  
+      db.query(
+        "SELECT * FROM dawg.promotion",
+       (error, fname) =>  {
+  
+        if (error) {
+          console.log(error);
+        } else {
+         
+          res.send(fname);
+        }
+      }
+      );
+    });
+
+  app.post("/addPromo", (req, res) => { 
+    const name = req.body.title;
+    const information = req.body.text;
+    const code = req.body.code;
+  
+    db.query(
+      "INSERT INTO dawg.promotion ( name, information, code) VALUES (?,?,?)",
+      [ name, information, code], (error, data) =>  {
+      
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(data);
+          // res.send(fname);
+        }
+      }
+      
+      
+      
+      );
+    });
 
   //
  
@@ -307,16 +414,7 @@ app.post("/", (req, res) => {
         return res.send({ redirectTo: '/',  accessToken: token
       });
       }
-        console.log("assigned token");
-        console.log(token);
-        // If we reach here, it means that the email and password are valid
-        // You can redirect the user to the home page or return a success message
-        res.header(
-          "Access-Control-Allow-Headers",
-          "x-access-token, Origin, Content-Type, Accept"
-        );
-        res.send("Login successful.", {
-        });
+
       }
     );
 
