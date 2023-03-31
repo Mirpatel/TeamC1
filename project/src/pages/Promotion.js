@@ -121,7 +121,7 @@ return (
       <td >{promo.code}</td>
 
       <td>
-      <Link to="/editPromo" className="btn btn-sucess">Edit</Link>
+      {/* <Link to="/editPromo" className="btn btn-sucess">Edit</Link> */}
       {/* <Link to="/Promotion" on onClick={deletePromo} className="btn btn-danger">Delete</Link> */}
 
       </td>
