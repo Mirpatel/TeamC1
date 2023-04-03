@@ -110,8 +110,47 @@ db.query(
 
 });
 
+app.post("/getMovies", (req, res) => {
+console.log("called get movies");
 
+  db.query(
+    "SELECT * FROM dawg.movie",
+  
+       (error, results) => {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log("something");
+          console.log(results);
+          res.send(results);
+          console.log('movies fetched!');
+        }
+      
+      });
+  
+  });
 
+  app.post("/get-movie-times", (req, res) => {
+    const id = req.body.mId;
+    console.log("called get movies");
+    
+      db.query(
+        "SELECT time,date FROM dawg.showtable WHERE mid_fk = ?",
+        [id],
+      
+           (error, results) => {
+            if (error) {
+              console.error(error);
+            } else {
+            
+              console.log(results);
+              res.send(results);
+              console.log('times fetched!');
+            }
+          
+          });
+      
+      });
 
 app.listen(3001, () => {
 console.log("running on 3001");

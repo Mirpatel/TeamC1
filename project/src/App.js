@@ -21,7 +21,7 @@ import EditPromo from './pages/EditPromo';
 import ForgotPassword from './pages/ForgotPassword';
 import './App.css';
 
-import Addshowtime from './Addshowtime';
+import Addshowtime from './pages/Addshowtime';
 
 
 import {

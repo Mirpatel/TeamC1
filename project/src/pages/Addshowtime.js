@@ -57,21 +57,41 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function Addshowtime() {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState();
   const [selectedMovieId, setSelectedMovieId] = useState(null);
   const [time, setTime] = useState(['']);
 
   useEffect(() => {
-    axios.get("http://localhost:4500")
-      .then((response) => setMovies(response.data.data))
+    axios.post("http://localhost:3001/getMovies")
+      .then((response) =>{ 
+         console.log(response.data);
+        setMovies(response.data)})
       .catch((error) => console.log(error));
+
+      console.log(movies);
   }, []);
 
   const handleMovieChange = (event) => {
     setSelectedMovieId(event.target.value);
+    console.log("movie changed");
+    console.log(selectedMovieId);
+
+
+    //call api to get movie times --
+    axios.post("http://localhost:3001/get-movie-times", {mId : event.target.value })
+    .then((response) =>{ 
+       console.log(response.data);
+      setTime(response.data)})
+    .catch((error) => console.log(error));
   };
 
   const handleShowtimeChange = (event, index) => {
+    const newTime = [...time];
+    newTime[index] = event.target.value;
+    setTime(newTime);
+  };
+
+  const handleShowDateChange = (event, index) => {
     const newTime = [...time];
     newTime[index] = event.target.value;
     setTime(newTime);
@@ -122,7 +142,12 @@ function Addshowtime() {
         <div key={index}>
           <input
             type="text"
-            value={time}
+            value={time.date}
+            onChange={(event) => handleShowDateChange(event, index)}
+          />
+          <input
+            type="text"
+            value={time.time}
             onChange={(event) => handleShowtimeChange(event, index)}
           />
           <button type="button" onClick={() => handleRemoveClick(index)}>Remove</button>
