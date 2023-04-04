@@ -309,7 +309,7 @@ const [Password, setPassword] = useState('');
     <div className = "profileShow">
     
     
-        <p>PROFILE</p>
+        <h3 className='mov'>PROFILE</h3>
       
         <div className = "infoHolder">
         <div className="pastOrders2">
