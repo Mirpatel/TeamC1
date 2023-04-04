@@ -21,12 +21,16 @@ function CheckOut() {
                 <div class="column">
                 <p className='categoryChex'>ADULT TICKETS</p>
                     <div className='line6'/>
+                    <p className='answerChex'>2</p>
                     <p className='categoryChex'>CHILD TICKETS</p>
                     <div className='line6'/>
+                    <p className='answerChex'>0</p>
                     <p className='categoryChex'>MOVIE</p>
                     <div className='line6'/>
+                    <p className='answerChex'>THE AVENGERS</p>
                     <p className='categoryChex'>DATE & TIME</p>
                     <div className='line6'/>
+                    <p className='answerChex'>APRIL 12 AT 10PM</p>
 
 
                 </div>
