@@ -1,10 +1,18 @@
+.signInContainer {
+  min-height: 540px;
+}
+
 .input {
     width: 400px;
     margin: 50px auto;
     padding: 20px;
-    background-color: #2D3639;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+    background: #DCD5CB;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.50);
+    font-family: 'Signika', sans-serif;
+    border-radius: 16px;
+    font-weight: 400;
+  
     text-align: center;
 
     color:white;
@@ -15,7 +23,7 @@
     text-align: left;
     font-weight: bold;
     margin-bottom: 5px;
-    color: white;
+    /* color: white; */
   }
   
   .input input[type="text"],
@@ -31,7 +39,7 @@
   
   .input input[type="submit"] {
     background-color: #4285f4;
-    color: #fff;
+    /* color: #fff; */
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
@@ -94,7 +102,7 @@
   }
 
   a {
-    color:white;
+    /* color:white; */
   }
 
   .row {
@@ -111,13 +119,24 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 
-    color:white;
+    /* color:white; */
   }
 
   .row {
     border-radius: 15px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    background-color: #2D3639;
-    padding:30px;
+    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    /* background-color: #2D3639; */
+    background: #DCD5CB;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.50);
+    font-family: 'Signika', sans-serif;
+    padding:20px;
   }
 
+
+  .line8 {
+    position: relative;
+    left: 110px;
+    width: 180px;
+    border: 0.5px solid #434169;
+    
+  }

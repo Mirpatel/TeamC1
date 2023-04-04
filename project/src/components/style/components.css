@@ -1,13 +1,17 @@
 .navBar {
     /* background-color: #E50914; */
-    background-image: linear-gradient(to right, #f07177 0%, #E50914 51%, #f07177 100%);
+    /* background-image: linear-gradient(to right, #f07177 0%, #E50914 51%, #f07177 100%); */
+   padding-top: 30px;
     color:white;
     height:80px;
     display: flex;
-    /* margin: auto; */
+    margin: auto;
     align-items: center;
-    background-size: 200% auto;
+justify-content:  center;
+padding:-20px;
     transition: 1.0s;
+    font-family: 'Signika', sans-serif;
+    filter: drop-shadow(4px 4px 4px rgba(252, 252, 252, 0.5));
 
 }
 
@@ -67,11 +71,54 @@ background-position: right center;
     margin-right: 20px;
 }
 
+.searchIcon {
+    font-size:30px;
+    text-decoration: none;
+   margin-top: -15px;
+    color:white;
+    margin-right: 20px;
+    left:40px;
+    position: absolute;
+    cursor:pointer;
+}
+
 .logo3 {
     /* margin:10px; */
-    font-size:20px;
+    /* font-size:20px; */
     text-decoration: none;
     color:white;
     align-self: center;
+    font-family: 'Signika';
+    font-style: bold;
+    font-weight: 300;
+    font-size: 32px;
+    /* line-height: 39px; */
+    text-align: center;
     
+    color: #FFFFFF;
+
+    text-shadow: 4px 4px 4px rgba(240, 233, 233, 0.853);
+}
+
+
+.logoBox {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.50);
+    text-shadow: 0px 4px 4px rgba(243, 236, 236, 0.5);;
+}
+
+.film {
+    text-shadow: 0px 4px 4px rgb(243, 236, 236);;
+    
+}
+
+.profileAndLogin {  
+     margin-top: -15px;
+    right:100px;
+    position: absolute;
+}
+
+.footerStyle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }

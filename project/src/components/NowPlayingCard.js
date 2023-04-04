@@ -1,4 +1,4 @@
-import './style/movieCard.css';
+import './style/nowPlayingCard.css';
 import { useState } from 'react';
 import { Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -28,7 +28,7 @@ YoutubeEmbed.propTypes = {
 };
 Modal.setAppElement('#root');
 //code for MovieCard
-const MovieCard = props  => {
+const NowPlayingCard = props  => {
     const [flip, setFlip] = useState(false);
 
     const handleClick = (event) => {
@@ -64,46 +64,49 @@ const MovieCard = props  => {
       
   return (
     <>
-    <div className = "card" onClick = {handleClickBack}>
+    <div className = "cardNowPlaying" onClick = {handleClickBack}>
 
-        
+       
         
         {!flip &&(
-          <>
-          <h4 className = "comingSoonTitle">{props.Name}</h4>
-        <img className = "imageComing" src= {props.Url} onClick = {handleClick}/>
-        </>
+            <div className = "frontCard">
+            <div className = "leftSide">
+            <p className = "movieTitle">{props.Name}</p>
+
+            <div className='genreBlock'>
+                <p className = "cate">Genre</p>
+                <p className = "ans">{props.genre}</p>
+                <div className = "line"></div>
+                <div className = "ratingBottom">
+                    <p className = "cate">Rating</p>
+                    <p className = "ans">{props.rating}</p>
+                </div>
+            </div>
+            </div>
+
+            <div>
+            <img className = "imageNow" src= {props.Url} onClick = {handleClick}/>
+            </div>
+            </div>
+      
+
         )}
         {flip &&(
             <>
-           
-              <div className = "flippedSide">
-              <p className = "comingSoonTitleBack">{props.Name}</p>
-                <div className = "genre">
-                  
-                <p className = "cate2">Genre</p>      
-                <p className='ans2'>{props.genre}</p>
+            <div className = "flippedSide">
+            <p className = "movieTitleNow">{props.Name}</p>
               
-          <div className = "line2"/>
-          <div className = "genreSpace">
-          <p className = "cate2">Rating</p>
-        
-          <p className='ans2'>{props.rating}</p>
-          </div>
-          <div className = "line2"/>
-            <div className='descriptionSpace'>
-
-                    <p className = "cate2">Description</p>
-          
-                    <p className='ans2'>{props.description}</p>
-
-              </div>
+            
+                <div className = "genreReprise">
+                <p className = "cate">Description</p>
+          <div className = "line3"/>
+                <p className='ans ratingBottom'>{props.description}</p>
                 </div>
-                <div className = "cardButtons">
-                    <Link to={{pathname :"/ShowTimes"}} state={{from: props.title}} className='buttonReprise2'>See Show Times</Link>
+                <div className =  "cardButtons">
+                  <Link to={{pathname :"/ShowTimes"}} state={{from: props.Name}} className='buttonReprise2'>See Show Times</Link>
 
-                   <button onClick={openModal} className="buttonReprise2">Watch Trailer</button>
-                </div>
+                  <button onClick={openModal} className="buttonReprise2">Watch Trailer</button>
+                  </div>
                   <Modal
                   isOpen={modalIsOpen}
                   onAfterOpen={afterOpenModal}
@@ -127,4 +130,4 @@ const MovieCard = props  => {
   );
 }
 
-export default MovieCard;
+export default NowPlayingCard;

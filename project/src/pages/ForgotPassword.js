@@ -52,21 +52,22 @@ function ForgotPassword() {
         
 
 return(
+    <div className="coverPage">
 <div id = "passwordEmail">
     <div className="input">
-    <label>Enter your email address</label>
+    <label className="purple">ENTER YOUR EMAIL ADDRESS</label>
     <input type="text" onChange={(event) => {setEmail(event.target.value)}}/>
     
 
-    <button className = "button"onClick={submit}>Submit</button>
+    <button className = "buttonReprise "onClick={submit}>Submit</button>
     {verify && (
     <div className = "container">
-        <p>Password reset email sent to <u>{email}</u> </p>
+        <p className="purple anon">Password reset email sent to <u>{email}</u> </p>
     </div>
 
     )}
 
-
+</div>
     </div>
     </div>
 //<h1> LoginStatus</h1>

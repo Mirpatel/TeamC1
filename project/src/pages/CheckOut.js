@@ -16,26 +16,39 @@ function CheckOut() {
 
     return (
         <div class="checkout">
+            <div class= "newCheckout">
             <div class ="row3">
                 <div class="column">
-                    <p>Adult Ticket x2 <br />The Avengers<br />9:00 p.m.</p>
+                <p className='categoryChex'>ADULT TICKETS</p>
+                    <div className='line6'/>
+                    <p className='answerChex'>2</p>
+                    <p className='categoryChex'>CHILD TICKETS</p>
+                    <div className='line6'/>
+                    <p className='answerChex'>0</p>
+                    <p className='categoryChex'>MOVIE</p>
+                    <div className='line6'/>
+                    <p className='answerChex'>THE AVENGERS</p>
+                    <p className='categoryChex'>DATE & TIME</p>
+                    <div className='line6'/>
+                    <p className='answerChex'>APRIL 12 AT 10PM</p>
+
+
                 </div>
-                <div class="column">
-                    <img src='https://flxt.tmsimg.com/assets/p8815512_p_v8_ax.jpg' alt="smth"></img>
-                </div>
-                <div class="column">
-                    <p>Subtotal: $30 <br />Sales Tax: ${salesTax} <br />Online fees: $3.00 <br />Total: ${totalSale}</p>
+    
+                <div class="backdropChex">
+                    <p className = "purple">SUBTOTAL: $30 <br />SALES TAX: ${salesTax} <br />ONLINE FEES: $3.00 <br />TOTAL: ${totalSale}</p>
                     <form onSubmit={handlePromo}>
-                        <label for="promocode">Promo Code: </label>
+                        <label for="promocode" className = "purple">PROMO CODE: </label>
                         <input type="text" id="promocode" name="promocode"></input>
-                        <input type="submit" value="Submit" className='buttonReprise'></input>
+                        <input type="submit" value="Submit" className='buttonReprise2'></input>
                     </form>
                 </div>
             </div>
             <br />
-            <Link className='buttonReprise'to={{pathname :"/Payment"}} state={{from: { total: {totalSale},
+            <Link className='buttonReprise2'to={{pathname :"/Payment"}} state={{from: { total: {totalSale},
         movie: {movie}, noAdultTickets: {noAdultTickets}, noChildTickets : {noChildTickets}}}} >Confirm</Link>
-            <button className='buttonReprise'>Cancel</button>
+            <button className='buttonReprise2'>Cancel</button>
+        </div>
         </div>
     );
 }

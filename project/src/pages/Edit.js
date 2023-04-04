@@ -34,26 +34,26 @@ Axios.post('http://localhost:3003', {
 return (
 
 <div className="input">
-<label>name</label>
+<label className= "purple">NAME</label>
 <input type="text" onChange={(event) => {setName(event.target.value)}}/>
-<label>Date of Release</label>
+<label className= "purple">DATE OF RELEASE</label>
 <input type="text" onChange={(event) => {setDate(event.target.value)}}/>
-<label>Trailer URL</label>
+<label className= "purple">TRAILER URL</label>
 <input type="text" onChange={(event) => {setTrailer(event.target.value)}}/>
-<label> Image URL</label>
+<label className= "purple"> IMAGE URL</label>
 <input type="text" onChange={(event) => {setUrl(event.target.value)}}/>
-<label>Description</label>
+<label className= "purple">DESCRIPTION</label>
 <input type="text" onChange={(event) => {setDescription(event.target.value)}}/>
 
-<label>Genre</label>
+<label className= "purple">GENRE</label>
 <input type="text" onChange={(event) => {setGenre(event.target.value)}}/>
-<label>Rating</label>
+<label className= "purple">RATING</label>
 <input type="text" onChange={(event) => {setRating(event.target.value)}}/>
-<label>MPAA Movie Rating</label>
+<label className= "purple">MPAA MOVIE RATING</label>
 <input type="text" onChange={(event) => {setMovieRating(event.target.value)}}/>
 <button className = "buttonReprise" onClick={submit}>Add Movie</button>
-<p>Click below to delete or update Movies</p>
-<a href={'./Search'}>Search for the Movie</a> 
+<p className= "anon purple">Click below to delete or update Movies</p>
+<a href={'./Search'} className= "anon purple">Search for the Movie</a> 
 
 </div>
  

@@ -59,26 +59,27 @@ function Signin() {
         };
         
 return(
-
+<div className = "signInContainer">
     <div className="input">
-    <label>Email</label>
+    <label className="purple">EMAIL</label>
     <input type="text" onChange={(event) => {setEmail(event.target.value)}}/>
     
-    <label>Password</label>
+    <label className="purple">PASSWORD</label>
     <input type="Password" onChange={(event) => {setPassword(event.target.value)}}/>
     <div className='Checkbox'>
-<label for="promo">Remember me</label>
+<label for="promo" className="purple" >REMEMBER ME</label>
 <input type="checkbox" id="promo" name="promo" onChange={(event) => {setPromo(event.target.checked)}}/>
 </div>
-    <a href={'./forgotPassword'}>Forgot Password</a> 
+    <a href={'./forgotPassword'} className = "purple anon">Forgot Password</a> 
 
     <br/>
 
-    <button className = "button"onClick={submit}>Submit</button>
+    <button className = "buttonReprise" onClick={submit}>Submit</button>
 
 
-        <p>Don't have an account?</p> 
-        <a href={'./createAccount'}>Create one!</a> 
+        <p className="purple anon">Don't have an account?</p> 
+        <a href={'./createAccount'} className="purple anon">Create one!</a> 
+    </div>
     </div>
 //<h1> LoginStatus</h1>
 //

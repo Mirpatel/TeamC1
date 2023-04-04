@@ -1,34 +1,105 @@
 .buttonShow {
-color:black;
-display: flex;
-float:left;
-flex-wrap: wrap;
+    width: 300px;
+    height: 180px;
+    margin: 20px;
+    background: #DCD5CB;
+    color:#434169;
+box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.50);
+font-family: 'Signika', sans-serif;
+border-radius: 16px;
+position: relative;
+align-self: center;
+/* float:left; */
 
+
+
+}
+
+.timesMapped {
+    display: flex;
+    flex-wrap: wrap;
+}
+.titleBox {
+    font-family: 'Signika', sans-serif;
+    font-weight: 300;
+font-size: 20px;
+text-transform: uppercase;
 }
 
 .times {
     margin:10px;
     cursor:pointer;
-    color:white;
+    color:#434169;
+    font-family: 'Anonymous Pro';
+    font-style: normal;
 }
 .tickets {
-    
+    width: 300px;
+    height: 130px;
+    margin: 20px;
+    background: #DCD5CB;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.50);
+    font-family: 'Signika', sans-serif;
+    border-radius: 16px;
+    position: relative;
+    align-self: center;
+
+   
 }
 
+.ticketsPt2 {
+    width: 300px;
+    height: 210px;
+    margin: 20px;
+    background: #DCD5CB;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.50);
+    font-family: 'Signika', sans-serif;
+    border-radius: 16px;
+    position: relative;
+    align-self: center;
+
+   
+}
+
+.ticketsPt3 {
+    width: 300px;
+    height: 410px;
+    margin: 20px;
+    background: #DCD5CB;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.50);
+    font-family: 'Signika', sans-serif;
+    border-radius: 16px;
+    position: relative;
+    align-self: center;
+
+   
+}
+
+
+.dateSelect {
+ padding-top: 20px;
+ color: #434169;
+ padding-bottom: 0;
+ /* margin-bottom: 0; */
+}
 .contains {
     display: flex;
     flex-direction: column;
     align-items: center;
     color:white;
-    background-color: #121212;
+    min-height: 600px;
+  
 }
 
 .seatsContainer {
-    height:250px;
+    height:256px;
     width:250px;
     border: 1px solid black;
     border-radius: 5px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);   
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); 
+    position:absolute;  
+    top:70px;
+    left:24px;
 }
 
 .seats {
@@ -57,13 +128,26 @@ cursor:pointer;
    }
 
    .end {
-    margin-top: 50px;
-    margin-bottom: 50px;
+   position: absolute;
+   bottom:10px;
+   left:95px;
+
    }
    #selected {
+    position:absolute;
     display: flex;
     float:left;
     flex-wrap: wrap;
+    top:330px;
+
+
+   }
+
+   .seatPt2 {
+    position:absolute;
+    top:330px;
+    left:125px;
+
 
    }
 
@@ -77,9 +161,9 @@ cursor:pointer;
    .noMore {
     opacity:0.6;
     background-color: black;
-    height:250px;
+    height:256px;
     width:250px;
-    margin-top: -288px;
+    margin-top: -300px;
    }
 
    .textNoMore {
@@ -91,10 +175,10 @@ cursor:pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     border-radius: 15px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    background-color: #2D3639;
+    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    /* background-color: #2D3639; */
     width:600px;
     padding:20px;
    }
@@ -108,3 +192,29 @@ cursor:pointer;
         
          
    }
+
+   .line4 {
+    position: absolute;
+    left: 60px;
+    width: 180px;
+    border: 0.5px solid #434169;
+    
+    }
+
+    .purple {
+        color: #434169;
+    }
+
+    .anon {
+        font-family: 'Anonymous Pro';
+        font-style: normal;
+    }
+
+
+   .line5 {
+    position: absolute;
+    left: -40px;
+    width: 120px;
+    border: 0.5px solid #434169;
+    
+    }

@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
-
+const axios = require('axios');
 const bcrypt = require('bcrypt');
 
 var jwt = require("jsonwebtoken");
@@ -15,7 +15,7 @@ const { response } = require('express');
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKey = defaultClient.authentications['api-key'];
 const crypto = require('crypto');
-apiKey.apiKey = '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';
+apiKey.apiKey = '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';
 
 app.use((req, res, next) => {
   try {
@@ -62,36 +62,34 @@ db.query(
 });
 */
 
- function getUserFromDatabase(token) {
-    // Retrieve the user's email address and timestamp from your database using the token
-    // I don't know how to retrieve the user's email and timestamp from the database. Help Gigi / Mir!!!
-    // Return an object with the email and timestamp values
-    console.log(token);
-    db.query(
-      "SELECT * FROM dawg.user WHERE token = ?",
-    [token], (error, data) =>  {
 
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(data);
-        console.log(data.email);
-        // res.send(fname);
-      }
-    }
-    );
-    const email = data.email;
-    const timestamp = data.timestamp;
-    //query here to get user email and timestamp with token
-    return {
-      email: email,
-      timestamp: timestamp // 
-    };
-  }
-  
-  function updateUserPasswordInDatabase(email, password) {
-    // Update the user's password in your database. I don't know how to do this, help  Gigi / Mir!!!
-    const hashedPassword = bcrypt.hash(req.body.Password, salt); 
+ app.post('/reset-password/confirm', (req, res) => {
+    const password  = req.body.password;
+    const  token  = req.body.token;
+  console.log(token);
+ console.log(req.body);
+
+
+ db.query(
+  "SELECT * FROM dawg.user WHERE token = ?",
+[token], (error, data) =>  {
+
+  if (error) {
+    console.log(error);
+  } else {
+const email = data[0].Email;
+    console.log("128" + data);
+//Date.now()
+console.log(Date.now());
+    if (data[0].timestamp < Date.now()) {
+      res.status(400).send('Password reset link has expired');
+    } 
+    else {
+      
+      // Update the user's password in your database
+      // const hashedPassword = bcrypt.hash(password, salt); 
+      console.log("line 138" + password);
+      const hashedPassword = password;
     db.query(
       "UPDATE dawg.user SET password = ? WHERE email = ?",
     
@@ -106,28 +104,19 @@ db.query(
           }
         
         });
-    //query database to use update function using email to get user.
-  }
-
- app.post('/reset-password/confirm', (req, res) => {
-    const { password } = req.body.password;
-    const  token  = req.body.token;
-  console.log(token);
- console.log(req.body);
-    // Retrieve the user's email address and timestamp from your database using the token
-
-
-    const user = getUserFromDatabase(token);
-    const { email, timestamp } = user;
-    console.log(user);
-    if (timestamp < Date.now()) {
-      res.status(400).send('Password reset link has expired');
-    } else {
-      // Update the user's password in your database
-      updateUserPasswordInDatabase(email, password);
       res.send('Password reset successful');
     }
+ 
+
+  }
+}
+);
+
+    // console.log("line 127 " + user);
+ 
   });
+
+
 
 app.post('/send-profile-email', (req, res) => {
 
@@ -161,12 +150,14 @@ apiInstance.sendTransacEmail(sendSmtpEmail)
 app.post('/send-password-reset-email', (req, res) => {
 defaultClient.basePath = 'https://api.sendinblue.com/v3';
   const token = crypto.randomBytes(20).toString('hex');
+  
   const timestamp = Date.now() + 3600000; // 1 hour from now
+  console.log(timestamp);
   let email = req.body.email;
   //add token and timestamp to database user
   db.query(
-    "UPDATE dawg.user SET token = ? WHERE email = ?",
-      [ token, email], (error, fname) =>  {
+    "UPDATE dawg.user SET token = ?, timestamp = ? WHERE email = ?",
+      [ token, timestamp, email], (error, fname) =>  {
     
           if (error) {
             console.log(error);
@@ -211,13 +202,27 @@ app.post('/send-verify-email', (req, res) => {
   const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
   let email = req.body.email;
   let name = req.body.name;
+
+  db.query(
+    "UPDATE dawg.user SET token = ?, timestamp = ? WHERE email = ?",
+      [ token, timestamp, email], (error, fname) =>  {
+    
+          if (error) {
+            console.log(error);
+          } else {
+            console.log(fname);
+          }
+        }
+    
+    
+    );
   // Set email parameters
   const sendSmtpEmail = {
     to: [{ email: email }],
     templateId: 3, 
     params: {
       FIRSTNAME: name,
-      SMS: 'http://localhost:3000/reset-password/${token}' //
+      SMS: 'http://localhost:3000/confirmEmail/?key='+token
     },
   };
   
@@ -233,11 +238,130 @@ app.post('/send-verify-email', (req, res) => {
   
   });
 
-app.post('/send-promotion-email', (req, res) => {
+//verify email confirm
+app.post('/verify-email/confirm', (req, res) => {
+  const  token  = req.body.token;
+console.log(token);
+console.log(req.body);
 
+
+db.query(
+"SELECT * FROM dawg.user WHERE token = ?",
+[token], (error, data) =>  {
+
+if (error) {
+  console.log(error);
+} else {
+const email = data[0].Email;
+  console.log("128" + data);
+//Date.now()
+  if (data[0].timestamp < Date.now()) {
+    res.status(400).send('Verify email link has expired');
+  } 
+  else {
+    
+  db.query(
+    "UPDATE dawg.user SET isVerified = ? WHERE email = ?",
+  
+    [ 1, email]
+  
+  
+      , (error, results) => {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log('Email verified!');
+        }
+      
+      });
+    res.send('Email verification successful');
+  }
+
+
+}
+}
+);
+
+  // console.log("line 127 " + user);
+
+});
+
+
+
+
+app.post('/send-promotion-email', (req, res) => {
+  const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+  defaultClient.basePath = 'https://api.sendinblue.com/v3';
+
+  // Create an instance of the API class
+  let email = req.body.email;
+  let name = req.body.name;
+  let title = req.body.title;
+  let text = req.body.text;
+  // Set email parameters
+  const sendSmtpEmail = {
+    to: [{ email: email }],
+    templateId: 4, 
+    params: {
+      FIRSTNAME: name,
+      SMS: title,
+      LASTNAME: text //
+    },
+  };
+  
+  // Send email
+  apiInstance.sendTransacEmail(sendSmtpEmail)
+    .then((data) => {
+      console.log('API called successfully. Returned data: ', data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  
+  
 
 });
 //here
+
+
+app.post("/sendOutPromotion", (req, res) => { 
+  let title = req.body.title;
+  let text = req.body.text;
+
+    db.query(
+      "SELECT * FROM dawg.user WHERE promo = 1",
+   (error, fname) =>  {
+
+      if (error) {
+        console.log(error);
+      } else {
+        
+        res.send(fname);
+        console.log(fname);
+        console.log(fname.length);
+        for (i = 0; i < fname.length; i++) {
+          // console.log(fname[i]);
+          let name = fname[i].fname;
+          let email = fname[i].Email;
+          let data = {
+            email: email, name: name, title: title, text:text
+          }
+            axios.post('http://localhost:8080/send-promotion-email', data).then(response => {
+                // handle the response from the external API
+                res.json(response.data);
+              })
+              .catch(error => {
+                console.log(error);
+                res.status(500).json({ message: 'An error occurred' });
+              });
+         
+
+        }
+      }
+    }
+    );
+  });
+
 app.post("/profile", (req, res) => { 
   const email = req.body.email;
 
@@ -254,6 +378,45 @@ app.post("/profile", (req, res) => {
     }
     );
   });
+
+  app.post("/getPromos", (req, res) => { 
+
+  
+      db.query(
+        "SELECT * FROM dawg.promotion",
+       (error, fname) =>  {
+  
+        if (error) {
+          console.log(error);
+        } else {
+         
+          res.send(fname);
+        }
+      }
+      );
+    });
+
+  app.post("/addPromo", (req, res) => { 
+    const name = req.body.title;
+    const information = req.body.text;
+    const code = req.body.code;
+  
+    db.query(
+      "INSERT INTO dawg.promotion ( name, information, code) VALUES (?,?,?)",
+      [ name, information, code], (error, data) =>  {
+      
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(data);
+          // res.send(fname);
+        }
+      }
+      
+      
+      
+      );
+    });
 
   //
  
@@ -307,16 +470,7 @@ app.post("/", (req, res) => {
         return res.send({ redirectTo: '/',  accessToken: token
       });
       }
-        console.log("assigned token");
-        console.log(token);
-        // If we reach here, it means that the email and password are valid
-        // You can redirect the user to the home page or return a success message
-        res.header(
-          "Access-Control-Allow-Headers",
-          "x-access-token, Origin, Content-Type, Accept"
-        );
-        res.send("Login successful.", {
-        });
+
       }
     );
 

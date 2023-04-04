@@ -5,13 +5,14 @@ import React, { useState} from 'react';
 import MovieCard from '../components/MovieCard';
 import Layout from '../components/Layout';
 import {FaSearch} from 'react-icons/fa';
+import NowPlayingLayout from '../components/NowPlayingLayout';
 
 const MOVIES = [
 
   {
-    title: 'The Avengers',
+    Name: 'The Avengers',
     description: 'A movie that shows some super heros doing some stuff',
-    imageUrl:
+    Url:
       'https://flxt.tmsimg.com/assets/p8815512_p_v8_ax.jpg',
     rating: "5/5",
     trailer: 'eOrNdBpGMv8 ',
@@ -19,9 +20,9 @@ const MOVIES = [
   
   },
   {
-    title: 'The Texas Chainsaw Massacre',
+    Name: 'The Texas Chainsaw Massacre',
     description: 'Great film',
-    imageUrl:
+    Url:
       'https://parade.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_1240/MTkwNTgxMjk3MDYzNTM1NzQx/the-texas-chain-saw-massacre.webp',
       rating: "2/5",
       trailer: '-e3sv1NzrCA',
@@ -29,15 +30,15 @@ const MOVIES = [
      
   },
   {
-    title: 'Parasite',
+    Name: 'Parasite',
     description: 'scury film',
-    imageUrl: 'https://parade.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_750/MTkwNTgxMjk2NzkxODg5MDIx/parasite2.webp',
+    Url: 'https://parade.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_750/MTkwNTgxMjk2NzkxODg5MDIx/parasite2.webp',
     rating: "4/5",
     trailer: 'SEUXfv87Wpk ',
     genre: "Suspense",
   },
   {
-    title: 'The Little Mermaid',
+    Name: 'The Little Mermaid',
     description: 'good movie',
     imageUrl: 'https://parade.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_1000/MTkwNTgxMjk3MDY1NTY3MzU3/usa-the-little-mermaid---in-studio-preview.webp',
     rating: "3/5",
@@ -46,7 +47,7 @@ const MOVIES = [
   },
 
   {
-    title: 'The Avengers',
+    Name: 'The Avengers',
     description: 'A movie that shows some super heros doing some stuff',
     imageUrl:
       'https://flxt.tmsimg.com/assets/p8815512_p_v8_ax.jpg',
@@ -55,7 +56,7 @@ const MOVIES = [
   
   },
   {
-    title: 'The Texas Chainsaw Massacre',
+    Name: 'The Texas Chainsaw Massacre',
     description: 'Great film',
     imageUrl:
       'https://parade.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_1240/MTkwNTgxMjk3MDYzNTM1NzQx/the-texas-chain-saw-massacre.webp',
@@ -81,21 +82,26 @@ const MOVIES = [
 
 ];
 
-function Home(props) {
+function Home({showSearch}) {
+
+
 
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState(MOVIES);
   
   useEffect(() => {
+    // setShowSearch(displaySearch);
+    //   console.log(displaySearch);
+      console.log(showSearch);
      const fetchMovies = async () => {
-       const response = await fetch("http://localhost:8000");
+       const response = await fetch("http://localhost:3003");
        const data = await response.json();
        setFilteredData(data);
      };
 
      fetchMovies();
-  }, []);
+  },  [showSearch]);
 const search = (event) => {
   const query = event.target.value;
   setSearchQuery(query);
@@ -139,16 +145,23 @@ const search = (event) => {
   
     
     <>
-      <h1 className = "mov">Movies</h1>
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={search}
-        placeholder="Search..."
-      />
-      <button onClick = {search}><FaSearch/></button>
-      <br/>
-      <Layout items={filteredData}/>
+      <h3 className = "mov">NOW PLAYING</h3>
+      {showSearch && (
+        <>
+            <input
+            type="text"
+            value={searchQuery}
+            onChange={search}
+            placeholder="Search..."
+          />
+          <button onClick = {search}><FaSearch/></button>
+          </>
+      )}
+
+
+      <NowPlayingLayout items={MOVIES}/>
+      <h3 className = "mov">COMING SOON</h3>
+      <Layout items={MOVIES}/>
     </>
     
   );

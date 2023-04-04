@@ -1,5 +1,7 @@
 .mov {
     color:white;
+    margin-top:10px;
+    margin-bottom: 0;
 }
 
 
@@ -23,4 +25,15 @@
     position: relative;
     right: 65px;
     top:20px;
+}
+
+.reqPass2 {
+    font-size: x-small;
+    position: relative;
+    right: 60px;
+    top:20px;
+}
+
+.coverPage {
+    min-height: 540px;
 }

@@ -3,6 +3,7 @@ import './style/home.css';
 import React from "react";
 import { useState} from "react";
 import Axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 function CreateAccount() {
 
 
@@ -19,8 +20,9 @@ const [adressState, setAdState] = useState("");
 const [zipCode, setZip] = useState("");
 
 const [promo, setPromo] = useState(false);
-
+const navigate = useNavigate();
 const submit = () => {
+console.log(promo);
 let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 if (fname == "" || email == "" || phone == "" || Password == "" || lname == "") {
    alert("Please enter all required fields");
@@ -35,50 +37,63 @@ else {
 Axios.post('http://localhost:3001', {
    
 
-street: street, city: city, adressState: adressState, zipCode: zipCode, fname: fname,  lname: lname, email: email, phone: phone, Password: Password});
+street: street, city: city, adressState: adressState, zipCode: zipCode, fname: fname,  lname: lname, email: email, phone: phone, Password: Password, promo: promo});
+
+// Axios.post('http://localhost:8080/send-verify-email',{
+//         email: email, fname: fname}).then((response) => {
+     
+
+
+//         });
+
+navigate('/verifyEmail', { state: { from: email } });
 
 };
+
+
+
 }
 
 return (
 
 <div className="input">
 
-<p className = "req">*This field is required</p>
-<label>First name</label>
+<p className = "reqPass2 purple" >*This field is required</p>
+<label className='purple'>FIRST NAME</label>
 <input type="text" onChange={(event) => {setfName(event.target.value)}}/>
-<p className = "req">*This field is required</p>
-<label> Last name</label>
+<p className = "reqPass2 purple">*This field is required</p>
+<label className='purple'> LAST NAME</label>
 <input type="text" onChange={(event) => {setlName(event.target.value)}}/>
 
 
-<label>email</label>
+<label className='purple'>EMAIL</label>
 <input type="text" onChange={(event) => {setEmail(event.target.value)}} required/>
-<p className = "req">*This field is required</p>
-<label>phone</label>
+<p className = "req purple">*This field is required</p>
+<label className='purple'>PHONE</label>
 <input type="text" onChange={(event) => {setPhone(event.target.value)}} required/>
-<p className = "reqPass">*This field is required</p>
-<label>Password</label>
+<p className = "reqPass purple">*This field is required</p>
+<label className='purple'>PASSWORD</label>
 <input type="Password" onChange={(event) => {setPassword(event.target.value)}} required/>
 <div className='Checkbox'>
-<label for="promo">Sign up for Promotions?</label>
-<input type="checkbox" id="promo" name="promo" onChange={(event) => {setPromo(event.target.value)}}/>
+<label for="promo" className='purple'>SIGN UP FOR PROMOTIONS?</label>
+<input type="checkbox" id="promo" name="promo" onChange={(event) => {setPromo(event.target.checked)}}/>
 </div>
 
 <br/>
-<p>Adress (optional):<br/></p>
-<label>Street Address</label>
+<p className='purple'>ADDRESS<br/></p>
+<div className='line8'/>
+<label className='purple'>STREET ADDRESS</label>
 <input type="text" onChange={(event) => {setStreet(event.target.value)}}/>
-<label>City</label>
+<label className='purple'>CITY</label>
 <input type="text" onChange={(event) => {setCity(event.target.value)}}/>
-<label>State</label>
+<label className='purple'>STATE</label>
 <input type="text" onChange={(event) => {setAdState(event.target.value)}}/>
-<label>Zip code</label>
+<label className='purple'>ZIP CODE</label>
 <input type="text" onChange={(event) => {setZip(event.target.value)}}/>
 <button className = "buttonReprise" onClick={submit} >Submit</button>
-<p>Don't have a payment information added?
+<p className='purple anon'>Don't have a payment information added?
 </p>
-<a href={'./Addpay'}>Add Payment</a> 
+<a href={'./Addpay'} className='purple anon'>Add Payment</a> 
 
 </div>
  

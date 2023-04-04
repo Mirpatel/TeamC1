@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
-
+const axios = require('axios');
 const bcrypt = require('bcrypt');
 
 
@@ -79,12 +79,29 @@ const street = req.body.street;
 const city = req.body.city;
 const adressState = req.body.adressState;
 const zipCode = req.body.zipCode;
-
-
+const promoBool = req.body.promo;
+console.log(promoBool);
+let promo = 0;
+if (promoBool === true) {
+  promo = 1;
+}
 
 db.query(
-"INSERT INTO  dawg.user ( street, city, adressState, zipCode,  fname, lname, email, phone, Password) VALUES (?,?,?,?,?, ?, ?, ?, ?)",
-[ street, city, adressState, zipCode, fname,lname, email, phone, Password]
+"INSERT INTO  dawg.user ( street, city, adressState, zipCode,  fname, lname, email, phone, Password, promo) VALUES (?,?,?,?,?, ?, ?, ?, ?, ?)",
+[ street, city, adressState, zipCode, fname,lname, email, phone, Password, promo], (error, data) =>  {
+
+  if (error) {
+    console.log(error);
+  } else {
+    axios.post('http://localhost:8080/send-verify-email',{
+      email: email, fname: fname}).then((response) => {
+   
+
+
+      });
+    // res.send(fname);
+  }
+}
 
 
 
@@ -93,11 +110,50 @@ db.query(
 
 });
 
+app.post("/getMovies", (req, res) => {
+console.log("called get movies");
 
+  db.query(
+    "SELECT * FROM dawg.movie",
+  
+       (error, results) => {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log("something");
+          console.log(results);
+          res.send(results);
+          console.log('movies fetched!');
+        }
+      
+      });
+  
+  });
 
+  app.post("/get-movie-times", (req, res) => {
+    const id = req.body.mId;
+    console.log("called get movies");
+    
+      db.query(
+        "SELECT time,date FROM dawg.showtable WHERE mid_fk = ?",
+        [id],
+      
+           (error, results) => {
+            if (error) {
+              console.error(error);
+            } else {
+            
+              console.log(results);
+              res.send(results);
+              console.log('times fetched!');
+            }
+          
+          });
+      
+      });
 
 app.listen(3001, () => {
-console.log("running");
+console.log("running on 3001");
 
 });
  

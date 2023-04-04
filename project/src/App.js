@@ -21,7 +21,7 @@ import EditPromo from './pages/EditPromo';
 import ForgotPassword from './pages/ForgotPassword';
 import './App.css';
 
-import Addshowtime from './Addshowtime';
+import Addshowtime from './pages/Addshowtime';
 
 
 import {
@@ -31,6 +31,8 @@ import {
 } from "react-router-dom";
 import Verify from './pages/Verfiy';
 import Password from './pages/PasswordReset';
+import ConfirmEmail from './pages/ConfirmEmail';
+import VerifyEmail from './pages/VerifyEmail';
 const fast = [
   {
     id: 'p1',
@@ -53,14 +55,20 @@ const fast = [
 
 function App() {
   const [bfast, setBfast] = useState(fast);
+  const [displaySearch, setDisplaySearch] = useState(false);
+  const handleDisplaySearchChange = (value) => {
+    setDisplaySearch(value);
+    console.log("handle display search called " + value );
+  };
+
   return (
     <div className="App">
      <BrowserRouter>
-        <Header/>
+        <Header onDisplaySearchChange = {handleDisplaySearchChange} displaySearch = {displaySearch}/>
         <div >
         <Routes>
          
-           <Route path="/" element={<Home />} />
+           <Route path="/" element={<Home showSearch={displaySearch}/>} />
             <Route path="/book-tickets" element={<Book />} />
             <Route path="/createAccount" element={<CreateAccount />} />
             <Route path="/ShowTimes" element={<ShowTimes />} />
@@ -80,8 +88,9 @@ function App() {
             <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="/verify" element={<Verify />} />
             <Route path="/password-reset" element={<Password />} />
-
+            <Route path="/confirmEmail" element={<ConfirmEmail />} />
             <Route path="/Addshowtime" element={<Addshowtime />} />
+            <Route path="/verifyEmail" element={<VerifyEmail />} />
 
             
         </Routes>
