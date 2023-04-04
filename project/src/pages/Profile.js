@@ -90,13 +90,16 @@ const [Password, setPassword] = useState('');
         if (promo === false) {
         alert("You've been subscribed to promotions")
         const element = document.getElementById("promo");
-        element.innerHTML = "Unsubscribe from promotions"
+        element.innerHTML = "UNSUBSCRIBE FROM PROMOTIONS"
+
+        const element2 = document.getElementById("promoInside");
+        element2.innerHTML = "Unsubscribe to stop receiving exclusive offers by email."
         setPromo(true);
         }
         else {
             alert("You've been unsubscribed from promotions")
             const element = document.getElementById("promo");
-            element.innerHTML = "Subscribe to promotions"
+            element.innerHTML = "SUBSCRIBE TO PROMOTIONS"
             setPromo(false);
         }
     };
@@ -363,26 +366,26 @@ const [Password, setPassword] = useState('');
 
         <Modal show={edit} onHide={hideEditView}>
         <Modal.Header >
-          <Modal.Title>Edit Profile</Modal.Title>
+          <Modal.Title>EDIT PROFILE</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className='inputReprise'>
-        <label>First Name</label>
+        <label className='purple'>FIRST NAME</label>
     <input type="text" placeholder = {firstName} onChange={(event) => {setNewFirstName(event.target.value)}}/>
     
-    <label>Last Name</label>
+    <label className='purple'>LAST NAME</label>
     <input type="text" placeholder = {lastName} onChange={(event) => {setNewLastName(event.target.value)}}/>
 
     
-    <label>Street Address</label>
+    <label className='purple'>STREET ADDRESS</label>
     <input type="text" placeholder = {streetAddress} onChange={(event) => {setNewStreetAddress(event.target.value)}}/>
-    <label>City</label>
+    <label className='purple'>CITY</label>
     <input type="text" placeholder = {city} onChange={(event) => {setNewCity(event.target.value)}}/>
     
-    <label>State</label>
+    <label className='purple'>STATE</label>
     <input type="text"  placeholder = {state} onChange={(event) => {setNewState(event.target.value)}}/>
 
-    <label>Zip Code</label>
+    <label className='purple'>ZIP CODE</label>
     <input type="text"  placeholder = {zipCode} onChange={(event) => {setNewZipCode(event.target.value)}}/>
     </div>
     <button className = "buttonReprise" variant="secondary" onClick={hideEditView}>
@@ -403,48 +406,48 @@ const [Password, setPassword] = useState('');
   <Modal show={pass} onHide={endPass}>
         <Modal.Header>
           <br/>
-          <Modal.Title>Change Password</Modal.Title>
+          <Modal.Title>CHANGE PASSWORD</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           
         <form>
-    <div class="input">
-    <label for="old">Old password</label>
+    <div class="input" id = "passwordInput">
+    <label className='purple' for="old">OLD PASSWORD</label>
     <input type="text" placeholder="Enter Old Password" name="old" required/>
 
-    <label for="pass">New password</label>
+    <label className='purple' for="pass">NEW PASSWORD</label>
     <input type="password" placeholder="Enter New Password" name="pass" required/>
 
-    <label for="RePass">Confirm New password</label>
+    <label className='purple' for="RePass">CONFIRM NEW PASSWORD</label>
     <input type="password" placeholder="Re-Enter New Password" name="RePass" required/>
   </div>
     </form>
           </Modal.Body>
         <Modal.Footer>
           <button className = "buttonReprise" variant="secondary" onClick={endPass}>
-            Close
+            CLOSE
           </button>
           <button className = "buttonReprise" variant="primary" onClick={submitNewPass}>
-            Save Changes
+            SAVE CHANGES
           </button>
         </Modal.Footer>
       </Modal>
 
       <Modal show={card} onHide={endCard}>
         <Modal.Header>
-          <Modal.Title>Manage Billing Information</Modal.Title>
+          <Modal.Title>MANAGE BILLING INFORMATION</Modal.Title>
         </Modal.Header>
         <Modal.Body>
 
        
-        <div className="containerReprise">
-      <div className="row">
+        <div className="containerCard">
+     
          <div className="col-md-12">
             {/* <h5 className="mt-2"></h5> */}
             <table className="table table-bordered">
 <thead>
    <tr>
-      <th >Existing Cards</th>
+      <th >EXISTING CARDS</th>
 
 
    </tr>
@@ -453,7 +456,7 @@ const [Password, setPassword] = useState('');
    { pay.map( (card, index)=>(  
    <tr key={index}>
       <td >**** **** **** {card.number}</td>
-      <button className="btn btn-danger" onClick={deleteCard(card.id)}>Delete</button>
+      <button className="buttonRepriseDanger" onClick={deleteCard(card.id)}>Delete</button>
 
 
    </tr>
@@ -463,7 +466,7 @@ const [Password, setPassword] = useState('');
 </table>
 
          </div>
-      </div>
+  
 
       
 
@@ -473,21 +476,24 @@ const [Password, setPassword] = useState('');
     <div className='background'>
   
      <form>
-     <label for="nameoncard">Name on Card: </label>
-                <input type="text" onChange={(event) => {setName(event.target.value)}}/>
-                <label for="cardnumber">Card Number: </label>
+     <label className = "purple" for="nameoncard">Name on Card: </label>
+                <input  type="text" onChange={(event) => {setName(event.target.value)}}/>
+                <label className = "purple" for="cardnumber">Card Number: </label>
                 <input type="text" onChange={(event) => {setNumber(event.target.value)}}/>
                  
-               
-                <label for="cvv">CVV: </label>
+               <br/>
+               <br/>
+                <label className = "purple" for="cvv">CVV: </label>
                 <input type="text" onChange={(event) => {setCCV(event.target.value)}}/>
-                <label for="expmon">Exp Month: </label>
+                <label className = "purple" for="expmon">Exp Month: </label>
                 <input type="text" onChange={(event) => {setExp_date(event.target.value)}}/>
-                <label for="expyear">Exp Year: </label>
+                <br/>
+                <br/>
+                <label className = "purple" for="expyear">Exp Year: </label>
                 <input type="text" onChange={(event) => {setExp_year(event.target.value)}}/>
   <br/>
   <br/>
-     <button onClick = {addingNewCard}className='buttonReprise'>Add New Card</button>
+     <button onClick = {addingNewCard}className='buttonReprise2'>Add New Card</button>
  </form>
 </div>
   )}
@@ -532,19 +538,19 @@ const [Password, setPassword] = useState('');
   <button className='button' onClick={changePassword}>Change Password</button>
   <button className='button' onClick={manageBilling}>Manage Billing Information</button> */}
 
-<div className = "optionBlock2" >
-    <p className="purple textBox">SUBSCRIBE TO PROMOTIONS</p>
+<div className = "optionBlock2" onClick={promoHandler}>
+    <p className="purple textBox" id = "promo" >SUBSCRIBE TO PROMOTIONS</p>
 <div className = "InfoBlock2">
-<p className="anon purple smallFont"> Subscribe to receive exclusive offers by email.</p>
+<p className="anon purple smallFont" id = "promoInside" >Subscribe to receive exclusive offers by email.</p>
 </div>
 </div>
-<div className = "optionBlock2">
+<div className = "optionBlock2" onClick={changePassword}>
 <p className="purple textBox">CHANGE PASSWORD</p>
 <div className = "InfoBlock2">
 <p className="anon purple smallFont">Change password associated with this account.</p>
 </div>
 </div>
-<div className = "optionBlock2">
+<div className = "optionBlock2" onClick={manageBilling}>
 <p className="purple textBox">MANAGE BILLING INFORMATION</p>
 <div className = "InfoBlock2">
 <p className="anon purple smallFont">View cards on file, add cards and remove existing cards.</p>

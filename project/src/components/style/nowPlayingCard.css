@@ -156,6 +156,33 @@ padding:2px;
   box-shadow: 0 0 5px rgb(24, 22, 22);
  
 }
+
+.buttonRepriseDanger {
+  border-radius: 5px;
+  text-decoration: none;
+  cursor:pointer;
+  border:none;
+  font-size: 0.7em;
+  color:black;
+  margin:10px;
+  padding: 5px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  color: white;
+  /* width: 105px; */
+  box-shadow: 0 0 5px #eee;
+  background-color: #CC8383;
+  background-size: 200% auto;
+  
+
+}
+.buttonRepriseDanger:hover { 
+  /* border: 1px solid white; */
+  box-shadow: 0 0 5px rgb(24, 22, 22);
+ 
+}
+
 .genre2 {
 font-size: small;
 /* margin-top: -5px; */

@@ -135,7 +135,7 @@ label {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
+    background-color: #DCD5CB;
     border-radius: 10px;
     height:600px;
     width:600px;
@@ -152,8 +152,10 @@ label {
 
 
 .modal-title {
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
+  margin-top: 10px;
+  color:#434169;
 }
 
 .modal-content {
@@ -164,9 +166,9 @@ label {
     width: 400px;
     margin: 50px auto;
     padding: 20px;
-    background-color: #2D3639;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    background-color: #D9D9D9;
+    border: 1px solid #000000;
+    border-radius: 4px;
     text-align: center;
     color: white;
     display: flex;
@@ -187,10 +189,16 @@ label {
   }
 
   .background {
-    margin-top: 10px;
+    margin-top: 20px;
     border-radius: 10px;
-    background-color: #2D3639;
-    width:500px;
+    background-color: #D9D9D9;
+    width:540px;
+    color:#434169;
+    padding:10px;
+    font-family: 'Signika', sans-serif;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    margin-bottom: 0;
   }
 
   .profileShow {
@@ -312,4 +320,44 @@ label {
   .noMarg2 {
     margin-top: 0px;
     margin-bottom: 25px;
+  }
+
+  #passwordInput {
+    width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    box-shadow: none;
+    background: #D9D9D9;
+    color:#434169;
+    font-family: 'Signika', sans-serif;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    font-weight: 400;
+  
+    text-align: center;
+
+    color:white;
+  }
+
+
+  .rowPt5 {
+    display: flex;
+    flex-direction: row;
+    border-radius: 15px;
+    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    /* background-color: #2D3639; */
+    background: #D9D9D9;
+    color:#434169;
+    font-family: 'Signika', sans-serif;
+    border: 1px solid #000000;
+    padding:20px;
+  }
+
+  .containerCard {
+    margin: auto;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
   }
