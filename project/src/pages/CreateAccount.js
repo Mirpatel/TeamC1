@@ -75,7 +75,7 @@ return (
 <label className='purple'>PASSWORD</label>
 <input type="Password" onChange={(event) => {setPassword(event.target.value)}} required/>
 <div className='Checkbox'>
-<label for="promo" className='purple'>SING UP FOR PROMOTIONS?</label>
+<label for="promo" className='purple'>SIGN UP FOR PROMOTIONS?</label>
 <input type="checkbox" id="promo" name="promo" onChange={(event) => {setPromo(event.target.checked)}}/>
 </div>
 

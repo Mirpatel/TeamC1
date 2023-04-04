@@ -91,40 +91,36 @@ useEffect(() => {
 return (
 <>
 <div className="input">
-<label>Title</label>
+<label>TITLE</label>
 <input type="text" onChange={(event) => {setTitle(event.target.value)}}/>
-<label>Content</label>
+<label>CONTENT</label>
 <input type="text" onChange={(event) => {setText(event.target.value)}}/>
-<label>Code</label>
+<label>CODE</label>
 <input type="text" onChange={(event) => {setCode(event.target.value)}}/>
-<button className = "button" onClick={submit}>Add Promotion</button>
+<button className = "buttonReprise" onClick={submit}>Add Promotion</button>
 </div>
 
 <div className="container">
       <div className="row">
          <div className="col-md-12">
-            <h5 className="mt-2">Promotions</h5>
+            <p className="purple">PROMOTIONS</p>
             <table className="table table-bordered">
 <thead>
    <tr>
-      <th >Title</th>
-      <th >content</th>
-      <th >code</th>
+      <th className='purple' >TITLE</th>
+      <th className='purple'>CONTENT</th>
+      <th className='purple'>CODE</th>
 
    </tr>
 </thead>
 <tbody>
    { promos1.map( (promo, index)=>(  
    <tr key={index}>
-      <td >{promo.Name}</td>
-      <td >{promo.Information}</td>
-      <td >{promo.code}</td>
+      <td className='purple anon'>{promo.Name}</td>
+      <td className='purple anon'>{promo.Information}</td>
+      <td className='purple anon'>{promo.code}</td>
 
-      <td>
-      {/* <Link to="/editPromo" className="btn btn-sucess">Edit</Link> */}
-      {/* <Link to="/Promotion" on onClick={deletePromo} className="btn btn-danger">Delete</Link> */}
-
-      </td>
+   
 
    </tr>
    ))

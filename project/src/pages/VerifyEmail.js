@@ -8,7 +8,14 @@ function VerifyEmail() {
 console.log(state);
 const [verify, setVerify] = useState();
 
-  return <div className="input">Verification Email sent to <u>{state.from}</u></div>;
+  return (<>
+    <div className="signInContainer">
+  <div className="input">
+    <p className="purple">Verification Email sent to <u>{state.from}</u></p>
+    </div>
+    </div>
+  </>
+  );
 }
 
 export default VerifyEmail;

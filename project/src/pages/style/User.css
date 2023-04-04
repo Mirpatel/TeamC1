@@ -45,20 +45,26 @@ table {
     flex-direction: column;
   }
 
+  .container2 {
+    margin:auto;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+
   h5 {
     color:white;
   }
 
   .ad {
     margin-top:20px;
-    background-color: #2D3639;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ 
+   
  
   }
 
   .biggest {
-    margin:auto;
+    margin-top:30px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -66,4 +72,53 @@ table {
 
   h2 {
     color:white;
+  }
+
+  .adminFront {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+ 
+    min-height: 572px;
+  }
+
+  .optionBlock {
+    color:#434169;
+    width: 200px; 
+    height: 200px;
+    margin: 15px;
+    margin-top: 0;
+    /* height: 260px; */
+  
+    background: #DCD5CB;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.50);
+    font-family: 'Signika', sans-serif;
+    border-radius: 16px;
+   
+    cursor: pointer;
+
+
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    /* position:absolute; */
+  }
+  .optionBlock:hover {
+    filter: drop-shadow(4px 4px 4px rgba(252, 252, 252, 0.5));
+  }
+
+  .InfoBlock {
+    width: 160px;
+    height: 130px;
+    /* margin: 20px; */
+    background: #D9D9D9;
+    color:#434169;
+ 
+    border: 1px solid #000000;
+    border-radius: 4px;
+    /* position: relative; */
+   
+   
+   
+    align-self: center;
   }
