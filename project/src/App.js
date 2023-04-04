@@ -55,14 +55,20 @@ const fast = [
 
 function App() {
   const [bfast, setBfast] = useState(fast);
+  const [displaySearch, setDisplaySearch] = useState(false);
+  const handleDisplaySearchChange = (value) => {
+    setDisplaySearch(value);
+    console.log("handle display search called " + value );
+  };
+
   return (
     <div className="App">
      <BrowserRouter>
-        <Header/>
+        <Header onDisplaySearchChange = {handleDisplaySearchChange} displaySearch = {displaySearch}/>
         <div >
         <Routes>
          
-           <Route path="/" element={<Home />} />
+           <Route path="/" element={<Home showSearch={displaySearch}/>} />
             <Route path="/book-tickets" element={<Book />} />
             <Route path="/createAccount" element={<CreateAccount />} />
             <Route path="/ShowTimes" element={<ShowTimes />} />

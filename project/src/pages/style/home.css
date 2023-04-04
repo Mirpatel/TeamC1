@@ -1,5 +1,7 @@
 .mov {
     color:white;
+    margin-top:10px;
+    margin-bottom: 0;
 }
 
 
@@ -24,3 +26,4 @@
     right: 65px;
     top:20px;
 }
+

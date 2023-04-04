@@ -1,11 +1,19 @@
 import './style/components.css';
 import { Link } from 'react-router-dom';
-import {FaStumbleuponCircle} from 'react-icons/fa';
+import {BsSearch} from 'react-icons/bs';
 import {BsPersonCircle} from 'react-icons/bs'
 import { useState } from 'react';
 import { useEffect } from 'react';
+import logo from './logo.png';
 import Axios from 'axios';
-function Header() {
+
+
+function Header({ onDisplaySearchChange, displaySearch}) {
+
+  const handleSearchClick = () => {
+    onDisplaySearchChange(!displaySearch);
+  };
+
   const [isAdmin, setIsAdmin] = useState(false);
 const [isLoggedIn, setIsLoggedIn] = useState(true);
 
@@ -35,37 +43,46 @@ useEffect(()=> {
     return (
       <>
       <div className='navBar'>
-        
-        <div className = "linkContainer">
+        {!isAdmin && (
+        <div>
+
+       <BsSearch className = "searchIcon" onClick={handleSearchClick}/>
+        </div>
+        )}
+        <div className='linkContainer'>
           {!isAdmin && (
             <>
-        <Link to = '/' className = "logo3">Dawg</Link>
-        <Link to = '/'><FaStumbleuponCircle className = "logo"/></Link>
-        <Link to = '/' className = "logo3">Theatre</Link>
+        <Link to = '/' className = "logo3">DAWG</Link>
+        <Link to = '/'>< img src={logo} className = "film" alt = "logo"/></Link>
+        <Link to = '/' className = "logo3">THEATRE</Link>
         </>
           )
           }
 
           {isAdmin && (
-            <>
+            <div className = "logoBox">
             <Link to = '/admin' className = "logo3">Dawg</Link>
-            <Link to = '/admin'><FaStumbleuponCircle className = "logo"/></Link>
+            <Link to = '/admin'>< img src={logo} className = "film" alt = "logo"/></Link>
             <Link to = '/admin' className = "logo3">Theatre</Link>
-            </>
+            </div>
 
           )}
+
+
       </div>
-      {/* <Link to = '/admin' className = "admin">Admin</Link> */}
-      {!isLoggedIn && (
-      <Link to='/signin' className='login'>Login</Link>
+      <div className = "profileAndLogin">
+{!isLoggedIn && (
+      <Link to='/signin' className='login'>LOGIN</Link>
       )}
       {isLoggedIn && (
-        <Link onClick = {loggingOut} to='/' className='login'>Logout</Link>
+        <Link onClick = {loggingOut} to='/' className='login'>LOGOUT</Link>
       )}
-
       {!isAdmin && isLoggedIn &&(
       <Link to = '/profile'><BsPersonCircle className = "logo2"/></Link>
       )}
+
+      </div>
+
       </div>
       
       </>

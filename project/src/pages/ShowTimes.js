@@ -17,8 +17,8 @@ import { useNavigate } from "react-router-dom";
 
 
 
-/*
-const times = [
+
+const times1 = [
     {
       time: "10:00AM",
     },
@@ -46,7 +46,7 @@ const times = [
 
   
   ];
-  */
+  
 const ShowTimes = ()  => {
     const [loggedIn, setLoggedIn] = useState(true);
     const location = useLocation();
@@ -56,16 +56,16 @@ const ShowTimes = ()  => {
     const [selectedMovie, setSelectedMovie] = useState(null);
 
     
-    const [times, setTimes] = useState([]);
+    const [times, setTimes] = useState(times1);
 
 useEffect(() => {
-    const fetchTimes = async () => {
-      const response = await fetch("http://localhost:7200");
-      const data = await response.json();
-      setTimes(data);
-    };
+    // const fetchTimes = async () => {
+    //   const response = await fetch("http://localhost:7200");
+    //   const data = await response.json();
+    //   setTimes(data);
+    // };
 
-    fetchTimes();
+    // fetchTimes();
   }, []);
   
   
@@ -103,13 +103,10 @@ useEffect(() => {
 
     }
     const handleConfirmDate = () => {
-        let date = document.getElementById("date").value;
-        if (date) {
+        
+       console.log("confirmDate");
         setShowTime(true);
-        }
-        else {
-            alert("please select a valid date");
-        }
+      
     }
     const [selectedIndex, setSelectedIndex] = useState(null);
 
@@ -149,11 +146,11 @@ useEffect(() => {
         console.log(choice + totalTickets);
         const newSeat = document.createElement("h6");
         const node = document.createTextNode(choice + ", ");
-        document.getElementById(choice).style.color = "blue";
+        document.getElementById(choice).style.color = "#434169";
         newSeat.appendChild(node);
 
         const element = document.getElementById("selected");
-        element.appendChild(newSeat);
+        // element.appendChild(newSeat);
 
             //gonna need to call an API and report the new chosen seats
             if (totalTickets <= 0) {
@@ -167,50 +164,62 @@ useEffect(() => {
     <>
     <div className = "contains">
    
-        <div className = "titleBox">
-            <h1> {state.from}</h1>
-        </div>
+ 
+            <h3 className = "titleBox"> {state.from}</h3>
+       
 
         <div className = "buyTicketsBox">
 
             <div className = "ShowTimes">
 
-                <h3>Buy Tickets</h3>
                 <div className='tickets'>
-                    <form >
-                        <label for="date">Date</label><br/>
+                    <form className = "dateSelect">
+                        <label for="date" className = "dateSelect">SELECT DATE</label>
+                        <div className='line4'/>
+                        <br/>
+                        <br/>
+                       
                         <input type="date" id="date"/><br/>
                     </form>
-                    <Button onClick={handleConfirmDate} className = "button">Confirm Date</Button>
+                    <Button onClick={handleConfirmDate} className = "buttonReprise2">Confirm Date</Button>
                 </div>
+
                     {(showTime &&
                    <div className = "buttonShow">
+                    <p className='dateSelect'>SELECT A TIME</p>
+                    <div className='line4'/>
+                    <div className = "timesMapped">
                    {times.map((time,index) => (
                    <p key = {index} 
-                   style={{ color: selectedIndex === index ? '#E50914' : 'white' }}
+                   style={{ color: selectedIndex === index ? '#fff' : '#434169' }}
                    onClick={() => handleItemClick(index)} className = "times">{time.time}</p>
                ))}
+               </div>
                </div>
                     )}
             </div>
 {showTimeSelected &&
-    <div className = "Tickets">
+    <div className = "ticketsPt2">
         {/* <p id="timeS">Time selected:</p> */}
+        <p className='purple'>SELECT TICKETS</p>
+        <div className='line4'/>
+
         <form>
-            <label for="adults">Adult:</label><br/>
+            <br/>
+            <label for="adults" className='purple anon'>Adult</label><br/>
             <input type="number" id="adults" name="fname"/><br/>
-            <label for="children">Children:</label><br/>
+            <label for="children" className='purple anon'>Children</label><br/>
             <input type="number" id="children" name="fname"/><br/>
         </form>
-        <Button onClick={handleConfirmTickets} className = "button">Confirm Tickets</Button>
+        <Button onClick={handleConfirmTickets} className = "buttonReprise2">Confirm Tickets</Button>
     </div>
 }
 {showSeats && (
     <>
-    <h5> Choose your seats!</h5>
-    <div id = "selected">
-    <h6>Seats: </h6>
-    </div>
+    <div className = "ticketsPt3">
+    <p className='purple'>SELECT SEATS</p>
+     <div className='line4'/>
+
     <div className = "seatsContainer">
 
         <p className = "topReprise">Hall 11</p>
@@ -330,27 +339,36 @@ useEffect(() => {
         </div>
         <br/>
         SCREEN
+    
         {(checkout && 
             <div className = "noMore">
 
-                <p className = "textNoMore">All seats selected</p>
+                <p className = "textNoMore">ALL SEATS SELECTED</p>
 
             </div>
                 )}
        
 
     </div>
-    </>
-)}
-
-{(checkout && 
+    {/* <div className='seatPt2'>
+        <p className='purple'>SEATS</p>
+        <div className='line5'/>
+        <div id = "selected">
+        </div>
+    </div> */}
+    {(checkout && 
     <div className = "end">
 
-<Button className = "button" onClick = {handleCheckout}>Checkout</Button>
+<Button className = "buttonReprise2" onClick = {handleCheckout}>Checkout</Button>
 
     </div>     
         
  )}
+    </div>
+
+    </>
+)}
+
 </div>
 </div>
     </>
