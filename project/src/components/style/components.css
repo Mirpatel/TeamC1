@@ -122,3 +122,7 @@ background-position: right center;
     flex-direction: row;
     justify-content: space-around;
 }
+
+.accType {
+    margin-top: -15px;
+}

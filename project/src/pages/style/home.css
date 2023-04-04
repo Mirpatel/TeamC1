@@ -37,3 +37,11 @@
 .coverPage {
     min-height: 540px;
 }
+.searchButtonPos {
+    margin-right: 600px;
+    margin-top: -23px;
+}
+
+.faSearch {
+    cursor: pointer;
+}

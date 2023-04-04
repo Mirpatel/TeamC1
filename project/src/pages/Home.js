@@ -147,15 +147,15 @@ const search = (event) => {
     <>
       <h3 className = "mov">NOW PLAYING</h3>
       {showSearch && (
-        <>
+        <div className = "searchButtonPos">
             <input
             type="text"
             value={searchQuery}
             onChange={search}
             placeholder="Search..."
           />
-          <button onClick = {search}><FaSearch/></button>
-          </>
+          <button onClick = {search} className = "faSearch"><FaSearch/></button>
+          </div>
       )}
 
 
