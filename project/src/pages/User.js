@@ -23,36 +23,37 @@ function User() {
 return (
 
 <React.Fragment>
+   <div className = "usersCover">
    <div className="container">
       <div className="row">
          <div className="col-md-12">
-            <h5 className="mt-2">Active Users</h5>
+            <h5 className="purple">ACTIVE USERS</h5>
             <table className="table table-bordered">
 <thead>
    <tr>
-      <th >Id</th>
-      <th > First Name</th>
-      <th >Last Name</th>
-      <th >Email</th>
-      <th >Phone</th>
-      <th>Password</th>
-      <th >Action</th>
+      <th className="purple">ID</th>
+      <th className="purple"> FIRST NAME</th>
+      <th className="purple">LAST NAME</th>
+      <th className="purple">EMAIL</th>
+      <th className="purple">PHONE</th>
+      <th className="purple">PASSWORD</th>
+      <th className="purple">ACTION</th>
 
    </tr>
 </thead>
 <tbody>
    { userData.map( (userData, index)=>(  
    <tr key={index}>
-      <td>{index+1}</td>
-      <td >{userData.fname}</td>
-      <td >{userData.lname}</td>
-      <td >{userData.Email}</td>
-      <td >{userData.phone}</td>
-      <td >{userData.Password}</td>
+      <td className="purple anon">{index+1}</td>
+      <td lassName="purple anon">{userData.fname}</td>
+      <td lassName="purple anon">{userData.lname}</td>
+      <td lassName="purple anon">{userData.Email}</td>
+      <td lassName="purple anon">{userData.phone}</td>
+      <td lassName="purple anon">{userData.Password}</td>
       
       <td>
-      <Link to="/editUser" className="btn btn-sucess">Edit</Link>
-      <Link to="/editUser" className="btn btn-danger">Suspend</Link>
+      <Link to="/editUser" className="buttonReprise2">Edit</Link>
+      <Link to="/editUser" className="buttonReprise2">Suspend</Link>
 
       </td>
 
@@ -64,6 +65,7 @@ return (
 
          </div>
       </div>
+   </div>
    </div>
 </React.Fragment>
 

@@ -303,18 +303,64 @@ const [Password, setPassword] = useState('');
             };
   return (
     <>
-    <div className = "profile-container">
-      <div className='edit'>
-        <h1>Profile</h1>
-  <FaEdit className = "editButton" onClick= {showEditView}/>
-        </div>
+    <div className = "profileShow">
+    
+    
+        <p>PROFILE</p>
+      
+        <div className = "infoHolder">
+        <div className="pastOrders2">
+      <div className="rowPt4">
+         <div className="col-md-12">
+            <p className="purple noMarg">PAST ORDERS</p>
+            <table className="table table-bordered">
+<thead>
+   <tr>
+      <th className='purple'>TITLE</th>
+      <th className='purple'>NUMBER OF TICKETS</th>
+      <th className='purple'>PRICE</th>
 
-   
-        <p>{firstName} {lastName}</p>
-        <p>Email: {userEmail}</p>
-<p>Billing Address:</p>
-<p>{streetAddress}</p>
-<p>{city}, {state} {zipCode}</p>
+   </tr>
+</thead>
+<tbody>
+   { orders.map( (order, index)=>(  
+   <tr key={index}>
+      <td className='purple anon'>{order.title}</td>
+      <td className='purple anon'>{order.noTickets}</td>
+      <td className='purple anon'>{order.price}</td>
+
+
+   </tr>
+   ))
+}
+</tbody>
+</table>
+
+         </div>
+      </div>
+   </div>
+        <div className = "profile-container">
+        <FaEdit className = "editButton" onClick= {showEditView}/>
+          <p className='purple noMarg2'>INFO</p>
+          
+      
+        <div class="columnProf">
+        
+                <p className='categoryChex'>NAME</p>
+                    <div className='line6'/>
+                    <p className='answerChex'>{firstName} {lastName}</p>
+        
+                    <p className='categoryChex'>EMAIL</p>
+                    <div className='line6'/>
+                    <p className='answerChex'>{userEmail}</p>
+                    <p className='categoryChex'>ADDRESS</p>
+                    <div className='line6'/>
+                    <p className='answerChex'>{streetAddress}</p>
+                    <p className='answerChex'>{city}, {state} {zipCode}</p>
+
+
+                </div>
+
         <Modal show={edit} onHide={hideEditView}>
         <Modal.Header >
           <Modal.Title>Edit Profile</Modal.Title>
@@ -351,11 +397,8 @@ const [Password, setPassword] = useState('');
  
         </Modal.Footer> */}
       </Modal>
-<div>
-  <button className='button' id = "promo" onClick={promoHandler}>Subscribe to promotions</button>
-  <button className='button' onClick={changePassword}>Change Password</button>
-  <button className='button' onClick={manageBilling}>Manage Billing Information</button>
-  </div>
+      </div>
+
 
   <Modal show={pass} onHide={endPass}>
         <Modal.Header>
@@ -482,36 +525,35 @@ const [Password, setPassword] = useState('');
     </form>
   )}
 
-<div className="container">
-      <div className="row">
-         <div className="col-md-12">
-            <h5 className="mt-2">Past Orders</h5>
-            <table className="table table-bordered">
-<thead>
-   <tr>
-      <th >Title</th>
-      <th >Number of Tickets</th>
-      <th >Price</th>
 
-   </tr>
-</thead>
-<tbody>
-   { orders.map( (order, index)=>(  
-   <tr key={index}>
-      <td >{order.title}</td>
-      <td >{order.noTickets}</td>
-      <td >{order.price}</td>
+   <div className = "buttonsProfile">
+
+  {/* <button className='button' id = "promo" onClick={promoHandler}>Subscribe to promotions</button>
+  <button className='button' onClick={changePassword}>Change Password</button>
+  <button className='button' onClick={manageBilling}>Manage Billing Information</button> */}
+
+<div className = "optionBlock2" >
+    <p className="purple textBox">SUBSCRIBE TO PROMOTIONS</p>
+<div className = "InfoBlock2">
+<p className="anon purple smallFont"> Subscribe to receive exclusive offers by email.</p>
+</div>
+</div>
+<div className = "optionBlock2">
+<p className="purple textBox">CHANGE PASSWORD</p>
+<div className = "InfoBlock2">
+<p className="anon purple smallFont">Change password associated with this account.</p>
+</div>
+</div>
+<div className = "optionBlock2">
+<p className="purple textBox">MANAGE BILLING INFORMATION</p>
+<div className = "InfoBlock2">
+<p className="anon purple smallFont">View cards on file, add cards and remove existing cards.</p>
+</div>
+</div>
 
 
-   </tr>
-   ))
-}
-</tbody>
-</table>
-
-         </div>
-      </div>
-   </div>
+  </div>
+    </div>
     </div>
     </>
   );

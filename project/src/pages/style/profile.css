@@ -83,24 +83,44 @@ label {
 }
 
 .profile-container {
+    color:#434169;
+    width: 400px; 
+    height: 480px;
+    margin: auto;
+    margin-top: 0;
+
+    /* height: 260px; */
+  /* position: absolute; */
+    background: #DCD5CB;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.50);
+    font-family: 'Signika', sans-serif;
+    border-radius: 16px;
+
+
+
     display: flex;
     flex-direction: column;
+    align-self: center; 
 }
 
-.edit {
+/* .edit {
     display: flex;
     flex-direction: row;
     align-self: center;
     margin-top: 10px;
-}
+} */
 
 .editButton {
+   
     color:white;
     cursor:pointer;
+ align-self: flex-end;
+ margin-right: 10px;
+ margin-top: 10px;
 }
 
 .editButton:hover {
-    color:blue;
+    color:#434169;
     cursor:pointer;
 }
 
@@ -171,4 +191,125 @@ label {
     border-radius: 10px;
     background-color: #2D3639;
     width:500px;
+  }
+
+  .profileShow {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    min-height: 630px;
+  }
+
+  .buttonsProfile {
+    display: flex;
+    flex-direction: column;
+    /* position: absolute; */
+    align-items: center;
+    align-self: center;
+    top:400px;
+  }
+
+  .infoHolder {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .pastOrders2 {
+  
+    /* position: relative; */
+    margin-right:20px;
+    /* height: 480px; */
+    display: flex;
+    /* align-self: center;
+    align-items: center; */
+    flex-direction: column;
+  }
+
+  .InfoBlock2 {
+    width: 160px;
+    height: 70px;
+    /* margin: 20px; */
+    background: #D9D9D9;
+    color:#434169;
+    position: relative;
+    /* bottom:40px; */
+    border: 1px solid #000000;
+    border-radius: 4px;
+
+    align-self: center;
+  }
+
+  .optionBlock2 {
+    color:#434169;
+    width: 200px; 
+    height: 150px;
+    margin: 15px;
+    margin-top: 0;
+  
+    /* height: 260px; */
+  
+    background: #DCD5CB;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.50);
+    font-family: 'Signika', sans-serif;
+    border-radius: 16px;
+   
+    cursor: pointer;
+
+
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    position:relative;
+  }
+  .optionBlock2:hover {
+    filter: drop-shadow(4px 4px 4px rgba(252, 252, 252, 0.5));
+  }
+
+  .textBox {
+    width: 180px;
+    height:30px;
+    text-align: center;
+    align-self: center;
+  }
+
+  .rowPt4 {
+    display: flex;
+    flex-direction: row;
+    border-radius: 15px;
+    height:440px;
+    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    /* background-color: #2D3639; */
+    background: #DCD5CB;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.50);
+    font-family: 'Signika', sans-serif;
+    padding:20px;
+  }
+
+  .columnProf {
+    width: 240px;
+    height: 300px;
+    
+    background: #D9D9D9;
+    color:#434169;
+    font-family: 'Signika', sans-serif;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    position: relative;
+    top:20px;
+    left:0px;
+  
+
+    align-self: center;
+  }
+
+  .noMarg {
+    margin-top: 0px;
+    margin-bottom: 50px;
+  }
+
+  .noMarg2 {
+    margin-top: 0px;
+    margin-bottom: 25px;
   }
