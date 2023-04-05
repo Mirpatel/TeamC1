@@ -135,7 +135,7 @@ console.log("called get movies");
     console.log("called get movies");
     
       db.query(
-        "SELECT time,date FROM dawg.showtable WHERE mid_fk = ?",
+        "SELECT sid,time,date FROM dawg.showtable WHERE mid_fk = ?",
         [id],
       
            (error, results) => {
@@ -151,6 +151,51 @@ console.log("called get movies");
           });
       
       });
+
+      app.post("/delete-showtime", (req, res) => {
+        const id = req.body.timeId;
+        console.log("called delete showtime");
+        
+          db.query(
+            "DELETE FROM dawg.showtable WHERE sid = ?",
+            [id],
+          
+               (error, results) => {
+                if (error) {
+                  console.error(error);
+                } else {
+                
+                  console.log(results);
+                  res.send(results);
+                 
+                }
+              
+              });
+          
+          });
+
+          app.post("/add-showtime", (req, res) => {
+            const id = req.body.mId;
+            const time = req.body.time;
+            const date = req.body.date;
+            console.log("called add showtime");
+            db.query(
+              "INSERT INTO dawg.showtable ( mid_fk, roomid_fk, theatreid, date, time) VALUES (?,?,?,?,?)",
+              [ id, 1, 1, date, time], (error, data) =>  {
+              
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log(data);
+                  // res.send(fname);
+                }
+              }
+              
+              
+              
+              );
+              
+              });
 
 app.listen(3001, () => {
 console.log("running on 3001");

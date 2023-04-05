@@ -61,7 +61,7 @@ console.log("search true");
        <BsSearch className = "searchIcon" onClick={handleSearchClick}/>
         </div>
         )}
-        {!searchButton && !isAdmin &&(
+        {!searchButton && !isAdmin && isLoggedIn &&(
         <div>
 
        <p className='login accType'>USER</p>
@@ -98,7 +98,7 @@ console.log("search true");
       </div>
       <div className = "profileAndLogin">
 {!isLoggedIn && (
-      <Link to='/signin' className='login'>LOGIN</Link>
+      <Link to='/signin' className='login2'>LOGIN</Link>
       )}
       {isLoggedIn && (
         <Link onClick = {loggingOut} to='/' className='login'>LOGOUT</Link>

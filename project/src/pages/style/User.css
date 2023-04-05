@@ -180,14 +180,39 @@ table {
     align-items: center;
     align-self: center;
     position:relative;
+    margin-bottom: -20px;
    
   }
 
   .timeHolder {
-  
-    
+
+    background: #DCD5CB;
+    color:#434169;
+    height:100px;
+    width: 260px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    margin-top: 40px;
+
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .usersCover {
     min-height: 595px;
+  }
+
+  .margin0 {
+    margin:0;
+  }
+
+  .timeMapped {
+    margin-right: 18px;
+  }
+
+  .timeInp {
+    width:70px;
+    margin-top: 10px;
+    margin-bottom: 20px;
   }
