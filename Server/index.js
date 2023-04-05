@@ -198,6 +198,54 @@ console.log("called get movies");
               
               });
 
+
+              app.post("/movies-coming-soon", (req, res) => {
+                var today = new Date().toISOString().split('T')[0];
+                
+                console.log(req.body);
+                console.log("called get times for user");
+                
+                  db.query(
+                    "SELECT * FROM dawg.movie WHERE date > ?",
+                    [today],
+                  
+                       (error, results) => {
+                        if (error) {
+                          console.error(error);
+                        } else {
+                        
+                          console.log(results);
+                          res.send(results);
+                        
+                        }
+                      
+                      });
+                  
+                  });
+                  app.post("/movies-now-playing", (req, res) => {
+                    var today = new Date().toISOString().split('T')[0];
+                
+                    console.log(req.body);
+                    console.log("called get times for user");
+                    
+                      db.query(
+                        "SELECT * FROM dawg.movie WHERE date <= ?",
+                        [today],
+                      
+                           (error, results) => {
+                            if (error) {
+                              console.error(error);
+                            } else {
+                            
+                              console.log(results);
+                              res.send(results);
+                            
+                            }
+                          
+                          });
+                      
+                      });
+
       app.post("/delete-showtime", (req, res) => {
         const id = req.body.timeId;
         console.log("called delete showtime");

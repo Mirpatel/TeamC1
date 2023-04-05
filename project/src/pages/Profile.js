@@ -516,22 +516,7 @@ const [Password, setPassword] = useState('');
         </Modal.Footer>
       </Modal>
 
-  {pass && (
-    <form>
-    <div class="passW">
-    <label for="old">Old password</label>
-    <input type="text" placeholder="Enter Old Password" name="old" required/>
-
-    <label for="pass">New password</label>
-    <input type="password" placeholder="Enter New Password" name="pass" required/>
-
-    <label for="RePass">Confirm New password</label>
-    <input type="password" placeholder="Re-Enter New Password" name="RePass" required/>
-
-    <button type="submit" className = "button" onClick = {submitNewPass}>Confirm</button>
-  </div>
-    </form>
-  )}
+  
 
 
    <div className = "buttonsProfile">
