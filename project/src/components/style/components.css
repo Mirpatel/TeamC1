@@ -58,6 +58,7 @@ background-position: right center;
     text-decoration: none;
     color: white;
     position:absolute;
+    margin-left: 40px;
 }
 
 .admin {
@@ -133,4 +134,8 @@ background-position: right center;
 
 .accType {
     margin-top: -15px;
+}
+
+.admin {
+ 
 }

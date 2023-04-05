@@ -152,6 +152,52 @@ console.log("called get movies");
       
       });
 
+      app.post("/isAdmin", (req, res) => {
+        const email = req.body.email;
+        console.log("called isAdmin");
+        
+          db.query(
+            "SELECT role FROM dawg.user WHERE email = ?",
+            [email],
+          
+               (error, results) => {
+                if (error) {
+                  console.error(error);
+                } else {
+                
+                  console.log(results);
+                  res.send(results);
+                
+                }
+              
+              });
+          
+          });
+
+          app.post("/user-get-times", (req, res) => {
+            const id = req.body.mid_fk;
+            const date = req.body.date;
+            console.log(req.body);
+            console.log("called get times for user");
+            
+              db.query(
+                "SELECT time FROM dawg.showtable WHERE mid_fk = ? AND date = ?",
+                [id, date],
+              
+                   (error, results) => {
+                    if (error) {
+                      console.error(error);
+                    } else {
+                    
+                      console.log(results);
+                      res.send(results);
+                    
+                    }
+                  
+                  });
+              
+              });
+
       app.post("/delete-showtime", (req, res) => {
         const id = req.body.timeId;
         console.log("called delete showtime");
