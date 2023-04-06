@@ -1,5 +1,5 @@
 import './style/components.css';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import {BsSearch} from 'react-icons/bs';
 import {BsPersonCircle} from 'react-icons/bs'
 import { useState } from 'react';
@@ -7,9 +7,9 @@ import { useEffect } from 'react';
 import logo from './logo.png';
 import Axios from 'axios';
 import { useLocation } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 function Header({ onDisplaySearchChange, displaySearch}) {
-  
+  let navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
   const handleSearchClick = () => {
@@ -22,6 +22,7 @@ const [searchButton, setSearchButton] = useState();
 const loggingOut = () => {
 setIsLoggedIn(false);
 localStorage.clear(); //some way to make sure user is logged out across whole profile
+navigate('/signin');
 };
 useEffect(()=> {
   
@@ -45,6 +46,24 @@ console.log("search true");
         console.log(response);
         if (response.status === 200) {
         setIsLoggedIn(true);
+        //call api here to find out if admin
+          console.log(response.data.email);
+          Axios.post('http://localhost:3001/isAdmin', {
+            email: response.data.email
+           })
+           .then((response) => {
+            console.log(response.data[0].role);
+            if (response.data[0].role === "admin") {
+              console.log("yes is an admin");
+              setIsAdmin(true);
+             
+            }
+          
+          })
+           .catch((error) => console.log(error));
+
+
+
         }
       })
       .catch(function (error) {
@@ -60,21 +79,24 @@ console.log("search true");
 
        <BsSearch className = "searchIcon" onClick={handleSearchClick}/>
         </div>
+
         )}
-        {!searchButton && !isAdmin &&(
+
+        {!searchButton && !isAdmin && isLoggedIn &&(
         <div>
 
-       <p className='login accType'>USER</p>
+       <p className='login2 accType'>USER</p>
         </div>
         )}
 
 
-        {!searchButton && isAdmin &&(
+        {!searchButton && isAdmin && isLoggedIn &&(
         <div>
 
-       <p className='login accType'>ADMIN</p>
+       <p className='login2 accType'>ADMIN</p>
         </div>
         )}
+
         <div className='linkContainer'>
           {!isAdmin && (
             <>
@@ -86,11 +108,11 @@ console.log("search true");
           }
 
           {isAdmin && (
-            <div className = "logoBox">
+      <>
             <Link to = '/admin' className = "logo3">Dawg</Link>
             <Link to = '/admin'>< img src={logo} className = "film" alt = "logo"/></Link>
             <Link to = '/admin' className = "logo3">Theatre</Link>
-            </div>
+            </>
 
           )}
 
@@ -98,12 +120,15 @@ console.log("search true");
       </div>
       <div className = "profileAndLogin">
 {!isLoggedIn && (
-      <Link to='/signin' className='login'>LOGIN</Link>
+      <Link to='/signin' className='login2'>LOGIN</Link>
       )}
       {isLoggedIn && (
         <Link onClick = {loggingOut} to='/' className='login'>LOGOUT</Link>
       )}
       {!isAdmin && isLoggedIn &&(
+      <Link to = '/profile'><BsPersonCircle className = "logo2"/></Link>
+      )}
+       {isAdmin && isLoggedIn &&(
       <Link to = '/profile'><BsPersonCircle className = "logo2"/></Link>
       )}
 

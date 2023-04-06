@@ -48,9 +48,17 @@ background-position: right center;
     text-decoration: none;
     color: white;
     margin: auto;
-    margin-left: 20px;
+    right:30px;
+    top: 30px;
 
     
+}
+
+.login2 {
+    text-decoration: none;
+    color: white;
+    position:absolute;
+    margin-left: 40px;
 }
 
 .admin {
@@ -68,7 +76,8 @@ background-position: right center;
     font-size:40px;
     text-decoration: none;
     color:white;
-    margin-right: 20px;
+    margin-right: -50px;
+    margin-top: 20px;
 }
 
 .searchIcon {
@@ -125,4 +134,8 @@ background-position: right center;
 
 .accType {
     margin-top: -15px;
+}
+
+.admin {
+ 
 }

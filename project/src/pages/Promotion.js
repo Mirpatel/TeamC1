@@ -91,11 +91,11 @@ useEffect(() => {
 return (
 <>
 <div className="input">
-<label>TITLE</label>
+<label className='purple'>TITLE</label>
 <input type="text" onChange={(event) => {setTitle(event.target.value)}}/>
-<label>CONTENT</label>
+<label className='purple'>CONTENT</label>
 <input type="text" onChange={(event) => {setText(event.target.value)}}/>
-<label>CODE</label>
+<label className='purple'>CODE</label>
 <input type="text" onChange={(event) => {setCode(event.target.value)}}/>
 <button className = "buttonReprise" onClick={submit}>Add Promotion</button>
 </div>

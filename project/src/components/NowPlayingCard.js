@@ -103,7 +103,7 @@ const NowPlayingCard = props  => {
                 <p className='ans ratingBottom'>{props.description}</p>
                 </div>
                 <div className =  "cardButtons">
-                  <Link to={{pathname :"/ShowTimes"}} state={{from: props.Name}} className='buttonReprise2'>See Show Times</Link>
+                  <Link to={{pathname :"/ShowTimes"}} state={{from: props.Name, id: 1}} className='buttonReprise2'>See Show Times</Link>
 
                   <button onClick={openModal} className="buttonReprise2">Watch Trailer</button>
                   </div>

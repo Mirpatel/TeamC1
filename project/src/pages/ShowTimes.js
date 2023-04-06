@@ -9,8 +9,7 @@ import { MdChair } from "react-icons/md";
 import { Link } from 'react-router-dom';
 
 import { useNavigate } from "react-router-dom";
-
-
+import Axios from 'axios';
 
 
 
@@ -59,13 +58,7 @@ const ShowTimes = ()  => {
     const [times, setTimes] = useState(times1);
 
 useEffect(() => {
-    // const fetchTimes = async () => {
-    //   const response = await fetch("http://localhost:7200");
-    //   const data = await response.json();
-    //   setTimes(data);
-    // };
 
-    // fetchTimes();
   }, []);
   
   
@@ -81,6 +74,9 @@ useEffect(() => {
     const [checkout, setCheckout] = useState(false);
     const [showTime, setShowTime] = useState(false);
     const [totalTickets, setTotalTickets] = useState(0);
+    const [date, setDate] = useState();
+    const [userTime, setUserTime] = useState();
+    
 
     useEffect(()=> {
         var today = new Date().toISOString().split('T')[0];
@@ -103,14 +99,24 @@ useEffect(() => {
 
     }
     const handleConfirmDate = () => {
-        
+        console.log(state.id);
        console.log("confirmDate");
+       //api call here to get times for said movie at said date
+       Axios.post('http://localhost:3001/user-get-times', {
+        mid_fk: state.id, date: date
+       })
+       .then((response) => {
+        console.log(response)
+        setTimes(response.data);
+    })
+       .catch((error) => console.log(error));
         setShowTime(true);
       
     }
     const [selectedIndex, setSelectedIndex] = useState(null);
 
-    function handleItemClick(index) {
+    function handleItemClick(index, time) {
+        setUserTime(time);
       setSelectedIndex(index);
       setShowTime(true);
       setShowTimeSelected(true);
@@ -140,6 +146,11 @@ useEffect(() => {
     // const handleShowTimeSelectBa = () => {
     //     setFlip(false);
     // }
+
+    const handleDateChange = (date) => {
+        console.log(date);
+    setDate(date);
+    }
     const seatSelectHandler = (choice) => {
 
         setTotalTickets(totalTickets - 1);
@@ -179,7 +190,7 @@ useEffect(() => {
                         <br/>
                         <br/>
                        
-                        <input type="date" id="date"/><br/>
+                        <input type="date" id="date" onChange={(event) => handleDateChange(event.target.value)}/><br/>
                     </form>
                     <Button onClick={handleConfirmDate} className = "buttonReprise2">Confirm Date</Button>
                 </div>
@@ -192,7 +203,7 @@ useEffect(() => {
                    {times.map((time,index) => (
                    <p key = {index} 
                    style={{ color: selectedIndex === index ? '#fff' : '#434169' }}
-                   onClick={() => handleItemClick(index)} className = "times">{time.time}</p>
+                   onClick={() => handleItemClick(index, time.time)} className = "times">{time.time}</p>
                ))}
                </div>
                </div>

@@ -6,7 +6,7 @@ import MovieCard from '../components/MovieCard';
 import Layout from '../components/Layout';
 import {FaSearch} from 'react-icons/fa';
 import NowPlayingLayout from '../components/NowPlayingLayout';
-
+import Axios from 'axios';
 const MOVIES = [
 
   {
@@ -89,10 +89,31 @@ function Home({showSearch}) {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState(MOVIES);
-  
+  const [nowPlayingData, setNowPlayingData] = useState(MOVIES);
+  const [comingSoonData, setComingSoonData] = useState(MOVIES);
   useEffect(() => {
-    // setShowSearch(displaySearch);
-    //   console.log(displaySearch);
+   //call coming soon api
+   Axios.post('http://localhost:3001/movies-coming-soon', {
+  
+   })
+   .then((response) => {
+    console.log(response)
+    setComingSoonData(response.data);
+})
+   .catch((error) => console.log(error));
+
+   //call now playing API
+
+   Axios.post('http://localhost:3001/movies-now-playing', {
+  
+  })
+  .then((response) => {
+   console.log(response)
+   setNowPlayingData(response.data);
+   
+})
+  .catch((error) => console.log(error));
+
       console.log(showSearch);
      const fetchMovies = async () => {
        const response = await fetch("http://localhost:3003");
@@ -159,9 +180,9 @@ const search = (event) => {
       )}
 
 
-      <NowPlayingLayout items={MOVIES}/>
+      <NowPlayingLayout items={nowPlayingData}/>
       <h3 className = "mov">COMING SOON</h3>
-      <Layout items={MOVIES}/>
+      <Layout items={comingSoonData}/>
     </>
     
   );
