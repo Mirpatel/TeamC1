@@ -222,6 +222,7 @@ console.log("called get movies");
                       });
                   
                   });
+
                   app.post("/movies-now-playing", (req, res) => {
                     var today = new Date().toISOString().split('T')[0];
                 
@@ -290,6 +291,64 @@ console.log("called get movies");
               );
               
               });
+
+
+              app.post('/movie-filter-genre', (req, res) => {
+                // Retrieve the filter parameters from the query string
+                const genre = req.body.genre;
+       
+           console.log("genre " + genre);
+                // Build the SQL query based on the provided filters
+      
+                // Execute the SQL query and return the results as a JSON response
+                db.query('SELECT * FROM dawg.movie WHERE genre = ?',[genre] ,
+                (error, results) => {
+                  if (error) {
+                    // Handle any errors that occur during the query execution
+                    console.error(error);
+                    res.status(500).send('Internal server error');
+                    return;
+                  }
+              
+                  // If no movies were found, return a custom error message
+                  if (results.length === 0) {
+                    res.status(404).send('No movies found.');
+                    return;
+                  }
+                  
+                  // Return the filtered results as a JSON response
+                  res.json(results);
+                });
+              });
+
+              app.post('/movie-filter-title', (req, res) => {
+                // Retrieve the filter parameters from the query string
+                const title = req.body.title;
+       
+       
+                // Build the SQL query based on the provided filters
+      
+                // Execute the SQL query and return the results as a JSON response
+                db.query('SELECT * FROM dawg.movie WHERE Name = ?',[title] ,
+                (error, results) => {
+                  if (error) {
+                    // Handle any errors that occur during the query execution
+                    console.error(error);
+                    res.status(500).send('Internal server error');
+                    return;
+                  }
+              
+                  // If no movies were found, return a custom error message
+                  if (results.length === 0) {
+                    res.status(404).send('No movies found.');
+                    return;
+                  }
+                  
+                  // Return the filtered results as a JSON response
+                  res.json(results);
+                });
+              });
+
 
 app.listen(3001, () => {
 console.log("running on 3001");
