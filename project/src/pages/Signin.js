@@ -40,7 +40,8 @@ function Signin() {
       
     const submit = () => {
        console.log("pressed submit");
-       console.log(promo);
+ 
+  
         Axios.post('http://localhost:8080',{
            email: email, Password: Password, Promo: promo}).then((response) => {
              if (response.data.redirectTo) {
@@ -52,7 +53,10 @@ function Signin() {
             localStorage.setItem("token", response.data.accessToken);
   
 
-           });
+           })
+           .catch(function (error) {
+            console.log(error);
+          });
            
            
            

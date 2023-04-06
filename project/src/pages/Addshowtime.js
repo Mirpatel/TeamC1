@@ -48,15 +48,39 @@ const [refresh, setRefresh] = useState(true);
   };
 
   const handleAddShowtime = () => {
-    axios.post('http://localhost:3001/add-showtime', {
+    //need to check if already exists first
+    console.log(time1);
+    console.log(date);
+    axios.post('http://localhost:3001/showtime-exists', {
+     time: time1, date: date
+     })
+     .then((response) => {
+      console.log(response.data);
+      if (response.data === "true") {
+
+        alert("This date and time is taken!");
+      }
+      else {
+            axios.post('http://localhost:3001/add-showtime', {
       mId : selectedMovieId, time: time1, date: date
      })
      .then((response) => console.log(response))
      .catch((error) => console.log(error));
+      }
+      //if response.data = exists or whatever then alert(movie time taken)
+      //else put api call here
+    })
+     .catch((error) => console.log(error));
+
+    // axios.post('http://localhost:3001/add-showtime', {
+    //   mId : selectedMovieId, time: time1, date: date
+    //  })
+    //  .then((response) => console.log(response))
+    //  .catch((error) => console.log(error));
  
     setRefresh(!refresh);
    
-    setAddTime(false);
+    // setAddTime(false);
   };
 
   const handleSubmit = (event) => {
@@ -72,6 +96,7 @@ const [refresh, setRefresh] = useState(true);
   
   const handleRemoveClick = (timeId) => {
     //delete API call here then remount
+    console.log(timeId);
     axios.post('http://localhost:3001/delete-showtime', {
      timeId: timeId
     })
