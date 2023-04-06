@@ -1,65 +1,15 @@
-/*
-import { useState, useEffect } from "react";
-import { Axios } from "axios";
 
-function Addshowtime ()  {
-  const [movies, setMovies] = useState([]);
-  const [selectedMovieId, setSelectedMovieId] = useState(null);
-  const [showtime, setShowtime] = useState('');
-
-  useEffect(() => {
-    fetch("http://localhost:4500/")
-      .then((response) => response.json())
-      .then((data) => setMovies(data.data));
-  }, []);
-
-  const handleMovieChange = (event) => {
-    setSelectedMovieId(event.target.value);
-  };
-
-  const handleShowtimeChange = (event) => {
-    setShowtime(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    
-    Axios.post('http://localhost:4500',{
-        movies: movies, selectedMovieId: selectedMovieId})
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Movie:
-        <select value={selectedMovieId} onChange={handleMovieChange}>
-          <option value="">Select a movie</option>
-          {movies && movies.map((movie) => (
-            <option key={movie.id} value={movie.id}>
-              {movie.Name}
-            </option>
-          ))}
-        </select>
-      </label>
-      <br />
-      <label>
-        Showtime:
-        <input type="text" value={showtime} onChange={handleShowtimeChange} />
-      </label>
-      <br />
-      <button type="submit">Submit</button>
-    </form>
-  );
-};
-export default Addshowtime;
-*/
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 function Addshowtime() {
   const [movies, setMovies] = useState();
   const [selectedMovieId, setSelectedMovieId] = useState(null);
+  const [time1, setTime1] = useState();
   const [time, setTime] = useState(['']);
+  const [date, setDate] = useState();
+const [addTime, setAddTime] = useState(false);
+const [refresh, setRefresh] = useState(true);
 
   useEffect(() => {
     axios.post("http://localhost:3001/getMovies")
@@ -69,7 +19,7 @@ function Addshowtime() {
       .catch((error) => console.log(error));
 
       console.log(movies);
-  }, []);
+  }, [refresh]);
 
   const handleMovieChange = (event) => {
     setSelectedMovieId(event.target.value);
@@ -86,19 +36,27 @@ function Addshowtime() {
   };
 
   const handleShowtimeChange = (event, index) => {
-    const newTime = [...time];
-    newTime[index] = event.target.value;
-    setTime(newTime);
+    
+   
+    setTime1(event.target.value);
   };
 
   const handleShowDateChange = (event, index) => {
-    const newTime = [...time];
-    newTime[index] = event.target.value;
-    setTime(newTime);
+
+   
+    setDate(event.target.value);
   };
 
   const handleAddShowtime = () => {
-    setTime([...time, '']);
+    axios.post('http://localhost:3001/add-showtime', {
+      mId : selectedMovieId, time: time1, date: date
+     })
+     .then((response) => console.log(response))
+     .catch((error) => console.log(error));
+ 
+    setRefresh(!refresh);
+   
+    setAddTime(false);
   };
 
   const handleSubmit = (event) => {
@@ -112,14 +70,20 @@ function Addshowtime() {
     .catch((error) => console.log(error));
   };
   
-  const handleRemoveClick = (index) => {
-    const list = [...time];
-    list.splice(index, 1);
-    setTime(list);
+  const handleRemoveClick = (timeId) => {
+    //delete API call here then remount
+    axios.post('http://localhost:3001/delete-showtime', {
+     timeId: timeId
+    })
+    .then((response) => console.log(response))
+    .catch((error) => console.log(error));
+
+   setRefresh(!refresh);
   };
   
   const handleAddClick = () => {
-    setTime([...time, ""]);
+   setAddTime(true);
+    // setTime([...time, ""]);
   };
   
   return (
@@ -140,7 +104,7 @@ function Addshowtime() {
       </select>
     </label>
     <br />
-    <label>
+    <label className="margin0">
       <p className="purple">SHOWTIMES</p>
       <div className="line8"/>
       {time.map((time, index) => (
@@ -150,25 +114,42 @@ function Addshowtime() {
         
          <p className="purple anon">TIME</p></div>
         <div>
-          <input
-            type="text"
-            value={time.date}
-            onChange={(event) => handleShowDateChange(event, index)}
-          />
-          <input
-            type="text"
-            value={time.time}
-            onChange={(event) => handleShowtimeChange(event, index)}
-          />
+          <div className="line9"/>
+        <div className = "labelStuff"> 
+        <p>{time.date && time.date.slice(0, 10)}</p>
+        <p className="timeMapped">{time.time}</p>
+        </div>
           </div>
-          <button type="button" className="buttonReprise2" onClick={() => handleRemoveClick(index)}>Remove</button>
+          <button type="button" className="buttonReprise2" onClick={() => handleRemoveClick(time.sid)}>Remove</button>
         </div>
       ))}
-      <button type="button" className="buttonReprise2"  onClick={handleAddClick}>Add time</button>
+      <button type="button" className="buttonReprise2"  onClick={handleAddClick}>NEW TIME</button>
+      {addTime && (
+                <div className = "timeHolder">
+                <div className = "labelStuff"> 
+                <p className="purple anon">DATE</p>
+               
+                <p className="purple anon">TIME</p></div>
+               <div>
+               <div className = "labelStuff"> 
+                 <input
+                   type="text"
+                   className = "timeInp"
+                   onChange={(event) => handleShowDateChange(event)}
+                 />
+                 <input
+                   type="text"
+                    className = "timeInp"
+                   onChange={(event) => handleShowtimeChange(event)}
+                 />
+                 </div>
+                 </div>
+                 <button type="button" className="buttonReprise2" onClick={handleAddShowtime}>ADD TIME</button>
+               </div>
+      )}
     </label>
     </div>
     <br />
-    <button type="submit" className="buttonReprise" >Submit</button>
   </form>
   </div>
   </div>
@@ -176,3 +157,5 @@ function Addshowtime() {
 }
 
 export default Addshowtime;
+
+

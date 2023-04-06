@@ -137,10 +137,11 @@ const [Password, setPassword] = useState('');
     }
  
     const makeChanges = () => {
-      setEdit(false);
-      //Axios.post('http://localhost:8080/send-profile-email', {
    
-       // name: 'gord', email: 'jordynfulbright@gmail.com' });
+      Axios.post('http://localhost:8080/send-profile-email', {
+   
+       name: newFirstName, email: userEmail });
+
       console.log("Profile Email sent");
       console.log(email);
       Axios.post('http://localhost:3001/profile-edit', {
@@ -151,8 +152,9 @@ const [Password, setPassword] = useState('');
            
           
            
-          alert("profile updated!");
-        
+          
+          setEdit(false);
+       
         };
 
   
@@ -290,7 +292,7 @@ const [Password, setPassword] = useState('');
            console.log(localStorage.getItem("token"));
            // localStorage.setItem("token", "beepboop");
           
-           },[])
+           },[edit])
           
            const submit = () => {
 
@@ -514,22 +516,7 @@ const [Password, setPassword] = useState('');
         </Modal.Footer>
       </Modal>
 
-  {pass && (
-    <form>
-    <div class="passW">
-    <label for="old">Old password</label>
-    <input type="text" placeholder="Enter Old Password" name="old" required/>
-
-    <label for="pass">New password</label>
-    <input type="password" placeholder="Enter New Password" name="pass" required/>
-
-    <label for="RePass">Confirm New password</label>
-    <input type="password" placeholder="Re-Enter New Password" name="RePass" required/>
-
-    <button type="submit" className = "button" onClick = {submitNewPass}>Confirm</button>
-  </div>
-    </form>
-  )}
+  
 
 
    <div className = "buttonsProfile">
