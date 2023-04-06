@@ -83,14 +83,32 @@ const MOVIES = [
 ];
 
 function Home({showSearch}) {
+  
+const handleGenre = () => {
+setActiveOption('genre');
+console.log("genre active");
+}
 
+const handleTitle = () => {
+  setActiveOption('title');
+}
 
+const handleChange = (event) => {
 
+setSearchQuery(event.target.value);
+if (event.target.value === "") {
+  setPage2(false);
+}
+else {
+  setPage2(true);
+} 
+}
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredData, setFilteredData] = useState(MOVIES);
+  const [filteredData, setFilteredData] = useState();
   const [nowPlayingData, setNowPlayingData] = useState(MOVIES);
   const [comingSoonData, setComingSoonData] = useState(MOVIES);
+  const [page2, setPage2] = useState(false);
   useEffect(() => {
    //call coming soon api
    Axios.post('http://localhost:3001/movies-coming-soon', {
@@ -122,41 +140,45 @@ function Home({showSearch}) {
      };
 
      fetchMovies();
+
+
+     if (showSearch === false) {
+      setPage2(false);
+     }
   },  [showSearch]);
-const search = (event) => {
-  const query = event.target.value;
-  setSearchQuery(query);
+const search = () => {
 
-  let searchWords = query.toLowerCase().split(" ");
-  if (searchWords[0] === "the") {
-    searchWords = searchWords.slice(1);
-  }
 
-  const filtered = MOVIES.filter((item) => {
-    const titleWords = item.title.toLowerCase().split(" ");
-    for (let i = 0; i < titleWords.length - searchWords.length + 1; i++) {
-      if (titleWords[i] === searchWords[0]) {
-        let found = true;
-        for (let j = 1; j < searchWords.length; j++) {
-          if (titleWords[i + j] !== searchWords[j]) {
-            found = false;
-            break;
-          }
-        }
-        if (found) {
-          return true;
-        }
-      }
-    }
-    return false;
-  });
+  const query = searchQuery;
+ 
+//get active option and then send to database with search event value
+//set response to filtered data and make page2 set to true
+//if search value is at "" then set page2 to false
+if (activeOption === 'genre') {
+  console.log(query);
+Axios.post('http://localhost:3001/movie-filter-genre', {
+  genre: query
+})
+.then((response) => {
+ console.log(response)
+ setFilteredData(response.data);
+})
+.catch((error) => console.log(error));
+}
 
-  if (filtered.length === 0) {
-    setFilteredData(MOVIES);
-  } else {
-    setFilteredData(filtered);
-  }
+else if (activeOption === 'title') {
+  Axios.post('http://localhost:3001/movie-filter-title', {
+  title: query
+  })
+  .then((response) => {
+   console.log(response)
+   setFilteredData(response.data);
+  })
+  .catch((error) => console.log(error));
+}
 };
+
+const [activeOption, setActiveOption] = useState('genre');
 
 
 
@@ -165,25 +187,55 @@ const search = (event) => {
 
   
     
-    <>
-      <h3 className = "mov">NOW PLAYING</h3>
+    <div className = "homeHeight">
+     
       {showSearch && (
         <div className = "searchButtonPos">
+          <div className = "searchChoice">
+          <div
+          className='searchOpt'
+          style = {{ filter: activeOption === 'title' ? 'drop-shadow(4px 4px 4px rgba(252, 252, 252, 0.5))' : 'none' }}
+        onClick={handleTitle}
+      >
+        <p className="p">TITLE</p>
+      </div>
+
+      <div
+      className='searchOpt'
+        style = {{ filter: activeOption === 'genre' ? 'drop-shadow(4px 4px 4px rgba(252, 252, 252, 0.5))' : 'none' }}
+        onClick={handleGenre}
+      >
+        <p className="p">GENRE</p>
+      </div>
+          </div>
             <input
             type="text"
             value={searchQuery}
-            onChange={search}
+            onChange={handleChange}
             placeholder="Search..."
+            className='inputBoxSearch'
           />
           <button onClick = {search} className = "faSearch"><FaSearch/></button>
           </div>
       )}
 
+{!page2 && (
+  <>
+   <h3 className = "mov">NOW PLAYING</h3>
+        <NowPlayingLayout items={nowPlayingData}/>
+        <h3 className = "mov">COMING SOON</h3>
+        <Layout items={comingSoonData}/>
+        </>
+)}
 
-      <NowPlayingLayout items={nowPlayingData}/>
-      <h3 className = "mov">COMING SOON</h3>
-      <Layout items={comingSoonData}/>
-    </>
+
+      {page2 && (
+
+        <>
+         <NowPlayingLayout items={filteredData}/>
+        </>
+      )}
+    </div>
     
   );
 }
