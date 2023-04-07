@@ -68,7 +68,6 @@ return (
       <th className="purple">LAST NAME</th>
       <th className="purple">EMAIL</th>
       <th className="purple">PHONE</th>
-      <th className="purple">PASSWORD</th>
       <th className="purple">ACTION</th>
 
    </tr>
@@ -81,23 +80,24 @@ return (
       <td lassName="purple anon">{user.lname}</td>
       <td lassName="purple anon">{user.Email}</td>
       <td lassName="purple anon">{user.phone}</td>
-      <td lassName="purple anon">{user.Password}</td>
       
       <td>
-      <Link to="/editUser" className="buttonReprise2">Edit</Link>
-      <button
-          className="buttonReprise"
-          onClick={() => suspend(user.Id)}
-        >
-          Suspend
-        </button>
+        {user.suspend !== 1 && (
+                <button
+                className="buttonReprise2"
+                onClick={() => suspend(user.Id)}
+              >
+                Suspend
+              </button>
+        )}
+ {user.suspend === 1 && (
         <button
-          className="buttonReprise"
+          className="buttonReprise2"
           onClick={() => unsuspend(user.Id)}
         >
           Unsuspend
         </button>
-
+ )}
                       
       </td>
 

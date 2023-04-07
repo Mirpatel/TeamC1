@@ -214,6 +214,37 @@ app.post("/add-showtime", function (req, res) {
     }
   });
 });
+app.get("/api/user", function (req, res) {
+  db.query("select * from dawg.user WHERE isVerified = 1", function (err, rows) {
+    if (!err) {
+      res.send(rows);
+    } else {
+      console.log(err);
+    }
+  });
+}); // suspend api
+
+app.post('/suspend', function (req, res) {
+  var Id = req.body.Id;
+  var suspend = req.body.suspend;
+  console.log(req.body);
+  db.query('UPDATE dawg.user SET suspend = ? WHERE id = ?', [suspend, Id], function (error, results) {
+    if (error) {
+      throw error;
+    } else {
+      console.log(results);
+      res.send('User suspended successfully');
+    }
+  });
+});
+app.post('/unsuspend', function (req, res) {
+  var Id = req.body.Id;
+  var unsuspend = req.body.unsuspend;
+  db.query('UPDATE  dawg.user SET suspend = ?', [unsuspend, Id], function (error, results, fields) {
+    if (error) throw error;
+    res.send('User suspended successfully');
+  });
+});
 app.post("/showtime-exists", function (req, res) {
   var id = req.body.mId;
   var time = req.body.time;

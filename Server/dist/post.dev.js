@@ -385,6 +385,10 @@ app.post("/", function _callee2(req, res) {
                           return res.status(401).send("Invalid email or password.");
                         }
 
+                        if (result[0].suspend === 1) {
+                          return res.status(401).send("Your account has been suspended.");
+                        }
+
                         var expiresIn = promo ? 2592000 : 86400;
                         var token = jwt.sign({
                           id: email
@@ -421,6 +425,51 @@ app.post("/", function _callee2(req, res) {
     }
   });
 });
+/*
+
+
+app.post("/suspend", (req, res) => { 
+  let title = req.body.title;
+  let text = req.body.text;
+
+    db.query(
+      "SELECT * FROM dawg.user WHERE promo = 1",
+   (error, fname) =>  {
+
+      if (error) {
+        console.log(error);
+      } else {
+        
+        res.send(fname);
+        console.log(fname);
+        console.log(fname.length);
+        for (i = 0; i < fname.length; i++) {
+          // console.log(fname[i]);
+          let name = fname[i].fname;
+          let email = fname[i].Email;
+          let data = {
+            email: email, name: name, title: title, text:text
+          }
+            axios.post('http://localhost:8080/send-promotion-email', data).then(response => {
+                // handle the response from the external API
+                res.json(response.data);
+              })
+              .catch(error => {
+                console.log(error);
+                res.status(500).json({ message: 'An error occurred' });
+              });
+         
+
+        }
+      }
+    }
+    );
+  });
+
+
+
+*/
+
 app.listen(8080, function () {
   console.log("running on 8080");
 });

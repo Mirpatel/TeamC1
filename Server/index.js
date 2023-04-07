@@ -301,7 +301,7 @@ console.log("called get movies");
 
               
 app.get("/api/user",(req, res)=> {
-  db.query("select * from dawg.user", (err,rows)=> {
+  db.query("select * from dawg.user WHERE isVerified = 1", (err,rows)=> {
       if(!err) {
           res.send(rows);
       } else{
@@ -315,16 +315,23 @@ app.get("/api/user",(req, res)=> {
   app.post('/suspend', (req, res) => {
     const Id = req.body.Id;
     const suspend = req.body.suspend;
-  
+  console.log(req.body);
     db.query(
-      'UPDATE  dawg.user SET suspend = ? WHERE id = ?',
+      'UPDATE dawg.user SET suspend = ? WHERE id = ?',
       [suspend, Id],
-      (error, results, fields) => {
-        if (error) throw error;
+      (error, results) => {
+        if (error) {
+          throw error;
+        }
+      
+      else {
+        console.log(results);
         res.send('User suspended successfully');
       }
+    }
     );
   });
+
   app.post('/unsuspend', (req, res) => {
     const Id = req.body.Id;
     const unsuspend = req.body.unsuspend;
