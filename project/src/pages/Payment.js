@@ -11,18 +11,18 @@ let noAdultTickets = state.from.noAdultTickets;
 let noChildTickets = state.from.noChildTickets;
     return (
         <div class="payment">
-            <h4>Payment Info</h4>
+            <p className = "titleBox">Payment Info</p>
             <form onSubmit={<Navigate to="/login" />}>
-                <label for="nameoncard">Name on Card: </label>
-                <input type="text" id="nameoncard" name="nameoncard"></input> <br />
-                <label for="cardnumber">Card Number: </label>
-                <input type="text" id="cardnumber" name="cardnumber"></input> <br />
-                <label for="cvv">CVV: </label>
-                <input type="text" id="cvv" name="cvv"></input>
-                <label for="expmon">Exp Month: </label>
-                <input type="text" id="expmon" name="expmon"></input>
-                <label for="expyear">Exp Year: </label>
-                <input type="text" id="expyear" name="expyear"></input>
+                <label className = "purple" for="nameoncard">Name on Card: </label>
+                <input className = "purple" type="text" id="nameoncard" name="nameoncard"></input> <br />
+                <label className = "purple" for="cardnumber">Card Number: </label>
+                <input className = "purple" type="text" id="cardnumber" name="cardnumber"></input> <br />
+                <label className = "purple" for="cvv">CVV: </label>
+                <input className = "purple" type="text" id="cvv" name="cvv"></input>
+                <label className = "purple" for="expmon">Exp Month: </label>
+                <input className = "purple" type="text" id="expmon" name="expmon"></input>
+                <label className = "purple" for="expyear">Exp Year: </label>
+                <input className = "purple" type="text" id="expyear" name="expyear"></input>
               <br/>
               <br/>
                 <Link className='buttonReprise'to={{pathname :"/confirmationPage"}} state={{from: { total: {total},

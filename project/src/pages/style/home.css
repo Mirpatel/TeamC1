@@ -39,9 +39,65 @@
 }
 .searchButtonPos {
     margin-right: 600px;
-    margin-top: -23px;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: row;
 }
 
 .faSearch {
     cursor: pointer;
+    height: 20px;
 }
+
+.searchOpt {
+    background: #D9D9D9;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    height:20px;
+    margin:0;
+    width:40px;
+    text-align: center;
+    line-height: 0.2;
+    cursor: pointer;
+  
+}
+
+.searchOpt2 {
+    background: #D9D9D9;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    height:20px;
+    margin:0;
+    width:40px;
+    text-align: center;
+    line-height: 0.2;
+    cursor: pointer;
+  
+}
+.searchChoice {
+  
+    width:120px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+.inputBoxSearch {
+    height:15px;
+    
+}
+
+.p {
+    font-size: 10px;
+    color: #434169;
+}
+
+.searchOpt.active ~ .searchBox {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .homeHeight {
+    min-height: 600px;
+  }

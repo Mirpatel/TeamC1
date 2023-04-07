@@ -15,7 +15,7 @@ const { response } = require('express');
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKey = defaultClient.authentications['api-key'];
 const crypto = require('crypto');
-apiKey.apiKey = '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';
+apiKey.apiKey = '';
 
 app.use((req, res, next) => {
   try {
@@ -421,78 +421,81 @@ app.post("/profile", (req, res) => {
   //
  
 // 
-app.post("/",  async (req, res) => {
-   // hash
 
-  
-  
-  
+app.post("/", async (req, res) => {
   const email = req.body.email;
-   const Password = req.body.Password;
-    const promo = req.body.Promo;
-    //putting this here to test token
-    //gonna take away soon
-  
-
-
-    if (!email || !Password) {
+  const password = req.body.Password;
+  const promo = req.body.promo;
+let passwordMatch;
+  if (!email || !password) {
       return res.status(400).send("Email and password are required.");
-    }
+  }
   
- 
-    db.query(
-      "SELECT * FROM dawg.user WHERE email = ? AND password = ?",
-      [email, Password], async (err, result) => {
+  db.query(
+    "SELECT * FROM dawg.user WHERE email = ?",
+    [email],
+    async (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("An error occurred while processing your request.");
+      }
+
+
+      if (result.length === 0) {
+        return res.status(401).send("Invalid email or password.");
+      }
+
+      const user = result[0];
+      console.log(password);
+      console.log(user.Password);
+      bcrypt.compare(password, user.Password, (err, resp) => {
         if (err) {
           console.log(err);
-          return res.status(500).send("An error occurred while processing your request.");
+          console.log("An error occurred while processing your request.");
         }
-  
-        if (result.length === 0) {
-          return res.status(401).send("Invalid email or password.");
-        } // get rid of this else
-        
-        
-        
-        //hashed password test
-       
-        //testing suspend
-        if (result[0].suspend === 1) {
+        else {
+          passwordMatch = resp;
+          console.log("compare " + resp);
+
+
+
+          if (!passwordMatch) {
+            console.log(passwordMatch);
+            return res.status(401).send("Invalid email or password.");
+          }
+          
+             if (result[0].suspend === 1) {
          return res.status(401).send("Your account has been suspended.");
          
 
         }
-        
-// rest 
-        if (promo) {
-        var token = jwt.sign({ id: email }, config.secret, {
-          expiresIn:  2592000 // 30 days
-          
-        });
-      }
-      else {
-        var token = jwt.sign({ id: email }, config.secret, {
-          expiresIn: 86400 // 24 hours
+    
+          const expiresIn = promo ? 2592000 : 86400;
+          const token = jwt.sign({ id: email }, config.secret, { expiresIn: expiresIn });
+    
+          if (user.role === 'admin') {
+            return res.send({
+              redirectTo: '/admin',
+              accessToken: token
+            });
+          } else {
+            return res.send({
+              redirectTo: '/',
+              accessToken: token
+            });
+          }
+
+
+        }
+
+
       });
+
+
     }
-        const user = result[0];
-      console.log(token);
-      if (user.role === 'admin') {
-        return res.send({ redirectTo: '/admin', accessToken: token
-      });
-
-      } else {
-        return res.send({ redirectTo: '/',  accessToken: token
-      });
-      }
-      //he
-    
-      });
-    //here
-   
-
+  );
 });
-    
+  
 /*
 
 
