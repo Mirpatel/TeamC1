@@ -99,9 +99,31 @@ const NowPlayingCard = props  => {
             
                 <div className = "genreReprise">
                 <p className = "cate">Description</p>
-          <div className = "line3"/>
+              <div className = "line3"/>
                 <p className='ans ratingBottom'>{props.description}</p>
+
+                <div className = "otherInfo">
+                  <div className = "infoOpt">
+                <p className = "cate">Producer</p>
+              <div className = "line10"/>
+                <p className='ans2 ratingBottom'>{props.producer}</p>
                 </div>
+                <div className = "infoOpt">
+                <p className = "cate">Director</p>
+              <div className = "line10"/>
+                <p className='ans2 ratingBottom'>{props.director}</p>
+                </div>
+                <div className = "infoOpt">
+                <p className = "cate">Cast</p>
+              <div className = "line10"/>
+                <p className='ans2 ratingBottom'>{props.cast}</p>
+                </div>
+                </div>
+                </div>
+                            
+            
+        
+            
                 <div className =  "cardButtons">
                   <Link to={{pathname :"/ShowTimes"}} state={{from: props.Name, id: 1}} className='buttonReprise2'>See Show Times</Link>
 

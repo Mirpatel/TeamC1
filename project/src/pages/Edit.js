@@ -19,15 +19,19 @@ const [Rating, setRating] = useState("");
 const [genre, setGenre] = useState("");
 const [movierating, setMovieRating] = useState("");
 
+const [director, setDirector] = useState("");
+const [producer, setProducer] = useState("");
+const [cast, setCast] = useState("");
+
 
 const submit = () => {
-if ( movierating === "" || Rating === "" || genre === "" || name === "" || date === "" || trailer === "" || description === "" || url === "") {
+if ( movierating === "" || Rating === "" || genre === "" || name === "" || date === "" || trailer === "" || description === "" || url === "" || director === "" || producer === "" || cast === "") {
    alert("Please enter all fields");
 }
 else {
 Axios.post('http://localhost:3003', {
    
-   movierating: movierating, Rating: Rating,genre: genre, name: name, date: date, trailer: trailer, description: description, url: url});
+   movierating: movierating, Rating: Rating,genre: genre, name: name, date: date, trailer: trailer, description: description, url: url, director: director, producer: producer, cast: cast});
    alert("Movie Added!");
    navigate('/Admin');
 
@@ -54,6 +58,13 @@ return (
 <input type="text" onChange={(event) => {setRating(event.target.value)}}/>
 <label className= "purple">MPAA MOVIE RATING</label>
 <input type="text" onChange={(event) => {setMovieRating(event.target.value)}}/>
+<label className= "purple">DIRECTOR</label>
+<input type="text" onChange={(event) => {setDirector(event.target.value)}}/>
+<label className= "purple">CAST</label>
+<input type="text" onChange={(event) => {setCast(event.target.value)}}/>
+<label className= "purple">PRODUCER</label>
+<input type="text" onChange={(event) => {setProducer(event.target.value)}}/>
+
 <button className = "buttonReprise" onClick={submit}>Add Movie</button>
 <p className= "anon purple">Click below to delete or update Movies</p>
 <a href={'./Search'} className= "anon purple">Search for the Movie</a> 

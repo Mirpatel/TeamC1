@@ -42,6 +42,9 @@ const Layout = (props) => {
               trailer={place.trailer}
               genre={place.genre}
               movierating={place.movierating}
+              producer = {place.producer}
+              cast = {place.cast}
+              director = {place.director}
             />
           ))}
         </ul>

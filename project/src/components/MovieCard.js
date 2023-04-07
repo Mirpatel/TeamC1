@@ -78,17 +78,39 @@ const MovieCard = props  => {
             <>
            
               <div className = "flippedSide">
+
               <p className = "comingSoonTitleBack">{props.Name}</p>
+
                 <div className = "genre">
-                  
-                <p className = "cate2">Genre</p>      
-                <p className='ans2'>{props.genre}</p>
+                  <div className = "otherInfo">
+                    <div className = "infoOpt2">
+                <p className = "cate2">Genre</p>
               
-          <div className = "line2"/>
-          <div className = "genreSpace">
+                <p className='ans2'>{props.genre}</p>
+                </div>
+     
+          <div className = "genreSpace infoOpt2">
           <p className = "cate2">Rating</p>
-        
+    
           <p className='ans2'>{props.movierating}</p>
+          </div>
+          </div>
+          <div className = "otherInfo">
+          <div className = "genreSpace infoOpt2">
+          <p className = "cate2">Producer</p>
+        
+          <p className='ans2'>{props.producer}</p>
+          </div>
+          <div className = "genreSpace infoOpt2">
+          <p className = "cate2">Director</p>
+        
+          <p className='ans2'>{props.director}</p>
+          </div>
+          </div>
+          <div className = "genreSpace">
+          <p className = "cate2">Cast</p>
+        
+          <p className='ans2'>{props.cast}</p>
           </div>
           <div className = "line2"/>
             <div className='descriptionSpace'>
@@ -98,6 +120,7 @@ const MovieCard = props  => {
                     <p className='ans2'>{props.description}</p>
 
               </div>
+
                 </div>
                 <div className = "cardButtons">
                     <Link to={{pathname :"/ShowTimes"}} state={{from: props.Name, id: 1}} className='buttonReprise2'>See Show Times</Link>
