@@ -48,6 +48,7 @@ function Signin() {
             navigate(response.data.redirectTo);
           } else {
             setLoginStatus(response.data[0]);
+            
           }
           
             localStorage.setItem("token", response.data.accessToken);
@@ -56,6 +57,13 @@ function Signin() {
            })
            .catch(function (error) {
             console.log(error);
+            console.log(error.response.data);
+            if (error.response.data === "Invalid email or password.") {
+              alert("Invalid email or password.");
+            }
+            else if (error.response.data === "Your account has been suspended.") {
+              alert("Your account has been suspended");
+            }
           });
            
            
