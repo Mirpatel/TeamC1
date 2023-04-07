@@ -21,14 +21,17 @@ const [movierating, setMovieRating] = useState("");
 
 
 const submit = () => {
-
+if ( movierating === "" || Rating === "" || genre === "" || name === "" || date === "" || trailer === "" || description === "" || url === "") {
+   alert("Please enter all fields");
+}
+else {
 Axios.post('http://localhost:3003', {
    
    movierating: movierating, Rating: Rating,genre: genre, name: name, date: date, trailer: trailer, description: description, url: url});
    alert("Movie Added!");
    navigate('/Admin');
 
-
+}
 };
 
 return (

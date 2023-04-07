@@ -79,7 +79,7 @@ const NowPlayingCard = props  => {
                 <div className = "line"></div>
                 <div className = "ratingBottom">
                     <p className = "cate">Rating</p>
-                    <p className = "ans">{props.rating}</p>
+                    <p className = "ans">{props.movierating}</p>
                 </div>
             </div>
             </div>

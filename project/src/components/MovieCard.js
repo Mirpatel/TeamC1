@@ -88,7 +88,7 @@ const MovieCard = props  => {
           <div className = "genreSpace">
           <p className = "cate2">Rating</p>
         
-          <p className='ans2'>{props.rating}</p>
+          <p className='ans2'>{props.movierating}</p>
           </div>
           <div className = "line2"/>
             <div className='descriptionSpace'>
