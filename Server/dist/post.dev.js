@@ -31,7 +31,7 @@ var apiKey = defaultClient.authentications['api-key'];
 
 var crypto = require('crypto');
 
-apiKey.apiKey = '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';
+apiKey.apiKey = '';
 app.use(function (req, res, next) {
   try {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');

@@ -15,7 +15,7 @@ const { response } = require('express');
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKey = defaultClient.authentications['api-key'];
 const crypto = require('crypto');
-apiKey.apiKey = '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';
+apiKey.apiKey = '';
 
 app.use((req, res, next) => {
   try {
@@ -477,7 +477,7 @@ let passwordMatch;
             });
           }
 
-          
+
         }
 
 

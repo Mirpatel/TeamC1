@@ -25,11 +25,14 @@ const description = req.body.description;
 const Rating  = req.body.Rating;
 const url  = req.body.url;
 const genre  = req.body.genre;
+const producer = req.body.producer;
+const cast = req.body.cast;
+const director = req.body.director;
 
 
 db.query(
-"INSERT INTO dawg.movie (name, date, trailer, description, url, Rating, genre) VALUES (?,?,?,?,?,?,?)",
-[name, date, trailer, description, url, Rating, genre]
+"INSERT INTO dawg.movie (name, date, trailer, description, url, Rating, genre, producer, cast, director) VALUES (?,?,?,?,?,?,?)",
+[name, date, trailer, description, url, Rating, genre, producer, cast, director]
 
 
 
