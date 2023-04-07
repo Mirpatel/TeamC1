@@ -291,8 +291,51 @@ console.log("called get movies");
               
               });
 
+
+
+              
+app.get("/api/user",(req, res)=> {
+  db.query("select * from dawg.user", (err,rows)=> {
+      if(!err) {
+          res.send(rows);
+      } else{
+          console.log(err);
+      }
+  } );
+  
+  });
+
+  // suspend api
+  app.post('/suspend', (req, res) => {
+    const Id = req.body.Id;
+    const suspend = req.body.suspend;
+  
+    db.query(
+      'UPDATE  dawg.user SET suspend = ? WHERE id = ?',
+      [suspend, Id],
+      (error, results, fields) => {
+        if (error) throw error;
+        res.send('User suspended successfully');
+      }
+    );
+  });
+  app.post('/unsuspend', (req, res) => {
+    const Id = req.body.Id;
+    const unsuspend = req.body.unsuspend;
+  
+    db.query(
+      'UPDATE  dawg.user SET suspend = ?',
+      [unsuspend, Id],
+      (error, results, fields) => {
+        if (error) throw error;
+        res.send('User suspended successfully');
+      }
+    );
+  });
+
 app.listen(3001, () => {
 console.log("running on 3001");
 
 });
- 
+
+

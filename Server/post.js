@@ -396,7 +396,7 @@ app.post("/profile", (req, res) => {
       );
     });
 
-  app.post("/addPromo", (req, res) => { 
+  app.post("/addPromo",  (req, res) => { 
     const name = req.body.title;
     const information = req.body.text;
     const code = req.body.code;
@@ -421,25 +421,28 @@ app.post("/profile", (req, res) => {
   //
  
 // 
-app.post("/", (req, res) => {
-    const email = req.body.email;
-    const Password = req.body.Password;
+app.post("/",  async (req, res) => {
+   // hash
+
+  
+  
+  
+  const email = req.body.email;
+   const Password = req.body.Password;
     const promo = req.body.Promo;
     //putting this here to test token
-
     //gonna take away soon
-
+  
 
 
     if (!email || !Password) {
       return res.status(400).send("Email and password are required.");
     }
   
-
+ 
     db.query(
       "SELECT * FROM dawg.user WHERE email = ? AND password = ?",
-      [email, Password],
-      (err, result) => {
+      [email, Password], async (err, result) => {
         if (err) {
           console.log(err);
           return res.status(500).send("An error occurred while processing your request.");
@@ -447,8 +450,20 @@ app.post("/", (req, res) => {
   
         if (result.length === 0) {
           return res.status(401).send("Invalid email or password.");
-        }
+        } // get rid of this else
+        
+        
+        
+        //hashed password test
+       
+        //testing suspend
+        if (result[0].suspend === 1) {
+         return res.status(401).send("Your account has been suspended.");
+         
 
+        }
+        
+// rest 
         if (promo) {
         var token = jwt.sign({ id: email }, config.secret, {
           expiresIn:  2592000 // 30 days
@@ -470,14 +485,59 @@ app.post("/", (req, res) => {
         return res.send({ redirectTo: '/',  accessToken: token
       });
       }
+      //he
+    
+      });
+    //here
+   
 
+});
+    
+/*
+
+
+app.post("/suspend", (req, res) => { 
+  let title = req.body.title;
+  let text = req.body.text;
+
+    db.query(
+      "SELECT * FROM dawg.user WHERE promo = 1",
+   (error, fname) =>  {
+
+      if (error) {
+        console.log(error);
+      } else {
+        
+        res.send(fname);
+        console.log(fname);
+        console.log(fname.length);
+        for (i = 0; i < fname.length; i++) {
+          // console.log(fname[i]);
+          let name = fname[i].fname;
+          let email = fname[i].Email;
+          let data = {
+            email: email, name: name, title: title, text:text
+          }
+            axios.post('http://localhost:8080/send-promotion-email', data).then(response => {
+                // handle the response from the external API
+                res.json(response.data);
+              })
+              .catch(error => {
+                console.log(error);
+                res.status(500).json({ message: 'An error occurred' });
+              });
+         
+
+        }
       }
+    }
     );
-
-
   });
 
-  
+
+
+*/
+
 app.listen(8080, () => {
 console.log("running on 8080");
 });
