@@ -12,13 +12,45 @@ function User() {
    const[userData, setUserdata]= useState([]);
    useEffect( ()=> {
       const getUserdata= async()=>{
-         const reqData= await fetch("http://localhost:7000/api/user");
+         const reqData= await fetch("http://localhost:3001/api/user");
          const resData= await reqData.json();
          setUserdata(resData);
          console.log(resData);
       }
       getUserdata();
    },[]);
+// unsuspend
+//      <Link to="/editUser" className="buttonReprise2">Suspend</Link>
+
+const suspend = (Id) => {
+ //  const Id = user.Id; // Replace with the actual user ID
+ 
+   Axios.post('http://localhost:3001/suspend', {
+     Id: Id,
+     suspend: 1 // Set suspend column to 1
+   })
+   .then((response) => {
+     console.log(response.data);
+   })
+   .catch((error) => {
+     console.log(error);
+   });
+ };
+ 
+ const unsuspend = (Id) => {
+ //  const Id = user.Id; // Replace with the actual user ID
+ 
+   Axios.post('http://localhost:3001/unsuspend', {
+    Id: Id,
+     suspend: 0 // Set suspend column to 0
+   })
+   .then((response) => {
+     console.log(response.data);
+   })
+   .catch((error) => {
+     console.log(error);
+   });
+ };
 
 return (
 
@@ -42,19 +74,31 @@ return (
    </tr>
 </thead>
 <tbody>
-   { userData.map( (userData, index)=>(  
+   { userData.map( (user, index)=>(  
    <tr key={index}>
-      <td className="purple anon">{index+1}</td>
-      <td lassName="purple anon">{userData.fname}</td>
-      <td lassName="purple anon">{userData.lname}</td>
-      <td lassName="purple anon">{userData.Email}</td>
-      <td lassName="purple anon">{userData.phone}</td>
-      <td lassName="purple anon">{userData.Password}</td>
+      <td className="purple anon">{user.Id}</td>
+      <td lassName="purple anon">{user.fname}</td>
+      <td lassName="purple anon">{user.lname}</td>
+      <td lassName="purple anon">{user.Email}</td>
+      <td lassName="purple anon">{user.phone}</td>
+      <td lassName="purple anon">{user.Password}</td>
       
       <td>
       <Link to="/editUser" className="buttonReprise2">Edit</Link>
-      <Link to="/editUser" className="buttonReprise2">Suspend</Link>
+      <button
+          className="buttonReprise"
+          onClick={() => suspend(user.Id)}
+        >
+          Suspend
+        </button>
+        <button
+          className="buttonReprise"
+          onClick={() => unsuspend(user.Id)}
+        >
+          Unsuspend
+        </button>
 
+                      
       </td>
 
    </tr>
@@ -74,7 +118,12 @@ return (
 
 
 
+/*
+  <button className = "buttonReprise" onClick={suspend} >Suspend</button>
+      <button className = "buttonReprise" onClick={unsuspend} >Unsuspend</button>
 
+
+*/
 
 
 
