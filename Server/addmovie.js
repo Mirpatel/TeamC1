@@ -31,7 +31,7 @@ const director = req.body.director;
 
 
 db.query(
-"INSERT INTO dawg.movie (name, date, trailer, description, url, Rating, genre, producer, cast, director) VALUES (?,?,?,?,?,?,?)",
+"INSERT INTO dawg.movie (name, date, trailer, description, url, Rating, genre, producer, cast, director) VALUES (?,?,?,?,?,?,?,?,?,?)",
 [name, date, trailer, description, url, Rating, genre, producer, cast, director]
 
 

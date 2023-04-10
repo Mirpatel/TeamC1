@@ -28,7 +28,7 @@ app.post("/", function (req, res) {
   var producer = req.body.producer;
   var cast = req.body.cast;
   var director = req.body.director;
-  db.query("INSERT INTO dawg.movie (name, date, trailer, description, url, Rating, genre, producer, cast, director) VALUES (?,?,?,?,?,?,?)", [name, date, trailer, description, url, Rating, genre, producer, cast, director]);
+  db.query("INSERT INTO dawg.movie (name, date, trailer, description, url, Rating, genre, producer, cast, director) VALUES (?,?,?,?,?,?,?,?,?,?)", [name, date, trailer, description, url, Rating, genre, producer, cast, director]);
 });
 app.listen(3003, function () {
   console.log("running");

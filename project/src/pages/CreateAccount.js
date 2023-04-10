@@ -39,12 +39,12 @@ Axios.post('http://localhost:3001', {
 
 street: street, city: city, adressState: adressState, zipCode: zipCode, fname: fname,  lname: lname, email: email, phone: phone, Password: Password, promo: promo});
 
-// Axios.post('http://localhost:8080/send-verify-email',{
-//         email: email, fname: fname}).then((response) => {
+Axios.post('http://localhost:8080/send-verify-email',{
+        email: email, fname: fname}).then((response) => {
      
 
 
-//         });
+        });
 
 navigate('/verifyEmail', { state: { from: email } });
 

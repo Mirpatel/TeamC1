@@ -35,6 +35,7 @@ const Layout = (props) => {
           {items.slice(startIndex, endIndex + 1).map((place) => (
             <MovieCard
               key={place.id}
+              index = {place.id}
               Name={place.Name}
               Url={place.Url}
               description={place.description}

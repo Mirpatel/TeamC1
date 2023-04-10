@@ -33,7 +33,8 @@ const NowPlayingLayout = (props) => {
         <ul className="movieList">
           {items.slice(startIndex, endIndex + 1).map((place) => (
             <NowPlayingCard
-              key={place._id}
+              key={place.id}
+              index = {place.id}
               Name={place.Name}
               Url={place.Url}
               description={place.description}
