@@ -85,7 +85,7 @@ useEffect(() => {
     },[])
     const handleCheckout = () => {
         if (loggedIn === true) {
-            navigate('/CheckOut');
+            navigate('/CheckOut', { state: { noAdultTickets: adultTix, noChildTickets: childTix, movie: state.from, date: date, time: userTime  } });
         }
         else {
             navigate('/createAccount');

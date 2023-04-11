@@ -93,28 +93,19 @@ console.log("search true");
         {!searchButton && isAdmin && isLoggedIn &&(
         <div>
 
-       <p className='login2 accType'>ADMIN</p>
+       <Link to = '/admin' className='login2 accType'>ADMIN</Link>
         </div>
         )}
 
         <div className='linkContainer'>
-          {!isAdmin && (
+         
             <>
         <Link to = '/' className = "logo3">DAWG</Link>
         <Link to = '/'>< img src={logo} className = "film" alt = "logo"/></Link>
         <Link to = '/' className = "logo3">THEATRE</Link>
         </>
-          )
-          }
-
-          {isAdmin && (
-      <>
-            <Link to = '/admin' className = "logo3">Dawg</Link>
-            <Link to = '/admin'>< img src={logo} className = "film" alt = "logo"/></Link>
-            <Link to = '/admin' className = "logo3">Theatre</Link>
-            </>
-
-          )}
+        
+     
 
 
       </div>
