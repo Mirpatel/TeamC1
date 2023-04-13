@@ -231,6 +231,34 @@ app.post('/verify-email/confirm', function (req, res) {
     }
   }); // console.log("line 127 " + user);
 });
+app.post('/send-confirmation-booking', function (req, res) {
+  var apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+  defaultClient.basePath = 'https://api.sendinblue.com/v3'; // Create an instance of the API class
+
+  var email = req.body.email;
+  var noTickets = req.body.noTickets;
+  var movie = req.body.movie;
+  var dateTime = req.body.dateTime; // Set email parameters
+
+  var sendSmtpEmail = {
+    to: [{
+      email: email
+    }],
+    templateId: 5,
+    params: {
+      FIRSTNAME: noTickets,
+      SMS: dateTime,
+      LASTNAME: movie //
+
+    }
+  }; // Send email
+
+  apiInstance.sendTransacEmail(sendSmtpEmail).then(function (data) {
+    console.log('API called successfully. Returned data: ', data);
+  })["catch"](function (error) {
+    console.error(error);
+  });
+});
 app.post('/send-promotion-email', function (req, res) {
   var apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
   defaultClient.basePath = 'https://api.sendinblue.com/v3'; // Create an instance of the API class
@@ -314,11 +342,23 @@ app.post("/getPromos", function (req, res) {
     }
   });
 });
+app.post("/verifyPromo", function (req, res) {
+  var code = req.body.code;
+  db.query("SELECT * FROM dawg.promotion WHERE code = ?", [code], function (error, fname) {
+    if (error) {
+      console.log(error);
+    } else {
+      res.send(fname);
+    }
+  });
+});
 app.post("/addPromo", function (req, res) {
   var name = req.body.title;
   var information = req.body.text;
   var code = req.body.code;
-  db.query("INSERT INTO dawg.promotion ( name, information, code) VALUES (?,?,?)", [name, information, code], function (error, data) {
+  var percent = req.body.percent;
+  console.log(req.body);
+  db.query("INSERT INTO dawg.promotion ( name, information, code, percent) VALUES (?,?,?,?)", [name, information, code, percent], function (error, data) {
     if (error) {
       console.log(error);
     } else {

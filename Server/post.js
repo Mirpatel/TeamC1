@@ -286,7 +286,38 @@ const email = data[0].Email;
 
 });
 
+app.post('/send-confirmation-booking', (req, res) => {
+  const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+  defaultClient.basePath = 'https://api.sendinblue.com/v3';
 
+  // Create an instance of the API class
+  let email = req.body.email;
+  let noTickets = req.body.noTickets;
+  let movie = req.body.movie;
+  let dateTime = req.body.dateTime;
+  // Set email parameters
+  const sendSmtpEmail = {
+    to: [{ email: email }],
+    templateId: 5, 
+    params: {
+      FIRSTNAME: noTickets,
+      SMS: dateTime,
+      LASTNAME: movie //
+    },
+  };
+  
+  // Send email
+  apiInstance.sendTransacEmail(sendSmtpEmail)
+    .then((data) => {
+      console.log('API called successfully. Returned data: ', data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  
+  
+
+});
 
 
 app.post('/send-promotion-email', (req, res) => {
@@ -396,14 +427,33 @@ app.post("/profile", (req, res) => {
       );
     });
 
+    app.post("/verifyPromo", (req, res) => { 
+
+  const code = req.body.code;
+      db.query(
+        "SELECT * FROM dawg.promotion WHERE code = ?",[code],
+       (error, fname) =>  {
+  
+        if (error) {
+          console.log(error);
+        } else {
+         
+          res.send(fname);
+        }
+      }
+      );
+    });
+
   app.post("/addPromo",  (req, res) => { 
     const name = req.body.title;
     const information = req.body.text;
     const code = req.body.code;
+    const percent = req.body.percent;
+    console.log(req.body);
   
     db.query(
-      "INSERT INTO dawg.promotion ( name, information, code) VALUES (?,?,?)",
-      [ name, information, code], (error, data) =>  {
+      "INSERT INTO dawg.promotion ( name, information, code, percent) VALUES (?,?,?,?)",
+      [ name, information, code, percent], (error, data) =>  {
       
         if (error) {
           console.log(error);

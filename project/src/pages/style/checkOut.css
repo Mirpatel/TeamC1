@@ -119,3 +119,8 @@ img {
 .buttonReprise:hover {
     box-shadow: 0 0 5px rgb(24, 22, 22);
 }
+
+
+.pink {
+    color: #CC8383;
+}
