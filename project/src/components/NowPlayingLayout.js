@@ -9,18 +9,31 @@ const NowPlayingLayout = (props) => {
   const items = props.items || [];
 
   const handleNext = () => {
-    if (endIndex + 3 <= items.length) {
-      setStartIndex(startIndex + 3);
-      setEndIndex(endIndex + 3);
+    const remainingItems = items.length - endIndex - 1;
+    if (remainingItems > 0) {
+      const newStartIndex = startIndex + 3;
+      const newEndIndex = Math.min(endIndex + 3, items.length - 1);
+      setStartIndex(newStartIndex);
+      setEndIndex(newEndIndex);
     }
   };
+  
 
   const handlePrev = () => {
     if (startIndex >= 3) {
-      setStartIndex(startIndex - 3);
-      setEndIndex(endIndex - 3);
+      const newStartIndex = Math.max(startIndex - 3, 0);
+      const newEndIndex = newStartIndex + 2;
+      setStartIndex(newStartIndex);
+      setEndIndex(newEndIndex);
+    } else if (startIndex === 0 && endIndex === 2) {
+      // Do nothing if we're already on the first page
+    } else {
+      // Display the first two items if we're on the second page
+      setStartIndex(0);
+      setEndIndex(1);
     }
   };
+  
 
   return (
     <>
@@ -30,24 +43,24 @@ const NowPlayingLayout = (props) => {
       </div>
 
       <div className="movieList-container">
-        <ul className="movieList">
-          {items.slice(startIndex, endIndex + 1).map((place) => (
-            <NowPlayingCard
-              key={place.id}
-              index = {place.id}
-              Name={place.Name}
-              Url={place.Url}
-              description={place.description}
-              rating={place.rating}
-              trailer={place.trailer}
-              genre={place.genre}
-              movierating={place.movierating}
-              producer = {place.producer}
-              cast = {place.cast}
-              director = {place.director}
-            />
-          ))}
-        </ul>
+      <ul className="movieList">
+  {items.slice(startIndex, Math.min(endIndex + 1, startIndex + 3)).map((place) => (
+    <NowPlayingCard
+      key={place.id}
+      index={place.id}
+      Name={place.Name}
+      Url={place.Url}
+      description={place.description}
+      rating={place.rating}
+      trailer={place.trailer}
+      genre={place.genre}
+      movierating={place.movierating}
+      producer={place.producer}
+      cast={place.cast}
+      director={place.director}
+    />
+  ))}
+</ul>
       </div>
 
       <div className="movieList-arrows">

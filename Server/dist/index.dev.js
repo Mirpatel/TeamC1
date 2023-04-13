@@ -245,6 +245,24 @@ app.post('/unsuspend', function (req, res) {
     res.send('User suspended successfully');
   });
 });
+app.post('/book', function (req, res) {
+  var movie = req.body.movie;
+  var noChildTickets = req.body.noChildTickets.noChildTickets;
+  var noAdultTickets = req.body.noAdultTickets.noAdultTickets;
+  var date = req.body.date.date;
+  var time = req.body.time.time;
+  var total = req.body.total.totalSale;
+  var userId = req.body.userId;
+  var cardId = req.body.cardId;
+  db.query('INSERT INTO dawg.booking ( mid, noChildTickets, noAdultTickets, date, time, total, userId, cardID) VALUES (?,?,?,?, ?, ?, ?, ?)', [movie, noChildTickets, noAdultTickets, date, time, total, userId, cardId], function (error, results) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(results);
+      res.send('made booking');
+    }
+  });
+});
 app.post("/showtime-exists", function (req, res) {
   var id = req.body.mId;
   var time = req.body.time;

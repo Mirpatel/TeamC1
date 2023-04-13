@@ -49,11 +49,13 @@ const [title, setTitle] = useState("");
 const [text, setText] = useState("");
 const [code, setCode] = useState("");
 const [desc, setDesc] = useState("");
+const [percent, setPercent] = useState("");
+
 const [promos1, setPromos1] = useState(promos);
 const submit = () => {
    Axios.post('http://localhost:8080/addPromo', {
    
-      title: title, text: text, code: code });
+      title: title, text: text, code: code, percent: percent });
       // navigate('/Admin');
    
 
@@ -97,6 +99,8 @@ return (
 <input type="text" onChange={(event) => {setText(event.target.value)}}/>
 <label className='purple'>CODE</label>
 <input type="text" onChange={(event) => {setCode(event.target.value)}}/>
+<label className='purple'>PERCENT OFF</label>
+<input type="text" onChange={(event) => {setPercent(event.target.value)}}/>
 <button className = "buttonReprise" onClick={submit}>Add Promotion</button>
 </div>
 
@@ -110,6 +114,7 @@ return (
       <th className='purple' >TITLE</th>
       <th className='purple'>CONTENT</th>
       <th className='purple'>CODE</th>
+      <th className='purple'>PERCENT OFF</th>
 
    </tr>
 </thead>
@@ -119,6 +124,7 @@ return (
       <td className='purple anon'>{promo.Name}</td>
       <td className='purple anon'>{promo.Information}</td>
       <td className='purple anon'>{promo.code}</td>
+      <td className='purple anon'>{promo.percent}</td>
 
    
 

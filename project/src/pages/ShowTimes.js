@@ -51,8 +51,9 @@ const ShowTimes = ()  => {
     const location = useLocation();
     let navigate = useNavigate();
     //
-    
-    const [selectedMovie, setSelectedMovie] = useState(null);
+    const [childTickets, setChildTickets] = useState();
+    const [adultTickets, setAdultTickets] = useState();
+     const [selectedMovie, setSelectedMovie] = useState(null);
 
     
     const [times, setTimes] = useState(times1);
@@ -83,9 +84,10 @@ useEffect(() => {
 
       document.getElementById("date").setAttribute("min", today);
     },[])
+
     const handleCheckout = () => {
         if (loggedIn === true) {
-            navigate('/CheckOut', { state: { noAdultTickets: adultTix, noChildTickets: childTix, movie: state.from, date: date, time: userTime  } });
+            navigate('/CheckOut', { state: { noAdultTickets: adultTickets, noChildTickets: childTickets, movie: state.from, date: date, time: userTime, movieId: state.id  } });
         }
         else {
             navigate('/createAccount');
@@ -129,9 +131,11 @@ useEffect(() => {
         console.log(adultTix);
         if (isNaN(adultTix)) {
             adultTix = parseInt(0);
+         
         }
         if (isNaN(childTix)) {
             childTix = parseInt(0);
+            
         }
         if (childTix === 0 && adultTix === 0) {
             alert("please select at least one ticket");
@@ -140,6 +144,8 @@ useEffect(() => {
         totalTix = childTix + adultTix - 1;
         console.log("come on" + totalTix);
         setTotalTickets(totalTix);
+        setAdultTickets(adultTix);
+        setChildTickets(childTix);
         setShowSeats(true);
         }
     }

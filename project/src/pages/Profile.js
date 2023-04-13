@@ -6,18 +6,6 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import Axios from 'axios';
 
-
-const cards = [
-  {
-    last4: '4456'
-  },
-  {
-    last4: '4256'
-  },
-  {
-    last4: '0456'
-  }
-];
 const orders = [
     {
       title: 'The Avengers',
@@ -50,6 +38,7 @@ const orders = [
 
   
   ];
+
 function Profile() {
     const [promo, setPromo] = useState(false);
     const [pass, setPass] = useState(false);
@@ -114,7 +103,12 @@ const [Password, setPassword] = useState('');
         
     }
     const addNew = () => {
+      if (pay.length === 3) {
+        alert("you may only have 3 cards on your account at one time. To add another, delete an existing card.");
+      }
+      else {
       setNewCard(true);
+      }
     }
 
     const hideAddNew = () => {
@@ -163,8 +157,15 @@ const [Password, setPassword] = useState('');
     const manageBilling = () => {
       setCard(true);
     }
-    const deleteCard = () => {
-      Axios.delete(`/payment/${id}`)
+
+    const deleteCard = (id) => {
+
+
+      console.log("delete card");
+      console.log(id);
+
+    if(window.confirm("are you sure you want to delete this card?")) {
+      Axios.delete(`http://localhost:3050/delete/${id}`)
       .then(response => {
         console.log(response.data); // Success message
         // Do something else here, like update state or show a success message
@@ -174,9 +175,12 @@ const [Password, setPassword] = useState('');
         // Handle the error here, like showing an error message to the user
       });
     }
+
+      
+    }
     
     const addingNewCard = () => {
-      if (cards.length == 4) {
+      if (pay.length == 3) {
         alert("You may only have 3 cards on file at one time. To add a new card please delete an existing one.")
       }
       else {
@@ -184,31 +188,12 @@ const [Password, setPassword] = useState('');
            
         number: number, exp_date: exp_date,ccv: ccv, name: name, exp_year: exp_year, userId:id});
         
-       
-        
          alert("Payment info added to your account");
-         
      
-     
-
-
-
-
-
       }
     }
 
-/*
-   const [userEmail, setUserEmail] = useState();
-    const [fname, setFname] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [streetAddress, setStreetAddress] = useState("  ");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [zipCode, setZipCode] = useState("");
-*/
-    const [pay, setPay] = useState(cards);
+    const [pay, setPay] = useState();
     useEffect(()=> {
       
       Axios.get('http://localhost:8080/api/auth/token', {
@@ -236,7 +221,6 @@ const [Password, setPassword] = useState('');
             setState(response.data[0].adressState);
             setZipCode(response.data[0].zipCode);
             setNewStreetAddress(streetAddress);
-            
             setNewCity(response.data[0].city)
             setNewFirstName(response.data[0].fname)
             setNewLastName(response.data[0].lname)
@@ -257,40 +241,11 @@ const [Password, setPassword] = useState('');
       .catch(function (error) {
         console.log(error);
       });
-      //
-      /*
-      Axios.post('http://localhost:8080/profile', {
-        email: email,
-      }).then((response) => {
-        console.log(response);
-        setUserEmail(response.data[0].Email);
-        setId(response.data[0].Id);
-        console.log(response.data[0].Id);
-        setFirstName(response.data[0].fname);
-        setLastName(response.data[0].lname);
-        setStreetAddress(response.data[0].street);
-        setCity(response.data[0].city);
-        setState(response.data[0].adressState);
-        setZipCode(response.data[0].zipCode);
-        setNewStreetAddress(streetAddress);
-      });
-      */
-      //
-      console.log(id);
-      /*
-      Axios.post('http://localhost:3050/payment', {
 
-        id: id,
-      }).then((response) => {
-        console.log("getpay");
-        console.log(response);
-      setPay(response.data);
-      });
-      */
+      console.log(id);
       console.log("pressed submit");
       
            console.log(localStorage.getItem("token"));
-           // localStorage.setItem("token", "beepboop");
           
            },[edit])
           
@@ -309,7 +264,6 @@ const [Password, setPassword] = useState('');
   return (
     <>
     <div className = "profileShow">
-    
     
         <h3 className='mov'>PROFILE</h3>
       
@@ -398,9 +352,7 @@ const [Password, setPassword] = useState('');
             Save Changes
           </button>
           </Modal.Body>
-        {/* <Modal.Footer>
- 
-        </Modal.Footer> */}
+       
       </Modal>
       </div>
 
@@ -445,22 +397,21 @@ const [Password, setPassword] = useState('');
         <div className="containerCard">
      
          <div className="col-md-12">
-            {/* <h5 className="mt-2"></h5> */}
+           
             <table className="table table-bordered">
 <thead>
    <tr>
       <th >EXISTING CARDS</th>
 
-
    </tr>
 </thead>
 <tbody>
-   { pay.map( (card, index)=>(  
+   { pay && pay.map( (card, index)=>(  
    <tr key={index}>
-      <td >**** **** **** {card.number}</td>
-      <button className="buttonRepriseDanger" onClick={deleteCard(card.id)}>Delete</button>
-
-
+      <td >**** **** **** {card.lastFour}</td>
+      <button className="buttonRepriseDanger" onClick={(event) => {
+        event.preventDefault()
+        deleteCard(card.id)}}>Delete</button>
    </tr>
    ))
 }
@@ -470,10 +421,6 @@ const [Password, setPassword] = useState('');
          </div>
   
 
-      
-
-   
-  
    {newCard && (
     <div className='background'>
   
@@ -516,14 +463,8 @@ const [Password, setPassword] = useState('');
         </Modal.Footer>
       </Modal>
 
-  
-
-
    <div className = "buttonsProfile">
 
-  {/* <button className='button' id = "promo" onClick={promoHandler}>Subscribe to promotions</button>
-  <button className='button' onClick={changePassword}>Change Password</button>
-  <button className='button' onClick={manageBilling}>Manage Billing Information</button> */}
 
 <div className = "optionBlock2" onClick={promoHandler}>
     <p className="purple textBox" id = "promo" >SUBSCRIBE TO PROMOTIONS</p>
@@ -543,7 +484,6 @@ const [Password, setPassword] = useState('');
 <p className="anon purple smallFont">View cards on file, add cards and remove existing cards.</p>
 </div>
 </div>
-
 
   </div>
     </div>

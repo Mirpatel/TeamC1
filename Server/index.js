@@ -346,6 +346,33 @@ app.get("/api/user",(req, res)=> {
     );
   });
 
+  app.post('/book', (req, res) => {
+    const movie = req.body.movie;
+    const noChildTickets = req.body.noChildTickets.noChildTickets;
+    const noAdultTickets = req.body.noAdultTickets.noAdultTickets;
+    const date = req.body.date.date;
+    const time = req.body.time.time;
+    const total = req.body.total.totalSale;
+    const userId = req.body.userId;
+    const cardId = req.body.cardId;
+  
+    db.query(
+      'INSERT INTO dawg.booking ( mid, noChildTickets, noAdultTickets, date, time, total, userId, cardID) VALUES (?,?,?,?, ?, ?, ?, ?)',
+      [movie, noChildTickets, noAdultTickets, date, time, total, userId, cardId],
+      (error, results) => {
+        if (error) {
+          console.log(error);
+          
+        }
+        else {
+          console.log(results);
+        res.send('made booking');
+        }
+      }
+    );
+  });
+
+
               app.post("/showtime-exists", (req, res) => {
                 const id = req.body.mId;
                 const time = req.body.time;

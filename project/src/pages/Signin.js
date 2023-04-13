@@ -45,7 +45,8 @@ function Signin() {
         Axios.post('http://localhost:8080',{
            email: email, Password: Password, Promo: promo}).then((response) => {
              if (response.data.redirectTo) {
-            navigate(response.data.redirectTo);
+            // navigate(response.data.redirectTo);
+            navigate('/');
           } else {
             setLoginStatus(response.data[0]);
             
