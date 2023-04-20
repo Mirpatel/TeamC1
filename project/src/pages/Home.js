@@ -98,12 +98,13 @@ const handleChange = (event) => {
 setSearchQuery(event.target.value);
 if (event.target.value === "") {
   setPage2(false);
+  setNotFound(false);
 }
 else {
   setPage2(true);
 } 
 }
-
+  const [notFound, setNotFound] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState();
   const [nowPlayingData, setNowPlayingData] = useState(MOVIES);
@@ -147,7 +148,7 @@ else {
      }
   },  [showSearch]);
 const search = () => {
-
+setNotFound(false);
 
   const query = searchQuery;
  
@@ -163,7 +164,11 @@ Axios.post('http://localhost:3001/movie-filter-genre', {
  console.log(response)
  setFilteredData(response.data);
 })
-.catch((error) => console.log(error));
+.catch((error) => {
+  //make error message here
+  setNotFound(true);
+  console.log(error)});
+  setFilteredData('');
 }
 
 else if (activeOption === 'title') {
@@ -174,7 +179,11 @@ else if (activeOption === 'title') {
    console.log(response)
    setFilteredData(response.data);
   })
-  .catch((error) => console.log(error));
+  .catch((error) => {
+    //make error message here
+    setNotFound(true);
+    console.log(error)});
+    setFilteredData('');
 }
 };
 
@@ -232,6 +241,9 @@ const [activeOption, setActiveOption] = useState('genre');
       {page2 && (
 
         <>
+        {notFound && (
+          <h3 className = "mov">Movie not found...</h3>
+        )}
          <NowPlayingLayout items={filteredData}/>
         </>
       )}
