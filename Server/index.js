@@ -31,15 +31,6 @@ const db = mysql.createConnection({
   port: '8001'
 });
  
-/*
- const [newFirstName, setNewFirstName] = useState("");
-    const [newLastName, setNewLastName] = useState("");
-    const [newStreetAddress, setNewStreetAddress] = useState(" ");
-    const [newCity, setNewCity] = useState(" ");
-    const [newState, setNewState] = useState(" ");
-    const [newZipCode, setNewZipCode] = useState(" ");
-*/
-
 app.post("/profile-edit", (req, res) => {
 const newFirstName = req.body.newFirstName;
 const newLastName = req.body.newLastName; // Use the hashed password

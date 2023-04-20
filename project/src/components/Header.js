@@ -56,6 +56,7 @@ console.log("search true");
             if (response.data[0].role === "admin") {
               console.log("yes is an admin");
               setIsAdmin(true);
+              setSearchButton(false);
              
             }
           
@@ -113,16 +114,16 @@ console.log("search true");
 {!isLoggedIn && (
       <Link to='/signin' className='login2'>LOGIN</Link>
       )}
-      {isLoggedIn && (
+      {isLoggedIn && !isAdmin && (
         <Link onClick = {loggingOut} to='/' className='login'>LOGOUT</Link>
+      )}
+            {isLoggedIn && isAdmin && (
+        <Link onClick = {loggingOut} to='/' className='loginAdminStyle'>LOGOUT</Link>
       )}
       {!isAdmin && isLoggedIn &&(
       <Link to = '/profile'><BsPersonCircle className = "logo2"/></Link>
       )}
-       {isAdmin && isLoggedIn &&(
-      <Link to = '/profile'><BsPersonCircle className = "logo2"/></Link>
-      )}
-
+   
       </div>
 
       </div>

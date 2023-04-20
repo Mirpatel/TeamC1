@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import Axios from 'axios';
 
-const orders = [
+const ordersHardCode = [
     {
       title: 'The Avengers',
       noTickets: 3,
@@ -40,6 +40,7 @@ const orders = [
   ];
 
 function Profile() {
+  const [orders, setOrders] = useState(ordersHardCode);
     const [promo, setPromo] = useState(false);
     const [pass, setPass] = useState(false);
     const [edit, setEdit] = useState(false);

@@ -15,7 +15,7 @@ const { response } = require('express');
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKey = defaultClient.authentications['api-key'];
 const crypto = require('crypto');
-apiKey.apiKey = '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';
+apiKey.apiKey = '';
 
 app.use((req, res, next) => {
   try {
@@ -87,9 +87,9 @@ console.log(Date.now());
     else {
       
       const saltRounds = 10;
-      const Password = req.body.Password;
       
-      bcrypt.hash(Password, saltRounds, (err, hash) => {
+      
+      bcrypt.hash(password, saltRounds, (err, hash) => {
         if (err) {
           console.log(err);
           return res.status(500).send("An error occurred while processing your request.");
@@ -113,7 +113,7 @@ console.log(Date.now());
 
       console.log("line 138" + password);
   
-      res.send('Password reset successful');
+  
     }
  
 
@@ -186,7 +186,7 @@ const sendSmtpEmail = {
   to: [{ email: email }],
   templateId: 2, 
   params: {
-    FIRSTNAME: name,
+    FIRSTNAME: "Dawg Theatre User",
     SMS: 'http://localhost:3000/password-reset/?key='+token //
   },
 };

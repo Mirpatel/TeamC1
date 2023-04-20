@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 function Payment() {
     const [email, setEmail] = useState();
@@ -12,6 +13,13 @@ function Payment() {
     const location = useLocation();
     const { state } = location;
     const [user, setUser] = useState();
+    const [nameoncard, setNameOnCard] = useState('');
+    const [number, setNumber] = useState('');
+    const [expMonth, setExpMonth] = useState('');
+    const [expYear, setExpYear] = useState('');
+    const [Ccv, setCcv] = useState('');
+
+let navigate = useNavigate();
 let total = state.from.total;
 let movie = state.from.movie
 let noAdultTickets = state.from.noAdultTickets;
@@ -26,6 +34,11 @@ const handleCardChange = (event) => {
   const handleSubmit = () => {
    
     if (selectedCard === undefined || selectedCard === "") {
+      if (number === '' || expMonth === '' || expYear === '' || Ccv === '' || nameoncard === '') {
+         
+        alert("Please enter all payment fields or select a card.");
+      }
+ else {
        //get payment info here to send
        Axios.post('http://localhost:3001/book', {
     
@@ -35,9 +48,12 @@ const handleCardChange = (event) => {
         console.log(response);
 
       });
+      navigate('/confirmationPage', { state: {from: { total: state.from.total,
+        movie: state.from.movie, noAdultTickets: state.from.noAdultTickets, noChildTickets : state.from.noChildTickets, subtotal: state.from.subtotal, date: state.from.date, time: state.from.time, email: email}} });
+      }
     }
     else {
-   
+ 
         Axios.post('http://localhost:3001/book', {
     
             movie: state.from.movieId, noChildTickets: state.from.noChildTickets, noAdultTickets: state.from.noAdultTickets, date: state.from.date, time: state.from.time, total: state.from.total, userId: user, cardId: selectedCard
@@ -59,7 +75,12 @@ const handleCardChange = (event) => {
     
           });
         //payment info is the card
-    }
+        navigate('/confirmationPage', { state: {from: { total: state.from.total,
+          movie: state.from.movie, noAdultTickets: state.from.noAdultTickets, noChildTickets : state.from.noChildTickets, subtotal: state.from.subtotal, date: state.from.date, time: state.from.time, email: email}} });
+          
+    
+    
+  }
   }
   useEffect(() => {
     Axios.get('http://localhost:8080/api/auth/token', {
@@ -114,15 +135,15 @@ const handleCardChange = (event) => {
             <div className = "inputCard">
             <form onSubmit={<Navigate to="/login" />}>
                 <label className = "purple" for="nameoncard">NAME ON CARD: </label>
-                <input className = "purple" type="text" id="nameoncard" name="nameoncard"></input> <br />
+                <input className = "purple" type="text" id="nameoncard" name="nameoncard" onChange={(event) => {setNameOnCard(event.target.value)}}></input> <br />
                 <label className = "purple" for="cardnumber">CARD NUMBER: </label>
-                <input className = "purple" type="text" id="cardnumber" name="cardnumber"></input> <br />
+                <input className = "purple" type="text" id="cardnumber" name="cardnumber"onChange={(event) => {setNumber(event.target.value)}}></input> <br />
                 <label className = "purple" for="cvv">CVV: </label>
-                <input className = "purple" type="text" id="cvv" name="cvv"></input>
+                <input className = "purple" type="text" id="cvv" name="cvv"onChange={(event) => {setCcv(event.target.value)}}></input>
                 <label className = "purple" for="expmon">EXP MONTH: </label>
-                <input className = "purple" type="text" id="expmon" name="expmon"></input>
+                <input className = "purple" type="text" id="expmon" name="expmon" onChange={(event) => {setExpMonth(event.target.value)}}></input>
                 <label className = "purple" for="expyear">EXP YEAR: </label>
-                <input className = "purple" type="text" id="expyear" name="expyear"></input>
+                <input className = "purple" type="text" id="expyear" name="expyear"onChange={(event) => {setExpYear(event.target.value)}}></input>
               <br/>
               <br/>
             
@@ -144,8 +165,7 @@ const handleCardChange = (event) => {
       </select>
     </label>
            </div>
-           <Link className='buttonReprise marginTop ' onClick={handleSubmit} to={{pathname :"/confirmationPage"}}state={{from: { total: state.from.total,
-        movie: state.from.movie, noAdultTickets: state.from.noAdultTickets, noChildTickets : state.from.noChildTickets, subtotal: state.from.subtotal, date: state.from.date, time: state.from.time, email: email}}} >Confirm</Link>
+  <button className = "buttonReprise " onClick={handleSubmit}>CONFIRM</button>
         </div>
     );
 }
