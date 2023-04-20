@@ -15,7 +15,7 @@ const { response } = require('express');
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKey = defaultClient.authentications['api-key'];
 const crypto = require('crypto');
-apiKey.apiKey = '';
+apiKey.apiKey = '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';
 
 app.use((req, res, next) => {
   try {
@@ -86,24 +86,33 @@ console.log(Date.now());
     } 
     else {
       
-      // Update the user's password in your database
-      // const hashedPassword = bcrypt.hash(password, salt); 
-      console.log("line 138" + password);
-      const hashedPassword = password;
-    db.query(
-      "UPDATE dawg.user SET password = ? WHERE email = ?",
-    
-      [ hashedPassword, email]
-    
-    
-        , (error, results) => {
-          if (error) {
-            console.error(error);
-          } else {
-            console.log('User profile updated successfully!');
-          }
+      const saltRounds = 10;
+      const Password = req.body.Password;
+      
+      bcrypt.hash(Password, saltRounds, (err, hash) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).send("An error occurred while processing your request.");
+        }
+        db.query(
+          "UPDATE dawg.user SET password = ? WHERE email = ?",
         
-        });
+          [ hash, email]
+        
+        
+            , (error, results) => {
+              if (error) {
+                console.error(error);
+              } else {
+                console.log('User profile updated successfully!');
+              }
+            
+            });
+        // use the hashed password (hash) in your database query or other code here
+      });
+
+      console.log("line 138" + password);
+  
       res.send('Password reset successful');
     }
  

@@ -42,10 +42,10 @@ else {
     },[])
     
   return (
-    <>
-    <div className = "confirmation">
+    <div className = "passwordConfirmationPage">
+    <div className = "confirmation2">
     <form>
-    <div class="input">
+    <div class="inputConfirm">
 
     <label for="pass">New password</label>
     <input type="password" placeholder="Enter New Password" name="pass" onChange={(event) => {setPassword(event.target.value)}} required/>
@@ -54,9 +54,9 @@ else {
     <input type="password" placeholder="Re-Enter New Password" name="RePass" onChange={(event) => {setConfirm(event.target.value)}}required/>
   </div>
     </form>
-    <button className='button' onClick={submit}>change password</button>
+    <button className='buttonReprise' onClick={submit}>change password</button>
     </div>
-    </>
+    </div>
   );
 }
 

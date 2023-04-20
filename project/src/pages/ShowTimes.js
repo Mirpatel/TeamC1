@@ -47,7 +47,7 @@ const times1 = [
   ];
   
 const ShowTimes = ()  => {
-    const [loggedIn, setLoggedIn] = useState(true);
+    const [loggedIn, setLoggedIn] = useState(false);
     const location = useLocation();
     let navigate = useNavigate();
     //
@@ -59,7 +59,22 @@ const ShowTimes = ()  => {
     const [times, setTimes] = useState(times1);
 
 useEffect(() => {
-
+    Axios.get('http://localhost:8080/api/auth/token', {
+        headers: {
+          'x-access-token': localStorage.getItem("token")
+        }
+      })
+      .then(function (response) {
+        console.log(response);
+        if (response.status === 200) {
+         
+         setLoggedIn(true);
+       
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
   
   
@@ -90,7 +105,7 @@ useEffect(() => {
             navigate('/CheckOut', { state: { noAdultTickets: adultTickets, noChildTickets: childTickets, movie: state.from, date: date, time: userTime, movieId: state.id  } });
         }
         else {
-            navigate('/createAccount');
+            navigate('/signin');
         }
     }
 
