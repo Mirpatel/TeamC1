@@ -25,7 +25,7 @@ localStorage.clear(); //some way to make sure user is logged out across whole pr
 navigate('/signin');
 };
 useEffect(()=> {
-  
+  setIsAdmin(false);
   
   if (pathname === '/') {
 setSearchButton(true);
@@ -116,6 +116,7 @@ console.log("search true");
       )}
       {isLoggedIn && !isAdmin && (
         <Link onClick = {loggingOut} to='/' className='login'>LOGOUT</Link>
+        
       )}
             {isLoggedIn && isAdmin && (
         <Link onClick = {loggingOut} to='/' className='loginAdminStyle'>LOGOUT</Link>

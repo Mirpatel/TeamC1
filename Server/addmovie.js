@@ -28,11 +28,13 @@ const genre  = req.body.genre;
 const producer = req.body.producer;
 const cast = req.body.cast;
 const director = req.body.director;
+const movieRating = req.body.movierating;
+
 
 
 db.query(
-"INSERT INTO dawg.movie (name, date, trailer, description, url, Rating, genre, producer, cast, director) VALUES (?,?,?,?,?,?,?,?,?,?)",
-[name, date, trailer, description, url, Rating, genre, producer, cast, director]
+"INSERT INTO dawg.movie (name, Date, trailer, description, url, Rating, genre, producer, cast, director, movierating) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+[name, date, trailer, description, url, Rating, genre, producer, cast, director, movieRating]
 
 
 

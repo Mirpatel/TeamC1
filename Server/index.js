@@ -88,6 +88,9 @@ app.post("/", async (req, res) =>{
       (error, data) => {
           if (error) {
               console.log(error);
+              if (error.code === 'ER_DUP_ENTRY') {
+                res.status(401).send('Email taken');
+              }
           } else {
               axios.post('http://localhost:8080/send-verify-email', {
                   email: email,
@@ -95,6 +98,7 @@ app.post("/", async (req, res) =>{
               }).then((response) => {
                   // res.send(fname);
               });
+              res.status(200).send("Account created!");
           }
       }
   );
@@ -346,10 +350,12 @@ app.get("/api/user",(req, res)=> {
     const total = req.body.total.totalSale;
     const userId = req.body.userId;
     const cardId = req.body.cardId;
-  
+    const movieTitle = req.body.movieTitle.movie;
+    const totalTickets = req.body.totalTickets;
+  console.log(req.body);
     db.query(
-      'INSERT INTO dawg.booking ( mid, noChildTickets, noAdultTickets, date, time, total, userId, cardID) VALUES (?,?,?,?, ?, ?, ?, ?)',
-      [movie, noChildTickets, noAdultTickets, date, time, total, userId, cardId],
+      'INSERT INTO dawg.booking ( mid, noChildTickets, noAdultTickets, date, time, total, userId, cardID, movieTitle, totalTickets) VALUES (?,?,?,?, ?, ?, ?, ?,?,?)',
+      [movie, noChildTickets, noAdultTickets, date, time, total, userId, cardId, movieTitle, totalTickets],
       (error, results) => {
         if (error) {
           console.log(error);
@@ -358,6 +364,27 @@ app.get("/api/user",(req, res)=> {
         else {
           console.log(results);
         res.send('made booking');
+        }
+      }
+    );
+  });
+
+
+  app.post('/pastBookings', (req, res) => {
+    const userId = req.body.userId;
+  
+    db.query(
+      'SELECT * FROM dawg.booking WHERE userId = ?',
+      [userId],
+      (error, results) => {
+        if (error) {
+          console.log(error);
+          
+        }
+        else {
+          console.log(results);
+          console.log("past bookings");
+        res.send(results);
         }
       }
     );

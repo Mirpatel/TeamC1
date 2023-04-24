@@ -361,3 +361,15 @@ label {
     flex-direction: column;
     margin-top: 50px;
   }
+
+
+
+  .tableBody {
+    overflow: scroll;
+    max-height: 370px;
+    border: 1px solid #000000;
+    
+    border-radius: 4px;
+  }
+
+

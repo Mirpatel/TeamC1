@@ -32,7 +32,10 @@ const handleCardChange = (event) => {
   };
 
   const handleSubmit = () => {
-   
+
+
+    let totalTickets = parseInt(state.from.noChildTickets.noChildTickets) + parseInt(state.from.noAdultTickets.noAdultTickets);
+
     if (selectedCard === undefined || selectedCard === "") {
       if (number === '' || expMonth === '' || expYear === '' || Ccv === '' || nameoncard === '') {
          
@@ -42,7 +45,7 @@ const handleCardChange = (event) => {
        //get payment info here to send
        Axios.post('http://localhost:3001/book', {
     
-        movie: state.from.movieId, noChildTickets: state.from.noChildTickets, noAdultTickets: state.from.noAdultTickets, date: state.from.date, time: state.from.time, total: state.from.total, userId: user, cardId: 0
+        movie: state.from.movieId, noChildTickets: state.from.noChildTickets, noAdultTickets: state.from.noAdultTickets, date: state.from.date, time: state.from.time, total: state.from.total, userId: user, cardId: 0, movieTitle: state.from.movie, totalTickets: totalTickets
       }).then((response) => {
   
         console.log(response);
@@ -56,14 +59,14 @@ const handleCardChange = (event) => {
  
         Axios.post('http://localhost:3001/book', {
     
-            movie: state.from.movieId, noChildTickets: state.from.noChildTickets, noAdultTickets: state.from.noAdultTickets, date: state.from.date, time: state.from.time, total: state.from.total, userId: user, cardId: selectedCard
+            movie: state.from.movieId, noChildTickets: state.from.noChildTickets, noAdultTickets: state.from.noAdultTickets, date: state.from.date, time: state.from.time, total: state.from.total, userId: user, cardId: selectedCard, movieTitle: state.from.movie, totalTickets: totalTickets
           }).then((response) => {
       
             console.log(response);
     
           });
 
-        const noTickets = state.from.noChildTickets + state.from.noAdultTickets;
+        const noTickets = state.from.noChildTickets.noChildTickets + state.from.noAdultTickets.noAdultTickets;
         const dateTime = state.from.date + " " + state.from.time;
         
         Axios.post('http://localhost:8080/send-confirmation-booking', {

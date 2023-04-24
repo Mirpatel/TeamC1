@@ -56,7 +56,7 @@ const [refresh, setRefresh] = useState(true);
      })
      .then((response) => {
       console.log(response.data);
-      if (response.data === "true") {
+      if (response.data === true) {
 
         alert("This date and time is taken!");
       }
@@ -64,8 +64,13 @@ const [refresh, setRefresh] = useState(true);
             axios.post('http://localhost:3001/add-showtime', {
       mId : selectedMovieId, time: time1, date: date
      })
-     .then((response) => console.log(response))
+     .then((response) => {
+      
+      console.log(response)
+      
+    })
      .catch((error) => console.log(error));
+     alert("Time added!");
       }
       //if response.data = exists or whatever then alert(movie time taken)
       //else put api call here
@@ -104,6 +109,7 @@ const [refresh, setRefresh] = useState(true);
     .catch((error) => console.log(error));
 
    setRefresh(!refresh);
+   alert("Time removed!");
   };
   
   const handleAddClick = () => {
