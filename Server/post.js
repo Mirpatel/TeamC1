@@ -86,25 +86,34 @@ console.log(Date.now());
     } 
     else {
       
-      // Update the user's password in your database
-      // const hashedPassword = bcrypt.hash(password, salt); 
-      console.log("line 138" + password);
-      const hashedPassword = password;
-    db.query(
-      "UPDATE dawg.user SET password = ? WHERE email = ?",
-    
-      [ hashedPassword, email]
-    
-    
-        , (error, results) => {
-          if (error) {
-            console.error(error);
-          } else {
-            console.log('User profile updated successfully!');
-          }
+      const saltRounds = 10;
+      
+      
+      bcrypt.hash(password, saltRounds, (err, hash) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).send("An error occurred while processing your request.");
+        }
+        db.query(
+          "UPDATE dawg.user SET password = ? WHERE email = ?",
         
-        });
-      res.send('Password reset successful');
+          [ hash, email]
+        
+        
+            , (error, results) => {
+              if (error) {
+                console.error(error);
+              } else {
+                console.log('User profile updated successfully!');
+              }
+            
+            });
+        // use the hashed password (hash) in your database query or other code here
+      });
+
+      console.log("line 138" + password);
+  
+  
     }
  
 
@@ -177,7 +186,7 @@ const sendSmtpEmail = {
   to: [{ email: email }],
   templateId: 2, 
   params: {
-    FIRSTNAME: name,
+    FIRSTNAME: "Dawg Theatre User",
     SMS: 'http://localhost:3000/password-reset/?key='+token //
   },
 };

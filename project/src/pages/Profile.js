@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import Axios from 'axios';
 
-const orders = [
+const ordersHardCode = [
     {
       title: 'The Avengers',
       noTickets: 3,
@@ -40,6 +40,7 @@ const orders = [
   ];
 
 function Profile() {
+  const [orders, setOrders] = useState(ordersHardCode);
     const [promo, setPromo] = useState(false);
     const [pass, setPass] = useState(false);
     const [edit, setEdit] = useState(false);
@@ -226,6 +227,16 @@ const [Password, setPassword] = useState('');
             setNewLastName(response.data[0].lname)
             setNewState(response.data[0].adressState)
             setNewZipCode(response.data[0].zipCode)
+
+            Axios.post('http://localhost:3001/pastBookings', {
+
+              userId: response.data[0].Id,
+            }).then((response) => {
+              console.log("getBookings");
+              console.log(response);
+            setOrders(response.data);
+            });
+               
             Axios.post('http://localhost:3050/payment', {
 
         id: response.data[0].Id,
@@ -235,6 +246,8 @@ const [Password, setPassword] = useState('');
       setPay(response.data);
       });
           });
+
+          
          
         }
       })
@@ -242,8 +255,11 @@ const [Password, setPassword] = useState('');
         console.log(error);
       });
 
+      
+ 
+
       console.log(id);
-      console.log("pressed submit");
+
       
            console.log(localStorage.getItem("token"));
           
@@ -272,6 +288,7 @@ const [Password, setPassword] = useState('');
       <div className="rowPt4">
          <div className="col-md-12">
             <p className="purple noMarg">PAST ORDERS</p>
+            <div className='tableBody'>
             <table className="table table-bordered">
 <thead>
    <tr>
@@ -281,20 +298,22 @@ const [Password, setPassword] = useState('');
 
    </tr>
 </thead>
+
 <tbody>
    { orders.map( (order, index)=>(  
    <tr key={index}>
-      <td className='purple anon'>{order.title}</td>
-      <td className='purple anon'>{order.noTickets}</td>
-      <td className='purple anon'>{order.price}</td>
+      <td className='purple anon'>{order.movieTitle}</td>
+      <td className='purple anon'>{order.totalTickets}</td>
+      <td className='purple anon'>{order.total}</td>
 
 
    </tr>
    ))
 }
 </tbody>
-</table>
 
+</table>
+</div>
          </div>
       </div>
    </div>
@@ -398,7 +417,7 @@ const [Password, setPassword] = useState('');
      
          <div className="col-md-12">
            
-            <table className="table table-bordered">
+            <table className="table table-bordered tableStuff">
 <thead>
    <tr>
       <th >EXISTING CARDS</th>

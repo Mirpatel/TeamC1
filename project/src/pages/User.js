@@ -60,7 +60,7 @@ return (
       <div className="row">
          <div className="col-md-12">
             <h5 className="purple">ACTIVE USERS</h5>
-            <table className="table table-bordered">
+            <table className="table table-bordered tableStuff">
 <thead>
    <tr>
       <th className="purple">ID</th>

@@ -108,7 +108,7 @@ return (
       <div className="row">
          <div className="col-md-12">
             <p className="purple">PROMOTIONS</p>
-            <table className="table table-bordered">
+            <table className="table table-bordered tableStuff">
 <thead>
    <tr>
       <th className='purple' >TITLE</th>

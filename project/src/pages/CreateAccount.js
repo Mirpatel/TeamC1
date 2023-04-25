@@ -37,16 +37,28 @@ else {
 Axios.post('http://localhost:3001', {
    
 
-street: street, city: city, adressState: adressState, zipCode: zipCode, fname: fname,  lname: lname, email: email, phone: phone, Password: Password, promo: promo});
-
-Axios.post('http://localhost:8080/send-verify-email',{
-        email: email, fname: fname}).then((response) => {
+street: street, city: city, adressState: adressState, zipCode: zipCode, fname: fname,  lname: lname, email: email, phone: phone, Password: Password, promo: promo})
+.then((response) => {
+      
+        console.log(response)
      
+        console.log("whats going on");
+        navigate('/verifyEmail', { state: { from: email } });
+        // Axios.post('http://localhost:8080/send-verify-email',{
+        // email: email, fname: fname}).then((response) => {
+     
+        // });
+        
+      })
+       .catch((error) => {
+        if (error.response.data === "Email taken") {
+                alert("email taken");
+        }
+        console.log(error)});;
 
 
-        });
 
-navigate('/verifyEmail', { state: { from: email } });
+
 
 };
 
@@ -65,7 +77,7 @@ return (
 <label className='purple'> LAST NAME</label>
 <input type="text" onChange={(event) => {setlName(event.target.value)}}/>
 
-
+<p className = "req purple">*This field is required</p>
 <label className='purple'>EMAIL</label>
 <input type="text" onChange={(event) => {setEmail(event.target.value)}} required/>
 <p className = "req purple">*This field is required</p>

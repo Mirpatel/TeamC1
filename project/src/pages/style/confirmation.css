@@ -20,6 +20,29 @@
     
 }
 
+.confirmation2 {
+
+        color:#434169;
+        width: 600px; 
+        margin: auto;
+        /* height: 260px; */
+      
+        background: #DCD5CB;
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.50);
+        font-family: 'Signika', sans-serif;
+        border-radius: 16px;
+       padding-top: 20px;
+        cursor: pointer;
+    
+    
+        /* display: flex; */
+        flex-direction: column;
+        align-self: center;
+        /* position:absolute; */
+    
+        
+    
+}
 .backdropConfirm{
     width: 240px;
     height: 230px;
@@ -58,4 +81,8 @@ p {
 
 .smallFont {
     font-size: 14px;
+}
+
+.passwordConfirmationPage {
+    min-height: 500px;
 }
