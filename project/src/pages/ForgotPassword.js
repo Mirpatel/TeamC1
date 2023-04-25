@@ -21,18 +21,18 @@ function ForgotPassword() {
             setVerify(true);
         }
        
-        Axios.post('http://localhost:3001', {
+        // Axios.post('http://localhost:3001', {
            
-           email: email}).then((response) => {
-            if (response.data.message) {
+        //    email: email}).then((response) => {
+        //     if (response.data.message) {
                 
-            } else {
+        //     } else {
                
 
 
-            }
+        //     }
 
-           });
+        //    });
 
            Axios.post('http://localhost:8080/send-password-reset-email', {
            
